@@ -3,7 +3,7 @@
 ## Description
 
 The Competency Tracking Tool is a system being developed for SAIT's School of Health & Public Safety.
-The goal of this system is to simply the process of completing and submitting checklist items to instructors, as well as to secure these documents.
+The goal of this system is to simplify the process of completing and submitting checklist items to instructors, as well as to secure these documents.
 
 ## Authors
 
@@ -22,7 +22,7 @@ For example: If you are working on a card called `React Router`, create a branch
 **You** are in-charge of making sure your branch is up-to-date with the main branch.
 Don't be afraid of merging. Nothing is going to be deleted forever.
 
-When your feature implementation is completed, you may then merge your branch with the main branch.
+When your feature implementation is completed, create a pull-request so that it can be merged.
 
 ## File Structure
 
