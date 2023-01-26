@@ -120,7 +120,8 @@ dist
 /build
 
 # REST http files
-/server/.http
+client/.http/
+server/.http/
 
 # misc
 .DS_Store
@@ -132,7 +133,3 @@ dist
 npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
-
-.http
-/client/.http
-/server/.http
