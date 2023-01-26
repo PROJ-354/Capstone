@@ -120,8 +120,9 @@ dist
 /build
 
 # REST http files
-client/.http/
-server/.http/
+*.http
+client/*.http/
+server/*.http/
 
 # misc
 .DS_Store
