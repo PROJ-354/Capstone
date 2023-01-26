@@ -44,7 +44,7 @@ const WeekSchema = mongoose.Schema(
                         type: Number,
                         required: true,
                         min: 1,
-                        max: 3,
+                        max: 4,
                     },
                     //Array of the required skills in this section
                     skills: [
@@ -91,7 +91,54 @@ const WeekSchema = mongoose.Schema(
                     ],
                 },
             ],
-            workplace_expectations: [{}],
+            //An array of the workplace expectations part of the Skills Assessment form
+            workplace_expectations: [
+                {
+                    //The name of the expectation, e.g. Punctuality
+                    name: {
+                        type: String,
+                        required: true,
+                    },
+                    //A description of the expectation, e.g. Ready to start on time
+                    description: {
+                        type: String,
+                        required: true,
+                    },
+                    //The mark the preceptor gave from 1-4 where 1 is never and 4 is always
+                    mark: {
+                        type: Number,
+                        min: 1,
+                        max: 4,
+                    },
+                },
+            ],
+            //Comments/feedback the preceptor has left
+            preceptor_feedback: {
+                type: String,
+            },
+        },
+        //Equivalent form: Self-Relfection
+        self_reflection: {
+            //If applicable, the student's plan to complete any outstanding competencies
+            plan_to_complete_outstanding_competencies: {
+                type: String,
+            },
+            //If applicable, if the student cannot complete the outstanding competencies, what is their plan to demonstrate that they are proficient in them
+            how_to_demonstrate_if_no_completed: {
+                type: String,
+            },
+            //Which procedures did the student experience in the most recent week
+            which_procedures_experienced: {
+                type: String,
+            },
+            //What were the student's strengths and challenges related to these experiences
+            strengths_challenges: {
+                type: String,
+            },
+            //What lessons did the student learn from their most recent experiences
+            lessones_learned: {
+                type: String,
+            },
         },
     },
     { timestamps: true }
