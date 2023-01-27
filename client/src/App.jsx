@@ -1,9 +1,18 @@
-function App() {
-	return (
-		<div className="App">
-			<h1>:0</h1>
-		</div>
-	);
-}
+import {
+    createBrowserRouter,
+    createRoutesFromElements,
+    Route,
+    RouterProvider,
+} from 'react-router-dom';
 
-export default App;
+const router = createBrowserRouter(
+    createRoutesFromElements(
+        <Route path="/">
+            <Route index />
+        </Route>
+    )
+);
+
+export default function App() {
+    return <RouterProvider router={router} />;
+}
