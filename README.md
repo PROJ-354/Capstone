@@ -3,7 +3,7 @@
 ## Description
 
 The Competency Tracking Tool is a system being developed for SAIT's School of Health & Public Safety.
-The goal of this system is to simplify the process of completing and submitting checklist items to instructors, as well as to secure these documents.
+The goal of this system is to simplify the process of completing and submitting checklist items to instructors, as well as to secure these documents and prevent them from being tampered with after a preceptor signs off on them.
 
 ## Authors
 
@@ -17,12 +17,14 @@ The goal of this system is to simplify the process of completing and submitting 
 
 **Do not** commit to the main branch unless you are editing the README.
 When working on a Trello card, create a new branch and give it a descriptive name that pertains to the card.
-For example: If you are working on a card called `React Router`, create a branch called `react-router`
+For example: If you are working on a card called `React Router Setup`, create a branch called `react-router-setup`
 
 **You** are in-charge of making sure your branch is up-to-date with the main branch.
 Don't be afraid of merging. Nothing is going to be deleted forever.
 
-When your feature implementation is completed, create a pull-request so that it can be merged.
+When your feature implementation is completed, move your Trello card to the Testing list and have everyone try to break what you've added.
+
+If all is good, create a pull-request so it can be merged with the main branch.
 
 ## File Structure
 
