@@ -14,6 +14,7 @@ import errorHandler from './src/middleware/errorHandler.js'
 dotenv.config({ path: './.env' });
 
 // import routers
+import WeekRouter from './src/routes/WeekRouter.js';
 
 // create an instance of express (i think)
 const app = express();
@@ -23,7 +24,7 @@ app.use(express.json());    // enables express to parse json payloads
 app.use(cors());            // enables cross origin requests 
 
 // initialize routers
-// app.use(yourRouterHere);
+app.use(WeekRouter);
 
 // initialize error handling middleware
 app.use(errorHandler);
