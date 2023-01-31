@@ -20,11 +20,13 @@ When working on a Trello card, create a new branch and give it a descriptive nam
 For example: If you are working on a card called `React Router Setup`, create a branch called `react-router-setup`
 
 **You** are in-charge of making sure your branch is up-to-date with the main branch.
-Don't be afraid of merging. Nothing is going to be deleted forever.
+Don't be afraid of merging. Nothing is going to be deleted forever. Use `git merge main`
 
 When your feature implementation is completed, move your Trello card to the Testing list and have everyone try to break what you've added.
 
-If all is good, create a pull-request so it can be merged with the main branch.
+If all is good, create a pull-request so it can be merged with the main branch. **Do not** merge your own branch with the main. Have someone else do it.
+
+Make sure to move your card to the Done list, and add the date that it was completed, and check mark that it was completed as well.
 
 ## File Structure
 
