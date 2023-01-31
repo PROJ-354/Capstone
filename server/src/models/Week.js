@@ -1,5 +1,15 @@
 import mongoose from 'mongoose';
 
+/**
+ * Model for a Week in the practicum
+ * Replaces the Skills Assessment form and the Self-Reflection form
+ *
+ * If this week is a "master" week, meaning it can be copied from, is_master
+ * will be set to true
+ *
+ * When a week is being assigned, the corresponding master week will be duplicated
+ * and any empty information will be filled in
+ */
 const WeekSchema = mongoose.Schema(
     {
         //The name of the week, e.g. Week 3
