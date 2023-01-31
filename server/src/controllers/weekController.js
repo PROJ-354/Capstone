@@ -22,7 +22,7 @@ export const getWeek = async (req, res) => {
     }
 };
 
-//CREATE a new master week
+//GET a master week
 export const getMasterWeek = async (req, res) => {
     //The name of the week to get
     const { name } = req.params;
@@ -37,6 +37,8 @@ export const getMasterWeek = async (req, res) => {
         res.status(200).json({ week });
     }
 };
+
+//CREATE a new master week
 
 //CREATE a new week based on a master week
 
