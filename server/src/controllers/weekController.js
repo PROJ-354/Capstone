@@ -41,6 +41,20 @@ export const getMasterWeek = async (req, res) => {
 //CREATE a new master week
 
 //CREATE a new week based on a master week
+export const createWeek = async (req, res) => {
+    //The name of the master weak to copy from
+    const { name } = req.params;
+
+    //Find the week
+    const week = await Week.findOne({ name, is_master: true });
+
+    //If no week is returned, stop and respond with an error
+    if (!week) {
+        return res.status(404).json({ error: 'No such master week' });
+    }
+
+    //Duplicate the master and change is_master to false
+};
 
 //UPDATE a week
 
