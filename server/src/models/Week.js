@@ -13,6 +13,12 @@ const WeekSchema = mongoose.Schema(
             required: true,
             default: false,
         },
+        //If this week is the last week in the practicum
+        is_last: {
+            type: Boolean,
+            required: true,
+            default: false,
+        },
         //The ID of the student this week belongs to
         student_id: {
             type: String,
@@ -136,7 +142,7 @@ const WeekSchema = mongoose.Schema(
                 type: String,
             },
             //What lessons did the student learn from their most recent experiences
-            lessones_learned: {
+            lessons_learned: {
                 type: String,
             },
         },
