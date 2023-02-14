@@ -38,6 +38,12 @@ export const getMasterWeek = async (req, res) => {
     }
 };
 
+//GET all master weeks
+export const getAllMasterWeeks = async (req, res) => {
+    //Find the weeks
+    const weeks = Week.find({ is_maste: true });
+};
+
 //CREATE a new master week
 
 //CREATE a new week based on a master week
