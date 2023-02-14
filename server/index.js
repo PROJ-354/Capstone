@@ -8,10 +8,10 @@ import mongoose from 'mongoose';
 import cors from 'cors';
 
 // import middleware
-import errorHandler from "./src/middleware/errorHandler.js";;
+import errorHandler from './src/middleware/errorHandler.js';
 
 // configure environemnt variables
-dotenv.config({ path: "./.env" });
+dotenv.config({ path: './.env' });
 
 // import routers
 import weekRoutes from './src/routes/weekRoutes.js';
@@ -34,26 +34,24 @@ app.use(authRouter);
 app.use(errorHandler);
 
 // hello, world 👋
-app.get("/", (request, response) => {
-  response.status(200).json({
-    message: "a poison to erase my existance!",,
-  });
+app.get('/', (request, response) => {
+    response.status(200).json({
+        message: 'a poison to erase my existance!',
+    });
 });
 
 // 🐸
-mongoose.set("strictQuery", false);
+mongoose.set('strictQuery', false);
 mongoose
-  
+
     .connect(process.env.MONGOOSE_URI)
-  .then((connection) => {
-    app.listen(process.env.PORT, () => {
-      console.log("database connection successful!");
-      console.log(`listening @ http://localhost:${process.env.PORT}!`);
+    .then((connection) => {
+        app.listen(process.env.PORT, () => {
+            console.log('database connection successful!');
+            console.log(`listening @ http://localhost:${process.env.PORT}!`);
+        });
+    })
+    .catch((error) => {
+        console.error('database connection failed', error);
+        console.error('program terminated');
     });
-  })
-  .catch((error) => {
-    console.error("database connection failed", error);
-    console.error("program terminated");
-  });
-
-
