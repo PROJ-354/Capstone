@@ -10,7 +10,9 @@ export const useSignup = () => {
         setIsLoading(true);
         setError(null);
 
-        const response = await fetch('/api/user/signup', {
+        const URL = 'http://localhost/${process.env.PORT}/api/auth/signup'
+
+        const response = await fetch(URL, {
             method: 'POST',
             headers: {'Content-Type': 'application/json'},
             body: JSON.stringify({code, firstName, lastName, email, password})
@@ -23,7 +25,7 @@ export const useSignup = () => {
             setError(json.error);
         }
         if (response.ok) {
-            localStorage.setItem('user', JSON.stringify(json));
+            localStorage.setItem('auth', JSON.stringify(json));
             dispatch({type: 'LOGIN', payload: json});
             setIsLoading(false);
         }

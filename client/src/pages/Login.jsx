@@ -28,7 +28,7 @@ const Login = () => {
                 <Stack direction='row' spacing={2}>
                     <TextField label='Email' type='email' onChange={(event) => setEmail(event.target.value)} value={email}/>
                     <TextField label='Password' type='password' onChange={(event) => setPassword(event.target.value)} value={password}/>
-                    <Button variant="contained" disabled={isLoading}>Sign In</Button><br/><br/>
+                    <Button type="submit" variant="contained" disabled={isLoading}>Sign In</Button><br/><br/>
                 </Stack> 
                 <Stack spacing={2}>
                     <Typography variant='h6'>

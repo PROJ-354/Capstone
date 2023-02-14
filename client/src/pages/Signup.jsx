@@ -42,7 +42,7 @@ const Signup = () => {
                     <TextField label='Password' type='password' onChange={(event) => setPassword(event.target.value)} value={password}/>
                 </Stack>
                 <Stack direction='row' spacing={2}>
-                    <Button variant="contained" disabled={isLoading}>Sign up</Button><br/><br/>
+                    <Button type="submit" variant="contained" disabled={isLoading}>Sign up</Button><br/><br/>
                 </Stack>
                 <Stack direction='row' spacing={2}>
                     <Typography variant='h6'>
