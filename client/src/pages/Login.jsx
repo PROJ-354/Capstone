@@ -1,7 +1,7 @@
 import {useLogin} from '../hooks/useLogin'
 import {useState} from "react";
 import {Typography, Button, Stack, TextField, Link} from '@mui/material';
-
+import Navbar from '../components/Navbar';
 const Login = () => {
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
@@ -21,7 +21,9 @@ const Login = () => {
      * Clicking the button fires the onSubmit function on the form.
      */
     return (
-        <form className="login" onSubmit={handleLogin}>
+        <>
+    <Navbar></Navbar>
+         <form className="login" onSubmit={handleLogin}>
             <Typography variant='h4' component='h1'>Competency Tracking Tool</Typography><br/>
             <Typography variant='h5' component='h2' sx={{ fontWeight: 'bold' }}>Sign in to your account</Typography><br/>
             <Stack spacing={2}>
@@ -38,6 +40,8 @@ const Login = () => {
             </Stack>
             {error && <div className="error">{error}</div>}
         </form>
+        </>
+       
     );
 }
 
