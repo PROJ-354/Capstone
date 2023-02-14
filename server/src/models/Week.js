@@ -86,7 +86,7 @@ const WeekSchema = mongoose.Schema(
                                     //The date of this experience
                                     date: {
                                         type: Date,
-                                        required: true,
+                                        //required: true,
                                         default: null,
                                     },
                                     //If the student checked off that this skill was completed
@@ -133,31 +133,32 @@ const WeekSchema = mongoose.Schema(
                 type: String,
             },
         },
-        //Equivalent form: Self-Relfection
-        self_reflection: {
-            //If applicable, the student's plan to complete any outstanding competencies
-            plan_to_complete_outstanding_competencies: {
-                type: String,
-            },
-            //If applicable, if the student cannot complete the outstanding competencies, what is their plan to demonstrate that they are proficient in them
-            how_to_demonstrate_if_no_completed: {
-                type: String,
-            },
-            //Which procedures did the student experience in the most recent week
-            which_procedures_experienced: {
-                type: String,
-            },
-            //What were the student's strengths and challenges related to these experiences
-            strengths_challenges: {
-                type: String,
-            },
-            //What lessons did the student learn from their most recent experiences
-            lessons_learned: {
-                type: String,
-            },
-        },
+        // //Equivalent form: Self-Relfection
+        // self_reflection: {
+        //     //If applicable, the student's plan to complete any outstanding competencies
+        //     plan_to_complete_outstanding_competencies: {
+        //         type: String,
+        //     },
+        //     //If applicable, if the student cannot complete the outstanding competencies, what is their plan to demonstrate that they are proficient in them
+        //     how_to_demonstrate_if_no_completed: {
+        //         type: String,
+        //     },
+        //     //Which procedures did the student experience in the most recent week
+        //     which_procedures_experienced: {
+        //         type: String,
+        //     },
+        //     //What were the student's strengths and challenges related to these experiences
+        //     strengths_challenges: {
+        //         type: String,
+        //     },
+        //     //What lessons did the student learn from their most recent experiences
+        //     lessons_learned: {
+        //         type: String,
+        //     },
+        // },
     },
     { timestamps: true }
 );
 
-export default Week = mongoose.model('Week', WeekSchema);
+const Week = mongoose.model('Week', WeekSchema);
+export default Week;

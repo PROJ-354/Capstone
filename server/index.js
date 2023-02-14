@@ -7,6 +7,8 @@ import express from 'express';
 import mongoose from 'mongoose';
 import cors from 'cors';
 
+import Week from './src/models/Week.js';
+
 // import middleware
 import errorHandler from './src/middleware/errorHandler.js';
 
@@ -43,15 +45,130 @@ app.get('/', (request, response) => {
 // 🐸
 mongoose.set('strictQuery', false);
 mongoose
-
     .connect(process.env.MONGOOSE_URI)
     .then((connection) => {
         app.listen(process.env.PORT, () => {
             console.log('database connection successful!');
             console.log(`listening @ http://localhost:${process.env.PORT}!`);
         });
+        //Week.create(tempWeek);
     })
     .catch((error) => {
         console.error('database connection failed', error);
         console.error('program terminated');
     });
+
+const tempWeek = {
+    name: 'Week 1',
+    is_master: false,
+    is_last: false,
+    student_id: null,
+    preceptor_id: null,
+    instructor_id: null,
+    skills_assessment: {
+        section: [
+            {
+                name: 'Lensometry',
+                experiences: 3,
+                skills: [
+                    {
+                        name: 'Explain the procedure to the patient.',
+                        description: 'filler',
+                        experiences: [
+                            {
+                                number: 1,
+                                date: null,
+                                student_checked: false,
+                                preceptor_checked: false,
+                            },
+                            {
+                                number: 2,
+                                date: null,
+                                student_checked: false,
+                                preceptor_checked: false,
+                            },
+                            {
+                                number: 3,
+                                date: null,
+                                student_checked: false,
+                                preceptor_checked: false,
+                            },
+                        ],
+                    },
+                    {
+                        name: 'Ask the patient for their glasses if they wear them.',
+                        description: 'filler',
+                        experiences: [
+                            {
+                                number: 1,
+                                date: null,
+                                student_checked: false,
+                                preceptor_checked: false,
+                            },
+                            {
+                                number: 2,
+                                date: null,
+                                student_checked: false,
+                                preceptor_checked: false,
+                            },
+                            {
+                                number: 3,
+                                date: null,
+                                student_checked: false,
+                                preceptor_checked: false,
+                            },
+                        ],
+                    },
+                    {
+                        name: 'Place the right lens on the reading area of the lensometer and read the lenses.',
+                        description: 'filler',
+                        experiences: [
+                            {
+                                number: 1,
+                                date: null,
+                                student_checked: false,
+                                preceptor_checked: false,
+                            },
+                            {
+                                number: 2,
+                                date: null,
+                                student_checked: false,
+                                preceptor_checked: false,
+                            },
+                            {
+                                number: 3,
+                                date: null,
+                                student_checked: false,
+                                preceptor_checked: false,
+                            },
+                        ],
+                    },
+                    {
+                        name: 'If the glasses are progressive or bifocal, read the lenses accordingly.',
+                        description: 'filler',
+                        experiences: [
+                            {
+                                number: 1,
+                                date: null,
+                                student_checked: false,
+                                preceptor_checked: false,
+                            },
+                            {
+                                number: 2,
+                                date: null,
+                                student_checked: false,
+                                preceptor_checked: false,
+                            },
+                            {
+                                number: 3,
+                                date: null,
+                                student_checked: false,
+                                preceptor_checked: false,
+                            },
+                        ],
+                    },
+                ],
+            },
+        ],
+    },
+};

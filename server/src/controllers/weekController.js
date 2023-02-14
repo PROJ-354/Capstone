@@ -63,5 +63,68 @@ export const createWeek = async (req, res) => {
 };
 
 //UPDATE a week
+export const updateWeek = async (req, res) => {
+    const { id } = req.params;
+
+    //Check if the provided id is a valid object id
+    if (!mongoose.Types.ObjectId.isValid(id)) {
+        return res.status(404).json({ error: 'Invalid id' });
+    }
+
+    let week = await Week.findOne({ _id: id });
+    if (!week) {
+        return res.status(404).json({ error: 'No such week' });
+    }
+
+    //Filters for determining which data to change
+    const arrayFilters = {
+        arrayFilters: [],
+    };
+
+    //The data to update the old data with
+    const newData = {
+        $set: {},
+    };
+
+    //Loop through the provided request body
+    req.body.map(async (entry) => {
+        //Reset the filters and new data
+        arrayFilters.arrayFilters = [];
+        newData.$set = [];
+
+        //Add filters for each array we need to go through
+        arrayFilters.arrayFilters.push({
+            'section.name': entry.section,
+        });
+
+        arrayFilters.arrayFilters.push({
+            'skills.name': entry.skill,
+        });
+
+        arrayFilters.arrayFilters.push({
+            'experience.number': entry.experience,
+        });
+
+        //Add the data to change
+        // newData.$set = {
+        //     'skills_assessment.section.$[section].skills.$[skills].experiences.$[experience].student_checked':
+        //         entry.checked,
+        //     'skills_assessment.section.$[section].skills.$[skills].experiences.$[experience].date':
+        //         entry.date === null ? null : Date.parse(entry.date),
+        // };
+
+        newData.$set = {
+            'skills_assessment.section.$[section].skills.$[skills].experiences.$[experience].student_checked':
+                entry.checked,
+        };
+
+        //Update the object
+        await Week.findOneAndUpdate({ _id: id }, newData, arrayFilters);
+    });
+
+    //Get the week so we can return it
+    week = await Week.findOne({ _id: id });
+    res.status(200).json(week);
+};
 
 //DELETE a week
