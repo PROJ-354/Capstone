@@ -54,7 +54,7 @@ export default function ViewChecklist() {
 
 export const checklistAction = async ({ request }) => {
     const formData = await request.formData();
-    const id = request.url.split('/')[3];
+    const id = request.url.split('/')[4];
     const res = await fetch(`http://localhost:42069/api/weeks/${id}`);
     const loaderData = await res.json();
 
@@ -91,7 +91,7 @@ export const checklistAction = async ({ request }) => {
 
     console.log('we did it!');
 
-    return redirect('/63ebfbda6549b2938d8c11f1');
+    return redirect('/checklist//63ebfbda6549b2938d8c11f1');
 };
 
 export const checklistLoader = async ({ params }) => {
