@@ -17,14 +17,20 @@ export default function ChecklistTabPanel({ section }) {
             <TableContainer component={Paper}>
                 <Table>
                     <TableHead>
-                        <TableRow>{loadExperienceHeaders}</TableRow>
+                        <TableRow>
+                            <TableCell>Skills performed by the student</TableCell>
+                            {loadExperienceHeaders(section)}
+                        </TableRow>
                     </TableHead>
                     <TableBody>
-                        <TableRow>{loadDateInputs}</TableRow>
+                        <TableRow>
+                            <TableCell>Date</TableCell>
+                            {loadDateInputs(section)}
+                        </TableRow>
                         {section.skills.map((skill) => (
                             <TableRow key={`${skill.name}`}>
                                 <TableCell>{skill.name}</TableCell>
-                                {loadCheckboxes}
+                                {loadCheckboxes(section, skill)}
                             </TableRow>
                         ))}
                     </TableBody>
@@ -62,7 +68,7 @@ const loadCheckboxes = (section, skill) => {
         content.push(
             <TableCell key={`${section.name} ${skill.name} ${i}`}>
                 <Checkbox
-                    value="test"
+                    value="checked"
                     name={`${section.name} ${skill.name} Experience ${i}`}
                 />
             </TableCell>

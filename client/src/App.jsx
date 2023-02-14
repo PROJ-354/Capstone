@@ -7,12 +7,21 @@ import {
 
 //Layouts
 import RootLayout from './layouts/RootLayout';
-import ViewChecklist from './pages/student/checklist/ViewChecklist';
+import ViewChecklist, {
+    checklistAction,
+    checklistLoader,
+} from './pages/student/checklist/ViewChecklist';
 
 const router = createBrowserRouter(
     createRoutesFromElements(
         <Route path="/" element={<RootLayout />}>
             <Route index element={<ViewChecklist />} />
+            <Route
+                path=":id"
+                element={<ViewChecklist />}
+                loader={checklistLoader}
+                action={checklistAction}
+            />
         </Route>
     )
 );
