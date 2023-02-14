@@ -26,7 +26,7 @@ const Login = () => {
      */
     return (
         <>
-            <Navbar></Navbar>
+            {/* <Navbar></Navbar> */}
             <form className="login" onSubmit={handleLogin}>
                 <Typography variant="h4" component="h1">
                     Competency Tracking Tool

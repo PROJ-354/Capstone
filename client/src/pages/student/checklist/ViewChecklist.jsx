@@ -17,7 +17,7 @@ export default function ViewChecklist() {
 
     return (
         <>
-            <Navbar />
+            {/* <Navbar /> */}
             <Box>
                 <TabContext value={'Lensometry'}>
                     <Box>
