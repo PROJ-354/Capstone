@@ -12,10 +12,10 @@ const Signup = () => {
 
     /* Called by the sign up form onSubmit function.
      */
-    const handleLogin = async (event) => {
+    const handleLogin = (event) => {
         // Prevent default refresh page behaviour on form submission.
         event.preventDefault();
-        await signup(code, firstName, lastName, email, password);
+        signup(code, firstName, lastName, email, password);
     }
 
     /* onChange fires a function that takes in the event.

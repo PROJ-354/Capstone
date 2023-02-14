@@ -4,6 +4,7 @@ import User from "../models/User.js";
 
 export const login = async (req, res, next) => {
   try {
+    console.log(req.body); // checking to see if req body is null
     const { email, password } = req.body;
     const existingUser = await User.findOne({ email: email });
     if (!existingUser) {
