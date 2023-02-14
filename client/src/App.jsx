@@ -5,23 +5,27 @@ import {
     RouterProvider,
 } from 'react-router-dom';
 
-//Layouts
+// Layouts
 import RootLayout from './layouts/RootLayout';
 import ViewChecklist, {
     checklistAction,
     checklistLoader,
 } from './pages/student/checklist/ViewChecklist';
+// Pages
+import Login from './pages/Login';
+import Signup from './pages/Signup';
 
 const router = createBrowserRouter(
     createRoutesFromElements(
         <Route path="/" element={<RootLayout />}>
-            <Route index element={<ViewChecklist />} />
+            <Route index element={<Login />} />
             <Route
-                path=":id"
+                path="/checklist/:id"
                 element={<ViewChecklist />}
                 loader={checklistLoader}
                 action={checklistAction}
             />
+            <Route path="/signup" element={<Signup />} />
         </Route>
     )
 );

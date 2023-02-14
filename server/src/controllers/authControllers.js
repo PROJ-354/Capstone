@@ -4,6 +4,7 @@ import User from "../models/User.js";
 
 export const login = async (req, res, next) => {
   try {
+    console.log(req.body); // checking to see if req body is null
     const { email, password } = req.body;
     const existingUser = await User.findOne({ email: email });
     if (!existingUser) {
@@ -42,7 +43,7 @@ export const register = async (req, res, next) => {
       email: email,
     });
     if (existingUser) {
-      res.status(500).json("User already exists");
+      res.status(500).json("User already exists"); // hello
     }
     if (password !== confirmPassword) {
       res.status(500).json("passwords do not match");
@@ -55,6 +56,7 @@ export const register = async (req, res, next) => {
     const userProfile = await User.create({
       role: role,
       sait_id: role !== "preceptor" ? sait_id : "not assigned",
+      /**if a student registering then saitid exists, if preceptor saitid field is not assigned */ 
       firstName: firstName,
       lastName: lastName,
       email: email,
@@ -66,7 +68,7 @@ export const register = async (req, res, next) => {
       process.env.SECRET,
       { expiresIn: "5h" }
     );
-    res.status(200).json({ resutl: userProfile, token: token });
+    res.status(200).json({ result: userProfile, token: token });
   } catch (error) {
     next(error);
   }
