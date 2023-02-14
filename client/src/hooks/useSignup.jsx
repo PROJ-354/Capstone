@@ -10,9 +10,7 @@ export const useSignup = () => {
         setIsLoading(true);
         setError(null);
 
-        const URL = 'http://localhost/${process.env.PORT}/api/auth/signup'
-
-        const response = await fetch(URL, {
+        const response = await fetch('http://localhost:42069/api/auth/register', {
             method: 'POST',
             headers: {'Content-Type': 'application/json'},
             body: JSON.stringify({code, firstName, lastName, email, password})
