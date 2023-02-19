@@ -3,7 +3,6 @@ import { Form, redirect, useLoaderData } from 'react-router-dom';
 import { useState } from 'react';
 import { TabContext, TabList } from '@mui/lab';
 import ChecklistTabPanel from '../../../components/ChecklistTabPanel';
-import Navbar from '../../../components/Navbar';
 
 export default function ViewChecklist() {
     const [tabValue, setTabValue] = useState(null);
@@ -16,39 +15,33 @@ export default function ViewChecklist() {
     const checklist = useLoaderData();
 
     return (
-        <>
-            {/* <Navbar /> */}
-            <Box>
-                <TabContext value={'Lensometry'}>
-                    <Box>
-                        <TabList
-                            aria-label="Skills assessment forms"
-                            onChange={handleChange}
-                        >
-                            {checklist.week.skills_assessment.section.map((section) => (
-                                <Tab
-                                    key={section.name}
-                                    label={section.name}
-                                    value={section.name}
-                                />
-                            ))}
-                        </TabList>
-                    </Box>
-                    <Form method="post">
+        <Box>
+            <TabContext value={'Lensometry'}>
+                <Box>
+                    <TabList aria-label="Skills assessment forms" onChange={handleChange}>
                         {checklist.week.skills_assessment.section.map((section) => (
-                            <ChecklistTabPanel
+                            <Tab
                                 key={section.name}
-                                section={section}
-                                skills={section.skills}
+                                label={section.name}
+                                value={section.name}
                             />
                         ))}
-                        <Button variant="contained" type="submit">
-                            Submit
-                        </Button>
-                    </Form>
-                </TabContext>
-            </Box>
-        </>
+                    </TabList>
+                </Box>
+                <Form method="post">
+                    {checklist.week.skills_assessment.section.map((section) => (
+                        <ChecklistTabPanel
+                            key={section.name}
+                            section={section}
+                            skills={section.skills}
+                        />
+                    ))}
+                    <Button variant="contained" type="submit">
+                        Submit
+                    </Button>
+                </Form>
+            </TabContext>
+        </Box>
     );
 }
 
@@ -91,7 +84,7 @@ export const checklistAction = async ({ request }) => {
 
     console.log('we did it!');
 
-    return redirect('/checklist//63ebfbda6549b2938d8c11f1');
+    return redirect('/checklist/63ebfbda6549b2938d8c11f1');
 };
 
 export const checklistLoader = async ({ params }) => {
