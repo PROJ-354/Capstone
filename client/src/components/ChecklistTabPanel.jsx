@@ -40,6 +40,7 @@ export default function ChecklistTabPanel({ section }) {
     );
 }
 
+//Adds the correct amount of headers saying "Exerpience #" based on the checklist
 const loadExperienceHeaders = (section) => {
     let content = [];
     for (let i = 0; i < section.experiences; i++) {
@@ -50,6 +51,7 @@ const loadExperienceHeaders = (section) => {
     return content;
 };
 
+//Loads the correct amount of date inputs based on the checklist
 const loadDateInputs = (section) => {
     let content = [];
     for (let i = 0; i < section.experiences; i++) {
@@ -62,6 +64,7 @@ const loadDateInputs = (section) => {
     return content;
 };
 
+//Loads all of the checkboxes for each skill in the checklist
 const loadCheckboxes = (section, skill) => {
     let content = [];
     for (let i = 0; i < section.experiences; i++) {
