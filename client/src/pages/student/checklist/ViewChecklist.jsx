@@ -1,11 +1,11 @@
-import { Box, Button, Tab } from '@mui/material';
+import { Box, Button, Stack, Tab, Typography } from '@mui/material';
 import { Form, redirect, useLoaderData } from 'react-router-dom';
 import { useState } from 'react';
 import { TabContext, TabList } from '@mui/lab';
 import ChecklistTabPanel from '../../../components/ChecklistTabPanel';
 
 export default function ViewChecklist() {
-    const [tabValue, setTabValue] = useState(null);
+    const [tabValue, setTabValue] = useState('Lensometry');
 
     const handleChange = (event, newValue) => {
         setTabValue(newValue);
@@ -16,7 +16,7 @@ export default function ViewChecklist() {
 
     return (
         <Box>
-            <TabContext value={'Lensometry'}>
+            <TabContext value={tabValue}>
                 <Box>
                     <TabList aria-label="Skills assessment forms" onChange={handleChange}>
                         {checklist.week.skills_assessment.section.map((section) => (
@@ -36,9 +36,15 @@ export default function ViewChecklist() {
                             skills={section.skills}
                         />
                     ))}
-                    <Button variant="contained" type="submit">
-                        Submit
-                    </Button>
+                    <Stack direction="row" spacing={1} alignContent="center">
+                        <Button variant="contained" type="submit">
+                            Submit
+                        </Button>
+                        <Typography variant="body1">
+                            By submitting this form you agree that all information entered
+                            is accurate and correct.
+                        </Typography>
+                    </Stack>
                 </Form>
             </TabContext>
         </Box>
@@ -81,8 +87,6 @@ export const checklistAction = async ({ request }) => {
 
     const json = await response.json();
     console.log(json);
-
-    console.log('we did it!');
 
     return redirect('/checklist/63ebfbda6549b2938d8c11f1');
 };
