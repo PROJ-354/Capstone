@@ -106,16 +106,11 @@ export const updateWeek = async (req, res) => {
         });
 
         //Add the data to change
-        // newData.$set = {
-        //     'skills_assessment.section.$[section].skills.$[skills].experiences.$[experience].student_checked':
-        //         entry.checked,
-        //     'skills_assessment.section.$[section].skills.$[skills].experiences.$[experience].date':
-        //         entry.date === null ? null : Date.parse(entry.date),
-        // };
-
         newData.$set = {
             'skills_assessment.section.$[section].skills.$[skills].experiences.$[experience].student_checked':
                 entry.checked,
+            'skills_assessment.section.$[section].skills.$[skills].experiences.$[experience].date':
+                entry.date === null ? null : Date.parse(entry.date),
         };
 
         //Update the object

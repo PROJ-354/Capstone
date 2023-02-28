@@ -10,10 +10,15 @@ import {
     Input,
 } from '@mui/material';
 import { TabPanel } from '@mui/lab';
+import { useState } from 'react';
 
 export default function ChecklistTabPanel({ section }) {
+    const [firstDate, setFirstDate] = useState('');
+    const [secondDate, setSecondDate] = useState('');
+    const [thirdDate, setThirdDate] = useState('');
+
     return (
-        <TabPanel value={`${section.name}`}>
+        <TabPanel value={section.name}>
             <TableContainer component={Paper}>
                 <Table>
                     <TableHead>
@@ -25,10 +30,40 @@ export default function ChecklistTabPanel({ section }) {
                     <TableBody>
                         <TableRow>
                             <TableCell>Date</TableCell>
-                            {loadDateInputs(section)}
+                            {/* {loadDateInputs(section)} */}
+                            <TableCell>
+                                <Input
+                                    type="date"
+                                    name={'Lensometry date 0'}
+                                    value={firstDate}
+                                    onChange={(event) => {
+                                        setFirstDate(event.target.value);
+                                    }}
+                                />
+                            </TableCell>
+                            <TableCell>
+                                <Input
+                                    type="date"
+                                    name={'Lensometry date 1'}
+                                    value={secondDate}
+                                    onChange={(event) => {
+                                        setSecondDate(event.target.value);
+                                    }}
+                                />
+                            </TableCell>
+                            <TableCell>
+                                <Input
+                                    type="date"
+                                    name={'Lensometry date 2'}
+                                    value={thirdDate}
+                                    onChange={(event) => {
+                                        setThirdDate(event.target.value);
+                                    }}
+                                />
+                            </TableCell>
                         </TableRow>
                         {section.skills.map((skill) => (
-                            <TableRow key={`${skill.name}`}>
+                            <TableRow key={skill.name}>
                                 <TableCell>{skill.name}</TableCell>
                                 {loadCheckboxes(section, skill)}
                             </TableRow>

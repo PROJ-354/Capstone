@@ -63,12 +63,12 @@ export const checklistAction = async ({ request }) => {
                 const data = formData.get(
                     `${section.name} ${skill.name} Experience ${i}`
                 );
-                // const date = formData.get(`${section.name} date ${i}`);
+                const date = formData.get(`${section.name} date ${i}`);
                 resData.push({
                     section: section.name,
                     skill: skill.name,
                     experience: i + 1,
-                    // date: date,
+                    date: date,
                     checked: data === 'checked' ? true : false,
                 });
             }
