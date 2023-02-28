@@ -7,17 +7,11 @@ import {
     TableRow,
     TableCell,
     Checkbox,
-    Input,
 } from '@mui/material';
 import { TabPanel } from '@mui/lab';
-import { useState } from 'react';
 import ChecklistTabPanelDateInput from './ChecklistTabPanelDateInput';
 
 export default function ChecklistTabPanel({ section }) {
-    const [firstDate, setFirstDate] = useState('');
-    const [secondDate, setSecondDate] = useState('');
-    const [thirdDate, setThirdDate] = useState('');
-
     return (
         <TabPanel value={section.name}>
             <TableContainer component={Paper}>
