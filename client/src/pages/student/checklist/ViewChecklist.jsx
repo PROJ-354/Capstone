@@ -30,11 +30,7 @@ export default function ViewChecklist() {
                 </Box>
                 <Form method="post">
                     {checklist.week.skills_assessment.section.map((section) => (
-                        <ChecklistTabPanel
-                            key={section.name}
-                            section={section}
-                            skills={section.skills}
-                        />
+                        <ChecklistTabPanel key={section.name} section={section} />
                     ))}
                     <Stack direction="row" spacing={1} alignContent="center">
                         <Button variant="contained" type="submit">
