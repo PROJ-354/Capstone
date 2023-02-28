@@ -11,6 +11,7 @@ import {
 } from '@mui/material';
 import { TabPanel } from '@mui/lab';
 import { useState } from 'react';
+import ChecklistTabPanelDateInput from './ChecklistTabPanelDateInput';
 
 export default function ChecklistTabPanel({ section }) {
     const [firstDate, setFirstDate] = useState('');
@@ -30,37 +31,7 @@ export default function ChecklistTabPanel({ section }) {
                     <TableBody>
                         <TableRow>
                             <TableCell>Date</TableCell>
-                            {/* {loadDateInputs(section)} */}
-                            <TableCell>
-                                <Input
-                                    type="date"
-                                    name={'Lensometry date 0'}
-                                    value={firstDate}
-                                    onChange={(event) => {
-                                        setFirstDate(event.target.value);
-                                    }}
-                                />
-                            </TableCell>
-                            <TableCell>
-                                <Input
-                                    type="date"
-                                    name={'Lensometry date 1'}
-                                    value={secondDate}
-                                    onChange={(event) => {
-                                        setSecondDate(event.target.value);
-                                    }}
-                                />
-                            </TableCell>
-                            <TableCell>
-                                <Input
-                                    type="date"
-                                    name={'Lensometry date 2'}
-                                    value={thirdDate}
-                                    onChange={(event) => {
-                                        setThirdDate(event.target.value);
-                                    }}
-                                />
-                            </TableCell>
+                            {loadDateInputs(section)}
                         </TableRow>
                         {section.skills.map((skill) => (
                             <TableRow key={skill.name}>
@@ -91,9 +62,11 @@ const loadDateInputs = (section) => {
     let content = [];
     for (let i = 0; i < section.experiences; i++) {
         content.push(
-            <TableCell key={`${section.name} date ${i}`}>
-                <Input type="date" name={`${section.name} date ${i}`} />
-            </TableCell>
+            <ChecklistTabPanelDateInput
+                key={`${section.name} date ${i}`}
+                sectionName={section.name}
+                id={i}
+            />
         );
     }
     return content;
