@@ -59,7 +59,9 @@ export const checklistAction = async ({ request }) => {
 
     const resData = [];
 
+    //eslint-disable-next-line
     loaderData.week.skills_assessment.section.map((section) => {
+        //eslint-disable-next-line
         section.skills.map((skill) => {
             for (let i = 0; i < section.experiences; i++) {
                 const data = formData.get(
