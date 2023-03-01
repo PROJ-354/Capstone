@@ -10,6 +10,7 @@ import {
   createUser,
   updateUser,
   deleteUser,
+  getAllPreceptors
 } from "../controllers/UserController.js";
 import authorize from "../middleware/authorize.js";
 
@@ -20,5 +21,7 @@ router.get("/api/users", authorize, getAllUsers);
 router.post("/api/users", createUser);
 router.put("/api/users/:id", updateUser);
 router.delete("/api/users/:id", deleteUser);
+
+router.get('/api/users/preceptors', getAllPreceptors);
 
 export default router;
