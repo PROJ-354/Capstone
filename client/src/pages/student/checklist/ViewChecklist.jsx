@@ -1,11 +1,28 @@
-import { Box, Button, Stack, Tab, Typography } from '@mui/material';
+import {
+    Autocomplete,
+    Box,
+    Button,
+    Stack,
+    Tab,
+    TextField,
+    Typography,
+} from '@mui/material';
 import { Form, redirect, useLoaderData } from 'react-router-dom';
 import { useState } from 'react';
 import { TabContext, TabList } from '@mui/lab';
 import ChecklistTabPanel from '../../../components/ChecklistTabPanel';
 
+const preceptors = [
+    'Simon Dumalski',
+    'Refaat El-hajj',
+    'Ryan Delorme',
+    'Brooks Maclean',
+    'Jay Nguyen',
+];
+
 export default function ViewChecklist() {
     const [tabValue, setTabValue] = useState('Lensometry');
+    const [preceptor, setPreceptor] = useState(null);
 
     const handleChange = (event, newValue) => {
         setTabValue(newValue);
@@ -33,6 +50,19 @@ export default function ViewChecklist() {
                     {checklist.week.skills_assessment.section.map((section) => (
                         <ChecklistTabPanel key={section.name} section={section} />
                     ))}
+                    <Autocomplete
+                        disablePortal
+                        options={preceptors}
+                        renderInput={(params) => (
+                            <TextField
+                                name={'selected-preceptor-name'}
+                                {...params}
+                                label="Preceptor"
+                            />
+                        )}
+                        value={preceptor}
+                        onChange={(event, newValue) => setPreceptor(newValue)}
+                    />
                     <Stack direction="row" spacing={1} alignContent="center">
                         <Button variant="contained" type="submit">
                             Submit
@@ -56,6 +86,8 @@ export const checklistAction = async ({ request }) => {
 
     const resData = [];
 
+    const preceptorName = formData.get('selected-preceptor-name');
+
     //eslint-disable-next-line
     loaderData.week.skills_assessment.section.map((section) => {
         //eslint-disable-next-line
@@ -71,6 +103,7 @@ export const checklistAction = async ({ request }) => {
                     experience: i + 1,
                     date: date,
                     checked: data === null ? false : true,
+                    preceptorName,
                 });
             }
         });
