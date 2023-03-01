@@ -10,6 +10,7 @@ import {
 } from '@mui/material';
 import { TabPanel } from '@mui/lab';
 import ChecklistTabPanelDateInput from './ChecklistTabPanelDateInput';
+import ChecklistTabPanelCheckboxInput from './ChecklistTabPanelCheckboxInput';
 
 export default function ChecklistTabPanel({ section }) {
     return (
@@ -71,12 +72,12 @@ const loadCheckboxes = (section, skill) => {
     let content = [];
     for (let i = 0; i < section.experiences; i++) {
         content.push(
-            <TableCell key={`${section.name} ${skill.name} ${i}`}>
-                <Checkbox
-                    value="checked"
-                    name={`${section.name} ${skill.name} Experience ${i}`}
-                />
-            </TableCell>
+            <ChecklistTabPanelCheckboxInput
+                key={`${section.name} ${skill.name} ${i}`}
+                sectionName={section.name}
+                skill={skill}
+                id={i}
+            />
         );
     }
     return content;
