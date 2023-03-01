@@ -6,7 +6,6 @@ import {
     TableBody,
     TableRow,
     TableCell,
-    Checkbox,
 } from '@mui/material';
 import { TabPanel } from '@mui/lab';
 import ChecklistTabPanelDateInput from './ChecklistTabPanelDateInput';
@@ -56,11 +55,13 @@ const loadExperienceHeaders = (section) => {
 const loadDateInputs = (section) => {
     let content = [];
     for (let i = 0; i < section.experiences; i++) {
+        const date = section.skills[0].experiences[i].date;
         content.push(
             <ChecklistTabPanelDateInput
                 key={`${section.name} date ${i}`}
                 sectionName={section.name}
                 id={i}
+                dateValue={date}
             />
         );
     }
