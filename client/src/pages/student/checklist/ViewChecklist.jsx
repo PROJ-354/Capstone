@@ -16,6 +16,7 @@ export default function ViewChecklist() {
 
     return (
         <Box>
+            <Typography variant="h4">{checklist.week.name} Skills Assessment</Typography>
             <TabContext value={tabValue}>
                 <Box>
                     <TabList aria-label="Skills assessment forms" onChange={handleChange}>
