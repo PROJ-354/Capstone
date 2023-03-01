@@ -9,6 +9,7 @@ export default function ChecklistTabPanelCheckboxInput({ sectionName, skill, id 
             <Checkbox
                 name={`${sectionName} ${skill.name} Experience ${id}`}
                 checked={value}
+                value={value}
                 onChange={(event) => {
                     setValue(event.target.checked);
                 }}

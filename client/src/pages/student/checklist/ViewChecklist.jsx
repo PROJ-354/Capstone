@@ -69,7 +69,7 @@ export const checklistAction = async ({ request }) => {
                     skill: skill.name,
                     experience: i + 1,
                     date: date,
-                    checked: data === 'checked' ? true : false,
+                    checked: data === null ? false : true,
                 });
             }
         });
