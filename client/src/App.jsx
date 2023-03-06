@@ -5,10 +5,12 @@ import {
     RouterProvider,
 } from 'react-router-dom';
 
-
 // Layouts
 import RootLayout from './layouts/RootLayout';
-
+import ViewChecklist, {
+    checklistAction,
+    checklistLoader,
+} from './pages/student/checklist/ViewChecklist';
 // Pages
 import Login from './pages/Login';
 import Signup from './pages/Signup';
@@ -16,8 +18,14 @@ import Signup from './pages/Signup';
 const router = createBrowserRouter(
     createRoutesFromElements(
         <Route path="/" element={<RootLayout />}>
-            <Route path='/' element={<Login />}/>
-            <Route path='/signup' element={<Signup />}/>
+            <Route index element={<Login />} />
+            <Route
+                path="/checklist/:id"
+                element={<ViewChecklist />}
+                loader={checklistLoader}
+                action={checklistAction}
+            />
+            <Route path="/signup" element={<Signup />} />
         </Route>
     )
 );
