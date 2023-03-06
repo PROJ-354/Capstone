@@ -12,12 +12,23 @@ import { useState } from 'react';
 import { TabContext, TabList } from '@mui/lab';
 import ChecklistTabPanel from '../../../components/ChecklistTabPanel';
 
+// const preceptors = [
+//     'Simon Dumalski',
+//     'Refaat El-hajj',
+//     'Ryan Delorme',
+//     'Brooks Maclean',
+//     'Jay Nguyen',
+// ];
+
 const preceptors = [
-    'Simon Dumalski',
-    'Refaat El-hajj',
-    'Ryan Delorme',
-    'Brooks Maclean',
-    'Jay Nguyen',
+    {
+        name: 'Simon Dumalski',
+        id: '1234',
+    },
+    {
+        name: 'Brooks Maclean',
+        id: '4321',
+    },
 ];
 
 export default function ViewChecklist() {
