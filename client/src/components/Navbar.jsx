@@ -33,20 +33,22 @@ const Navbar = () => {
                 <Stack direction="row" spacing={2}>
                     <Toolbar>
                         <Typography variant="h6" sx={{ flexGrow: 1 }}>
-                            Papiris
+                            Competency Tracking Tool
                         </Typography>
                     </Toolbar>
                     <Toolbar>
                         <Typography variant="h6">
-                            {user?.result
-                                ? `${user.result.firstName} ${user.result.lastName}`
-                                : 'GUEST'}
+                            {user && (
+                                <Stack direction="row" spacing={6}>
+                                    <Typography variant="h6">
+                                        {user.result.firstName} {user.result.lastName}
+                                    </Typography>
+                                    <Button color="inherit" onClick={handleClick}>
+                                        Logout
+                                    </Button>
+                                </Stack>
+                            )}
                         </Typography>
-                    </Toolbar>
-                    <Toolbar>
-                        <Button color="inherit" onClick={handleClick}>
-                            Logout
-                        </Button>
                     </Toolbar>
                     <Toolbar>
                         <Button
