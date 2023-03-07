@@ -4,7 +4,7 @@
  */
 import mongoose from 'mongoose';
 
-const ResetSchema = new mongoose.Schema({
+const ForgotSchema = new mongoose.Schema({
     email: {
         type: String,
         required: [true, 'an email is required']
@@ -15,4 +15,4 @@ const ResetSchema = new mongoose.Schema({
     }
 }, { timestamps: true });
 
-export default mongoose.model('Reset', ResetSchema);
+export default mongoose.model('Forgot', ForgotSchema);

@@ -1,7 +1,7 @@
 import bcrypt from 'bcrypt';
 import jwt from 'jsonwebtoken';
 import User from '../models/User.js';
-import Reset from '../models/Reset.js';
+import Forgot from '../models/Forgot.js';
 import nodemailer from 'nodemailer';
 
 export const login = async (req, res, next) => {
@@ -90,7 +90,7 @@ export const sendEmail = async (req, res, next) => {
             return res.status(200).json('Email does not match our records');
         }
 
-        const resetCode = await Reset.create({
+        const resetCode = await Forgot.create({
             email: email,
             expiryDate: date
         });

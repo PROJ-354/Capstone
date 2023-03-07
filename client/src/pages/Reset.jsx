@@ -1,25 +1,26 @@
-import { useRecover } from '../hooks/useRecover';
+import { useReset } from '../hooks/useReset';
 import { useState, useEffect } from 'react';
 import { Typography, Button, Stack, TextField, Link } from '@mui/material';
 import { useNavigate, useParams } from 'react-router-dom';
-import Reset from '../models/Reset.js';
 
 const Reset = () => {
     const { recoveryCode } = useParams();
     const [password, setPassword] = useState('');
     const [confirmPassword, setConfirmPassword] = useState('');
     const { resetPassword, error, isLoading } = useReset();
-
+/*
     useEffect(() => {
         const resetObject = JSON.parse(localstorage.getItem());
         // need code so that I can use email
     });
 
     // TODO check if recovery code has expired
+*/
 
+    // Need to switch recoveryCode for email
     const handlePassword = (event) => {
         event.preventDefault();
-        resetPassword(password, confirmPassword, resetObject);
+        resetPassword(password, confirmPassword, recoveryCode);
     };
 
     return (
