@@ -15,6 +15,7 @@ import ViewChecklist, {
 import Login from './pages/Login';
 import Signup from './pages/Signup';
 import Recover from './pages/Recover';
+import Reset from './pages/Reset';
 
 const router = createBrowserRouter(
     createRoutesFromElements(
@@ -28,6 +29,7 @@ const router = createBrowserRouter(
             />
             <Route path="/signup" element={<Signup />} />
             <Route path="/recover" element={<Recover />} />
+            <Route path="/reset/:id" element={<Reset />} />
         </Route>
     )
 );

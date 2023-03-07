@@ -1,19 +1,19 @@
 import { useState } from 'react';
 // import { useAuthContext } from './useAuthContext';
 
-export const useRecover = () => {
+export const useReset = () => {
     const [error, setError] = useState(null);
     const [isLoading, setIsLoading] = useState(null);
     // const { dispatch } = useAuthContext();
-
-    const sendEmail = async (email) => {
+    
+    const resetPassword = async (email, password, confirmPassword) => {
         setIsLoading(true);
         setError(null);
 
-        const response = await fetch('http://localhost:42069/api/auth/forgot', {
-            method: 'GET',
+        const response = await fetch('http://localhost:42069/api/auth/reset', {
+            method: 'POST',
             headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({ email }),
+            body: JSON.stringify({ email, password, confirmPassword }),
         });
 
         const json = await response.json();
@@ -23,11 +23,11 @@ export const useRecover = () => {
             setError(json.error);
         }
         if (response.ok) {
-            localStorage.setItem('resetCode', JSON.stringify(json));
+            localStorage.setItem('password', JSON.stringify(json));
             // dispatch({ type: 'RESET', payload: json });
             setIsLoading(false);
         }
-    };    
-
-    return { sendEmail, isLoading, error };
+    };
+    
+    return { resetPassword, isLoading, error };
 };

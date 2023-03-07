@@ -30,19 +30,17 @@ const Recover = () => {
                     <Button type="submit" variant="contained" disabled={isLoading}>
                         Send email
                     </Button>
-                    <br />
-                    <br />
                 </Stack>
-            </form>
-            <br />
-            <Stack direction="row" spacing={2}>
+                <br />
+                <Stack direction="row" spacing={2}>
                 <Typography variant="h6">
                     <Link href="/" underline="hover">
                         Return to login page
                     </Link>
                 </Typography>
-            </Stack>
-            {error && <div className="error">{error}</div>}
+                </Stack>
+                {error && <div className="error">{error}</div>}
+            </form>     
         </>
     );
 };

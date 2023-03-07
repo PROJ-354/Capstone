@@ -1,75 +1,61 @@
 import { useRecover } from '../hooks/useRecover';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { Typography, Button, Stack, TextField, Link } from '@mui/material';
-import { useNavigate } from 'react-router-dom';
-
-/*
-useEffect(() => {
-    
-    if ()
-});
-*/
-/*
+import { useNavigate, useParams } from 'react-router-dom';
+import Reset from '../models/Reset.js';
 
 const Reset = () => {
-    const [email, setEmail] = useState('');
-    const [recoveryCode, setRecoveryCode] = useState('');
-    const { resetPassword, error, isLoading } = useRecover();
+    const { recoveryCode } = useParams();
+    const [password, setPassword] = useState('');
+    const [confirmPassword, setConfirmPassword] = useState('');
+    const { resetPassword, error, isLoading } = useReset();
+
+    useEffect(() => {
+        const resetObject = JSON.parse(localstorage.getItem());
+        // need code so that I can use email
+    });
+
+    // TODO check if recovery code has expired
 
     const handlePassword = (event) => {
         event.preventDefault();
-        resetPassword(email);
+        resetPassword(password, confirmPassword, resetObject);
     };
 
     return (
-        <div onLoad={CheckID}>
-            <form className="reset_password" onSubmit={handlePassword}>
-                <br />                
-                <Typography variant="h5" component="h2" sx={{ fontWeight: 'bold' }}>
-                    Enter your email to receive a password-reset code
-                </Typography>
+        <form className="reset_password" onSubmit={handlePassword}>
+            <Stack spacing={2}>
+                <Stack direction="row" spacing={2}>
+                    <TextField
+                        label="Password"
+                        type="password"
+                        onChange={(event) => setPassword(event.target.value)}
+                        value={password}
+                    />
+                    <TextField
+                        label="ConfirmPassword"
+                        type="password"
+                        onChange={(event) => setConfirmPassword(event.target.value)}
+                        value={confirmPassword}
+                    />
+                </Stack>
+                <Stack direction="row" spacing={2}>
+                    <Button type="submit" variant="contained" disabled={isLoading}>
+                        Reset password
+                    </Button>
+                </Stack>
                 <br />
                 <Stack direction="row" spacing={2}>
-                    <TextField
-                        label="Email"
-                        type="email"
-                        onChange={(event) => setEmail(event.target.value)}
-                        value={email}
-                    />
-                    <Button type="submit" variant="contained" disabled={isLoading}>
-                        Send email
-                    </Button>
-                    <br />
-                    <br />
+                    <Typography variant="h6">
+                        <Link href="/" underline="hover">
+                            Return to login page
+                        </Link>
+                    </Typography>
                 </Stack>
-            </form>
-            <form className="enter_code" onSubmit={handleCode}>
-                <br />                
-                <Stack direction="row" spacing={2}>
-                    <TextField
-                        label="Code"
-                        type="text"
-                        onChange={(event) => setRecoveryCode(event.target.value)}
-                        value={recoveryCode}
-                    />
-                    <Button type="submit" variant="contained" color="" disabled={isLoading}>
-                        Validate
-                    </Button>
-                    <br />
-                    <br />
-                </Stack>
-            </form>
-            <br />
-            <Stack direction="row" spacing={2}>
-                <Typography variant="h6">
-                    <Link href="/" underline="hover">
-                        Return to login page
-                    </Link>
-                </Typography>
             </Stack>
             {error && <div className="error">{error}</div>}
-        <div/>
+        </form>
     );
 };
-*/
+
 export default Reset;
