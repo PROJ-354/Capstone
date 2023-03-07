@@ -1,5 +1,5 @@
 import { Button, Card, CardActions, CardContent, Typography } from '@mui/material';
-import { redirect, useNavigate } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 
 export default function WeekCard({ checklist }) {
     const navigate = useNavigate();
