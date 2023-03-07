@@ -1,6 +1,7 @@
 import bcrypt from 'bcrypt';
 import jwt from 'jsonwebtoken';
 import User from '../models/User.js';
+import Reset from '../models/Reset.js';
 
 export const login = async (req, res, next) => {
     try {
@@ -73,3 +74,36 @@ export const register = async (req, res, next) => {
         next(error);
     }
 };
+
+export const sendEmail = async (req, res, next) => {
+    try {
+        const { email } = req.body;
+        // Create date object as current date + 1 hour
+        const date = new Date(Date.now() + 1);
+
+        const existingUser = await User.findOne({
+            email: email,
+        });
+        if (!existingUser) {
+            return res.status(200).json('Email does not match our records');
+        }
+        const resetCode = await Reset.create({
+            email: email,
+            expiryDate: date
+        });
+        // TODO Send email
+        res.status(200).json({ result: resetCode});
+    } catch (error) {
+        next(error);
+    }
+};
+
+export const resetPassword = async (req, res, next) => {
+    try {
+        // Get reset code from id
+        // Check expiry date
+        // Set password
+    } catch (error) {
+        next(error);
+    }
+}
