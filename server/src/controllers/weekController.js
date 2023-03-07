@@ -126,3 +126,20 @@ export const updateWeek = async (req, res) => {
 };
 
 //DELETE a week
+
+//GET all of a user's weeks
+export const getUsersWeeks = async (req, res) => {
+    const { id } = req.params;
+
+    if (!mongoose.Types.ObjectId.isValid(id)) {
+        return res.status(400).json({ error: 'Invalid id' });
+    }
+
+    const weeks = await Week.find({ student_id: id });
+
+    if (!weeks) {
+        res.status(404).json({ error: 'No weeks found for that user' });
+    } else {
+        res.status(200).json(weeks);
+    }
+};

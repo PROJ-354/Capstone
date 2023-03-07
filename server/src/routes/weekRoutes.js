@@ -1,5 +1,5 @@
 import express from 'express';
-import { getWeek, updateWeek } from '../controllers/weekController.js';
+import { getUsersWeeks, getWeek, updateWeek } from '../controllers/weekController.js';
 
 const router = express.Router();
 
@@ -19,5 +19,8 @@ router.patch('/:id', updateWeek);
 
 //DELETE a week
 router.delete('/:id');
+
+//GET all of a user's weeks
+router.get('/user/:id', getUsersWeeks);
 
 export default router;
