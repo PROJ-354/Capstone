@@ -1,49 +1,28 @@
-import {
-    Autocomplete,
-    Box,
-    Button,
-    MenuItem,
-    Stack,
-    Tab,
-    TextField,
-    Typography,
-} from '@mui/material';
+import { Box, Button, MenuItem, Stack, Tab, TextField, Typography } from '@mui/material';
 import { Form, redirect, useLoaderData } from 'react-router-dom';
 import { useState } from 'react';
 import { TabContext, TabList } from '@mui/lab';
 import ChecklistTabPanel from '../../../components/ChecklistTabPanel';
 
-const preceptors = [
-    {
-        name: 'Simon Dumalski',
-        id: '1234',
-    },
-    {
-        name: 'Brooks Maclean',
-        id: '4321',
-    },
-];
-
-// const preceptors = ['Simon Dumalski', 'Brooks Maclean'];
-
 export default function ViewChecklist() {
     const [tabValue, setTabValue] = useState('Lensometry');
-    // const [preceptor, setPreceptor] = useState(null);
 
     const handleChange = (event, newValue) => {
         setTabValue(newValue);
     };
 
     //Grabs the data from the backend using the loader function
-    const checklist = useLoaderData();
+    const { checklistData, preceptorData } = useLoaderData();
 
     return (
         <Box>
-            <Typography variant="h4">{checklist.week.name} Skills Assessment</Typography>
+            <Typography variant="h4">
+                {checklistData.week.name} Skills Assessment
+            </Typography>
             <TabContext value={tabValue}>
                 <Box>
                     <TabList aria-label="Skills assessment forms" onChange={handleChange}>
-                        {checklist.week.skills_assessment.section.map((section) => (
+                        {checklistData.week.skills_assessment.section.map((section) => (
                             <Tab
                                 key={section.name}
                                 label={section.name}
@@ -53,7 +32,7 @@ export default function ViewChecklist() {
                     </TabList>
                 </Box>
                 <Form method="post">
-                    {checklist.week.skills_assessment.section.map((section) => (
+                    {checklistData.week.skills_assessment.section.map((section) => (
                         <ChecklistTabPanel key={section.name} section={section} />
                     ))}
                     <TextField
@@ -63,10 +42,10 @@ export default function ViewChecklist() {
                         name="selected-preceptor"
                         defaultValue={''}
                     >
-                        {preceptors.map((preceptor) => {
+                        {preceptorData.map((preceptor) => {
                             return (
-                                <MenuItem key={preceptor.id} value={preceptor.id}>
-                                    {preceptor.name}
+                                <MenuItem key={preceptor._id} value={preceptor._id}>
+                                    {preceptor.firstName} {preceptor.lastName}
                                 </MenuItem>
                             );
                         })}
@@ -133,13 +112,22 @@ export const checklistAction = async ({ request }) => {
 };
 
 export const checklistLoader = async ({ params }) => {
-    const res = await fetch(`http://localhost:42069/api/weeks/${params.id}`);
+    const checklistRes = await fetch(`http://localhost:42069/api/weeks/${params.id}`);
+    const preceptorRes = await fetch(`http://localhost:42069/api/users/preceptors`);
 
-    if (!res.ok) {
+    if (!checklistRes.ok) {
         console.log('There was an error retreiving that checklist');
     }
 
-    const data = await res.json();
-    //console.log(data);
-    return data;
+    if (!preceptorRes.ok) {
+        console.log('There was an error retreiving the preceptors');
+    }
+
+    const checklistData = await checklistRes.json();
+    const preceptorData = await preceptorRes.json();
+
+    return {
+        checklistData,
+        preceptorData,
+    };
 };
