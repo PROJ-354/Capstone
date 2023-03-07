@@ -9,6 +9,7 @@ useEffect(() => {
     if ()
 });
 */
+/*
 
 const Reset = () => {
     const [email, setEmail] = useState('');
@@ -70,5 +71,5 @@ const Reset = () => {
         <div/>
     );
 };
-
+*/
 export default Reset;
