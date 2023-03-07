@@ -113,7 +113,6 @@ export default function PreceptorEvaluate() {
             <Button type="submit" variant="contained" color="primary">
                 Submit
             </Button>
-
         </Form>
     );
 }
@@ -123,33 +122,32 @@ export const viewEvaluationLoader = async ({ params }) => {
     const evaluationId = params.evalId;
     const res = await fetch(`http://localhost:42069/preceptor/${evaluationId}`);
     return res;
-  };
-  
-  export const editEvaluationAction = async ({ request }) => {
+};
+
+export const editEvaluationAction = async ({ request }) => {
     //grab the form data
     const data = await request.formData();
-    const evaluationId = data.get("evaluationId");
-  
+    const evaluationId = data.get('evaluationId');
+
     //grab the master evaluation
     const res = await fetch(`http://localhost:42069/preceptor/${evaluationId}`);
     const newEval = await res.json();
-  
+
     newEval.is_master = false;
-    newEval.month = parseInt(data.get("month"));
-    newEval.comments = data.get("comments");
+    newEval.month = parseInt(data.get('month'));
+    newEval.comments = data.get('comments');
     newEval.preceptor_id = 2345;
     newEval.instructor_id = 3456;
-  
+
     newEval.performance_assessment.map((evals) => {
-      evals.skill_rating = data.get(evals.skill_name + "rating");
-    });
-  
-      fetch(`http://localhost:42069/preceptor/${evaluationId}`, {
-      method: "PUT",
-      body: JSON.stringify(newEval),
-      headers: { "Content-Type": "application/json" },
+        evals.skill_rating = data.get(evals.skill_name + 'rating');
     });
 
+    await fetch(`http://localhost:42069/preceptor/${evaluationId}`, {
+        method: 'PUT',
+        body: JSON.stringify(newEval),
+        headers: { 'Content-Type': 'application/json' },
+    });
 
     return redirect('/preceptor');
-  };
+};
