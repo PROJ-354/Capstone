@@ -2,6 +2,7 @@ import {
     Autocomplete,
     Box,
     Button,
+    MenuItem,
     Stack,
     Tab,
     TextField,
@@ -23,9 +24,11 @@ const preceptors = [
     },
 ];
 
+// const preceptors = ['Simon Dumalski', 'Brooks Maclean'];
+
 export default function ViewChecklist() {
     const [tabValue, setTabValue] = useState('Lensometry');
-    const [preceptor, setPreceptor] = useState(null);
+    // const [preceptor, setPreceptor] = useState(null);
 
     const handleChange = (event, newValue) => {
         setTabValue(newValue);
@@ -53,19 +56,21 @@ export default function ViewChecklist() {
                     {checklist.week.skills_assessment.section.map((section) => (
                         <ChecklistTabPanel key={section.name} section={section} />
                     ))}
-                    <Autocomplete
-                        disablePortal
-                        options={preceptors}
-                        renderInput={(params) => (
-                            <TextField
-                                name={'selected-preceptor-name'}
-                                {...params}
-                                label="Preceptor"
-                            />
-                        )}
-                        value={preceptor}
-                        onChange={(event, newValue) => setPreceptor(newValue)}
-                    />
+                    <TextField
+                        label="Preceptor"
+                        select
+                        fullWidth
+                        name="selected-preceptor"
+                        defaultValue={''}
+                    >
+                        {preceptors.map((preceptor) => {
+                            return (
+                                <MenuItem key={preceptor.id} value={preceptor.id}>
+                                    {preceptor.name}
+                                </MenuItem>
+                            );
+                        })}
+                    </TextField>
                     <Stack direction="row" spacing={1} alignContent="center">
                         <Button variant="contained" type="submit">
                             Submit
@@ -89,7 +94,8 @@ export const checklistAction = async ({ request }) => {
 
     const resData = [];
 
-    const preceptorName = formData.get('selected-preceptor-name');
+    const preceptorName = formData.get('selected-preceptor');
+    console.log(preceptorName);
 
     //eslint-disable-next-line
     loaderData.week.skills_assessment.section.map((section) => {
