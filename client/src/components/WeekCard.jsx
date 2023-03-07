@@ -17,7 +17,6 @@ export default function WeekCard({ checklist }) {
                     color="primary"
                     variant="contained"
                     onClick={() => {
-                        console.log(checklist._id);
                         navigate(checklist._id);
                     }}
                 >

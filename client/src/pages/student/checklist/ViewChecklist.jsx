@@ -98,18 +98,13 @@ export const checklistAction = async ({ request }) => {
         });
     });
 
-    //console.log(resData);
-
-    const response = await fetch(`http://localhost:42069/api/weeks/${id}`, {
+    await fetch(`http://localhost:42069/api/weeks/${id}`, {
         method: 'PATCH',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(resData),
     });
 
-    const json = await response.json();
-    console.log(json);
-
-    return redirect('/checklist/63ebfbda6549b2938d8c11f1');
+    return redirect('/checklist');
 };
 
 export const checklistLoader = async ({ params }) => {

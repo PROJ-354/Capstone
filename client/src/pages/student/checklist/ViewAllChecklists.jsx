@@ -24,6 +24,5 @@ export const viewAllChecklistsLoader = async ({ params }) => {
         console.log('Error getting that users checklists');
     }
 
-    const data = await res.json();
-    return data;
+    return await res.json();
 };
