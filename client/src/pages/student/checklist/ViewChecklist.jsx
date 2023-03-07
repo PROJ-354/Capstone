@@ -71,10 +71,12 @@ export const checklistAction = async ({ request }) => {
     const res = await fetch(`http://localhost:42069/api/weeks/${id}`);
     const loaderData = await res.json();
 
-    const resData = [];
+    const preceptorId = formData.get('selected-preceptor');
 
-    const preceptorName = formData.get('selected-preceptor');
-    console.log(preceptorName);
+    const resData = {
+        preceptorId,
+        data: [],
+    };
 
     //eslint-disable-next-line
     loaderData.week.skills_assessment.section.map((section) => {
@@ -85,13 +87,12 @@ export const checklistAction = async ({ request }) => {
                     `${section.name} ${skill.name} Experience ${i}`
                 );
                 const date = formData.get(`${section.name} date ${i}`);
-                resData.push({
+                resData.data.push({
                     section: section.name,
                     skill: skill.name,
                     experience: i + 1,
                     date: date,
                     checked: data === null ? false : true,
-                    preceptorName,
                 });
             }
         });

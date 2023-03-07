@@ -76,6 +76,9 @@ export const updateWeek = async (req, res) => {
         return res.status(404).json({ error: 'No such week' });
     }
 
+    //Set the preceptor's ID in the checklist
+    await Week.findOneAndUpdate({ _id: id }, { preceptor_id: req.body.preceptorId });
+
     //Filters for determining which data to change
     const arrayFilters = {
         arrayFilters: [],
@@ -87,7 +90,7 @@ export const updateWeek = async (req, res) => {
     };
 
     //Loop through the provided request body
-    req.body.map(async (entry) => {
+    req.body.data.map(async (entry) => {
         //Reset the filters and new data
         arrayFilters.arrayFilters = [];
         newData.$set = [];
