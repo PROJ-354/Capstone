@@ -14,17 +14,22 @@ import ViewChecklist, {
 // Pages
 import Login from './pages/Login';
 import Signup from './pages/Signup';
+import ViewAllChecklists from './pages/student/checklist/ViewAllChecklists';
 
 const router = createBrowserRouter(
     createRoutesFromElements(
         <Route path="/" element={<RootLayout />}>
             <Route index element={<Login />} />
-            <Route
-                path="/checklist/:id"
-                element={<ViewChecklist />}
-                loader={checklistLoader}
-                action={checklistAction}
-            />
+            <Route path="checklist">
+                <Route index element={<ViewAllChecklists />} />
+                <Route
+                    path=":id"
+                    element={<ViewChecklist />}
+                    loader={checklistLoader}
+                    action={checklistAction}
+                />
+            </Route>
+
             <Route path="/signup" element={<Signup />} />
         </Route>
     )
