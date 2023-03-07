@@ -4,23 +4,21 @@ import { Typography, Button, Stack, TextField, Link } from '@mui/material';
 import { useNavigate, useParams } from 'react-router-dom';
 
 const Reset = () => {
-    const { recoveryCode } = useParams();
+    const { recoveryID } = useParams();
+    const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
     const [confirmPassword, setConfirmPassword] = useState('');
-    const { resetPassword, error, isLoading } = useReset();
-/*
-    useEffect(() => {
-        const resetObject = JSON.parse(localstorage.getItem());
-        // need code so that I can use email
-    });
+    const { getCode, resetPassword, codeObject, error, isLoading } = useReset();
 
     // TODO check if recovery code has expired
-*/
+    useEffect(() => {
+        getCode(recoveryID);
+        setEmail(codeObject.email);
+    });
 
-    // Need to switch recoveryCode for email
     const handlePassword = (event) => {
         event.preventDefault();
-        resetPassword(password, confirmPassword, recoveryCode);
+        resetPassword(email, password, confirmPassword);
     };
 
     return (

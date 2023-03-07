@@ -48,7 +48,7 @@ export const register = async (req, res, next) => {
             res.status(500).json('User already exists'); // hello
         }
         if (password !== confirmPassword) {
-            res.status(500).json('passwords do not match');
+            res.status(401).json('passwords do not match');
         }
 
         //code for validating access code for students and preceptors here
@@ -87,7 +87,7 @@ export const sendEmail = async (req, res, next) => {
         });
 
         if (!existingUser) {
-            return res.status(200).json('Email does not match our records');
+            return res.status(401).json('Email does not match our records');
         }
 
         const resetCode = await Forgot.create({
@@ -117,6 +117,22 @@ export const sendEmail = async (req, res, next) => {
     }
 };
 
+export const getCode = async (req, res, next) => {
+    try {
+        const { recoveryID } = req.body;
+        const codeObject = await Forgot.findOne({
+            _id: recoveryID,
+        });
+        const currentDate = new Date();         
+        if(currentDate > codeObject.expiryDate) {
+            return res.status(404).json('Reset password link expired');
+        }
+        res.status(200).json({ result: codeObject });
+    } catch (error) {
+        next(error);
+    }
+}
+
 export const resetPassword = async (req, res, next) => {
     try {
         const {
@@ -125,38 +141,23 @@ export const resetPassword = async (req, res, next) => {
             confirmPassword,
         } = req.body;
 
-        const existingUser = await User.findOne({
-            email: email,
-        });
-        if (!existingUser) {
-            return res.status(500).json('Email does not match records');
-        }
         if (password !== confirmPassword) {
-            return res.status(200).json('passwords do not match');
+            return res.status(401).json('Passwords do not match');
         }
-
-        //code for validating access code for students and preceptors here
 
         const hashedPassword = await bcrypt.hash(password, 12);
 
-        existingUser.set
-
-        const userProfile = await User.create({
-            role: role,
-            sait_id: role !== 'preceptor' ? sait_id : 'not assigned',
-            /**if a student registering then saitid exists, if preceptor saitid field is not assigned */
-            firstName: firstName,
-            lastName: lastName,
-            email: email,
-            password: hashedPassword,
+        const filter = { email: email };
+        const update = { password: password };
+        const existingUser = await User.findOneAndUpdate( filter, update, {
+            returnOriginal: false
         });
 
-        const token = jwt.sign(
-            { email: email, id: userProfile._id },
-            process.env.SECRET,
-            { expiresIn: '5h' }
-        );
-        res.status(200).json({ result: userProfile, token: token });
+        if (!existingUser) {
+            return res.status(500).json('Internal system error');
+        }
+
+        res.status(200).json({ result: existingUser });
     } catch (error) {
         next(error);
     }

@@ -11,7 +11,7 @@ export const useRecover = () => {
         setError(null);
 
         const response = await fetch('http://localhost:42069/api/auth/forgot', {
-            method: 'GET',
+            method: 'POST',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify({ email }),
         });
@@ -23,7 +23,7 @@ export const useRecover = () => {
             setError(json.error);
         }
         if (response.ok) {
-            localStorage.setItem('resetCode', JSON.stringify(json));
+            // localStorage.setItem('resetCode', JSON.stringify(json));
             // dispatch({ type: 'RESET', payload: json });
             setIsLoading(false);
         }
