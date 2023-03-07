@@ -10,7 +10,6 @@ const Reset = () => {
     const [confirmPassword, setConfirmPassword] = useState('');
     const { getCode, resetPassword, codeObject, error, isLoading } = useReset();
 
-    // TODO check if recovery code has expired
     useEffect(() => {
         getCode(recoveryID);
         setEmail(codeObject.email);
