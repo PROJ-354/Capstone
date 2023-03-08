@@ -27,7 +27,11 @@ const router = createBrowserRouter(
                 action={checklistAction}
             />
             <Route path="/signup" element={<Signup />} />
-            <Route path='/schedule' element={<ViewSchedule/>}/>
+
+            <Route path='/student/schedules' element={<ViewSchedule/>}/>
+            <Route path='/preceptor/schedules' element={<ViewSchedule/>}/>
+            <Route path='/instructors/schedules' element={<ViewSchedule/>}/>
+
         </Route>
     )
 );
