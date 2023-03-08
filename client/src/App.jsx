@@ -14,6 +14,7 @@ import ViewChecklist, {
 // Pages
 import Login from './pages/Login';
 import Signup from './pages/Signup';
+import ViewSchedule from './pages/student/schedule/ViewSchedule';
 
 const router = createBrowserRouter(
     createRoutesFromElements(
@@ -26,6 +27,7 @@ const router = createBrowserRouter(
                 action={checklistAction}
             />
             <Route path="/signup" element={<Signup />} />
+            <Route path='/schedule' element={<ViewSchedule/>}/>
         </Route>
     )
 );
