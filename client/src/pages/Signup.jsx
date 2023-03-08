@@ -1,6 +1,6 @@
 import { useSignup } from '../hooks/useSignup';
 import { useState } from 'react';
-import { Typography, Button, Stack, TextField, Link, Container } from '@mui/material';
+import { Typography, Button, Stack, TextField, Container } from '@mui/material';
 import { useNavigate } from 'react-router-dom';
 
 const Signup = () => {
