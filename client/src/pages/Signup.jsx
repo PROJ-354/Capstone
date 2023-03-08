@@ -65,6 +65,13 @@ const Signup = () => {
                             onChange={(event) => setLastName(event.target.value)}
                             value={lastName}
                         />
+                        <TextField
+                            required
+                            label="Join Code"
+                            type="text"
+                            onChange={(event) => setCode(event.target.value)}
+                            value={secretCode}
+                        />
                     </Stack>
                     <TextField
                         required
@@ -88,7 +95,7 @@ const Signup = () => {
                         value={confirmPassword}
                     />
                     <Typography variant="h6" color="error">
-                        The following inputs are for development purposes
+                        The following inputs are for development purposes only
                     </Typography>
                     <Stack spacing={2} direction="row">
                         <TextField
@@ -104,13 +111,6 @@ const Signup = () => {
                             type="text"
                             onChange={(event) => setID(event.target.value)}
                             value={sait_id}
-                        />
-                        <TextField
-                            required
-                            label="Code"
-                            type="text"
-                            onChange={(event) => setCode(event.target.value)}
-                            value={secretCode}
                         />
                     </Stack>
                     <Button type="submit" variant="contained" disabled={isLoading}>
