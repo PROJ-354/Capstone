@@ -1,7 +1,12 @@
+<<<<<<< HEAD
 import { Button, Table, TableBody, TableCell, TableHead, TableRow, TextField, Typography, useScrollTrigger } from "@mui/material";
 import { Box } from "@mui/system";
 import { useState } from "react";
 import { useEffect } from "react";
+=======
+import { Button, Table, TableBody, TableCell, TableHead, TableRow, TextField, Typography } from "@mui/material";
+import { Box } from "@mui/system";
+>>>>>>> 87c3b9fdbb54f2fb9edc7b95b43b7888e2b38aa5
 import Week from "./Week";
 
 // test data
@@ -31,6 +36,7 @@ const data = [
  * aka a list of (8) weeks
  */
 const Schedule = () => {
+<<<<<<< HEAD
     //
     const [weeks, setWeeks] = useState(null);
     
@@ -48,13 +54,21 @@ const Schedule = () => {
 
         fn();
     }, []);
+=======
+    // todo: fetch & render the logged in users schedule
+
+>>>>>>> 87c3b9fdbb54f2fb9edc7b95b43b7888e2b38aa5
 
     //
     return (
         <>
             <Box sx={{ display: "flex", justifyContent: "center", mt: 10 }}>
                 <Box>
+<<<<<<< HEAD
                     {weeks && weeks.map((weekData, index) => (
+=======
+                    {data && data.map((weekData, index) => (
+>>>>>>> 87c3b9fdbb54f2fb9edc7b95b43b7888e2b38aa5
                         <Week weekData={weekData} weekNumber={index + 1} key={index} />
                     ))}
                 </Box>
