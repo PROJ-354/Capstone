@@ -31,7 +31,10 @@ const router = createBrowserRouter(
             <Route path='/student/schedules' element={<ViewSchedule/>}/>
             <Route path='/preceptor/schedules' element={<ViewSchedule/>}/>
             <Route path='/instructors/schedules' element={<ViewSchedule/>}/>
+<<<<<<< HEAD
+=======
 
+>>>>>>> 87c3b9fdbb54f2fb9edc7b95b43b7888e2b38aa5
         </Route>
     )
 );

@@ -1,6 +1,8 @@
 import bcrypt from 'bcrypt';
 import jwt from 'jsonwebtoken';
+import Schedule from '../models/Schedule.js';
 import User from '../models/User.js';
+import INIT_SCHEDULE from '../config/INIT_SCHEDULE.js'
 
 export const login = async (req, res, next) => {
     try {
@@ -68,8 +70,16 @@ export const register = async (req, res, next) => {
             process.env.SECRET,
             { expiresIn: '5h' }
         );
-        res.status(200).json({ result: userProfile, token: token });
+
+        /**
+         * refaat's todo: create a schedule & attach it to this user
+         */
+        const schedule = await Schedule.create(INIT_SCHEDULE(userProfile._id));
+        console.log(schedule);
+
+        return res.status(200).json({ result: userProfile, token: token });
     } catch (error) {
         next(error);
     }
 };
+
