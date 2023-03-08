@@ -1,7 +1,6 @@
 import { useLogin } from '../hooks/useLogin';
 import { useState } from 'react';
-import { Typography, Button, Stack, TextField, Link } from '@mui/material';
-import Navbar from '../components/Navbar';
+import { Typography, Button, Stack, TextField, Container } from '@mui/material';
 import { useNavigate } from 'react-router-dom';
 
 const Login = () => {
@@ -12,11 +11,11 @@ const Login = () => {
 
     /* Called by the sign up form onSubmit function.
      */
-    const handleLogin = (event) => {
+    const handleLogin = async (event) => {
         // Prevent default refresh page behaviour on form submission.
         event.preventDefault();
-        login(email, password);
-        navigate('/checklist/63ebfbda6549b2938d8c11f1');
+        await login(email, password);
+        navigate('/checklist');
     };
 
     /* onChange fires a function that takes in the event.
@@ -25,48 +24,46 @@ const Login = () => {
      * Clicking the button fires the onSubmit function on the form.
      */
     return (
-        <>
-            {/* <Navbar></Navbar> */}
+        <Container maxWidth="sm" sx={{ padding: '20px' }}>
+            <Typography variant="h4" component="h1">
+                Competency Tracking Tool
+            </Typography>
             <form className="login" onSubmit={handleLogin}>
-                <Typography variant="h4" component="h1">
-                    Competency Tracking Tool
-                </Typography>
                 <br />
                 <Typography variant="h5" component="h2" sx={{ fontWeight: 'bold' }}>
-                    Sign in to your account
+                    Sign in
                 </Typography>
                 <br />
                 <Stack spacing={2}>
-                    <Stack direction="row" spacing={2}>
-                        <TextField
-                            label="Email"
-                            type="email"
-                            onChange={(event) => setEmail(event.target.value)}
-                            value={email}
-                        />
-                        <TextField
-                            label="Password"
-                            type="password"
-                            onChange={(event) => setPassword(event.target.value)}
-                            value={password}
-                        />
-                        <Button type="submit" variant="contained" disabled={isLoading}>
-                            Sign In
+                    <TextField
+                        required
+                        label="Email Address"
+                        type="email"
+                        onChange={(event) => setEmail(event.target.value)}
+                        value={email}
+                    />
+                    <TextField
+                        required
+                        label="Password"
+                        type="password"
+                        onChange={(event) => setPassword(event.target.value)}
+                        value={password}
+                    />
+                    <Button type="submit" variant="contained" disabled={isLoading}>
+                        Sign In
+                    </Button>
+                    <Stack direction="row">
+                        <Button variant="text" onClick={() => navigate('/recover')}>
+                            Forgot Password
                         </Button>
-                        <br />
-                        <br />
-                    </Stack>
-                    <Stack spacing={2}>
-                        <Typography variant="h6">
-                            <Link href="/signup" underline="hover">
-                                Create an account
-                            </Link>
-                        </Typography>
+                        <Button variant="text" onClick={() => navigate('/signup')}>
+                            Sign up
+                        </Button>
                     </Stack>
                 </Stack>
                 {error && <div className="error">{error}</div>}
             </form>
-        </>
+        </Container>
     );
 };
 
