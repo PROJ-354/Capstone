@@ -1,4 +1,4 @@
-import { Box, Typography } from '@mui/material';
+import { Box, TableContainer, Table, Typography, TableHead, Grid } from '@mui/material';
 import { useLoaderData } from 'react-router-dom';
 import WeekCard from '../../../components/WeekCard';
 
@@ -6,12 +6,16 @@ export default function ViewAllChecklists() {
     const data = useLoaderData();
 
     return (
-        <Box>
+        <Box p={4}>
             <Typography variant="h3">Checklists</Typography>
-            {data &&
-                data.map((checklist) => (
-                    <WeekCard key={checklist._id} checklist={checklist} />
-                ))}
+            <Grid container spacing={2}>
+                {data &&
+                    data.map((checklist) => (
+                        <Grid key={checklist._id} item>
+                            <WeekCard checklist={checklist} />
+                        </Grid>
+                    ))}
+            </Grid>
         </Box>
     );
 }

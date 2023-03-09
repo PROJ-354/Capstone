@@ -5,7 +5,7 @@ export default function WeekCard({ checklist }) {
     const navigate = useNavigate();
 
     return (
-        <Card>
+        <Card sx={{ maxWidth: '250px' }}>
             <CardContent>
                 <Typography variant="h5">{checklist.name}</Typography>
                 <Typography variant="body1">
