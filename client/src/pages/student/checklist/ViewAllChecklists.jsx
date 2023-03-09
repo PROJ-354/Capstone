@@ -1,4 +1,4 @@
-import { Box, TableContainer, Table, Typography, TableHead, Grid } from '@mui/material';
+import { Box, Typography, Grid } from '@mui/material';
 import { useLoaderData } from 'react-router-dom';
 import WeekCard from '../../../components/WeekCard';
 
