@@ -30,6 +30,7 @@ export default function PreceptorEvaluate() {
             <TextField
                 label="Choose Month"
                 select
+                defaultValue={''}
                 required
                 fullWidth
                 name="month"
@@ -71,6 +72,7 @@ export default function PreceptorEvaluate() {
                                     <TextField
                                         label="Rating"
                                         select
+                                        defaultValue={''}
                                         required
                                         fullWidth
                                         name={evals.skill_name + 'rating'}

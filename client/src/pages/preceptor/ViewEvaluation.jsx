@@ -140,7 +140,13 @@ export const editEvaluationAction = async ({ request }) => {
     newEval.instructor_id = 3456;
 
     newEval.performance_assessment.map((evals) => {
-        evals.skill_rating = data.get(evals.skill_name + 'rating');
+      evals.skill_rating = data.get(evals.skill_name + "rating");
+    });
+  
+      await fetch(`http://localhost:42069/preceptor/${evaluationId}`, {
+      method: "PUT",
+      body: JSON.stringify(newEval),
+      headers: { "Content-Type": "application/json" },
     });
 
     await fetch(`http://localhost:42069/preceptor/${evaluationId}`, {

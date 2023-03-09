@@ -42,10 +42,12 @@ export async function getEval(req, res) {
 export async function editEval(req, res) {
     const id = req.body._id;
 
-    try {
-        await PEval.findByIdAndUpdate({ _id: id }, { ...req.body });
-    } catch (err) {
-        console.log(res.json({ msg: err.message }));
-    }
-    res.status(200).json({ test: 'test' });
+  try{
+    await PEval.findByIdAndUpdate(
+      {_id: id}, {...req.body}
+      )
+  } catch(err){
+    console.log(res.json({msg: err.message}));
+  }
+  return res.status(200).json({test: 'test'});
 }
