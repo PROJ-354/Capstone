@@ -1,7 +1,9 @@
 import { useLogin } from '../hooks/useLogin';
 import { useState } from 'react';
-import { Typography, Button, Stack, TextField, Container } from '@mui/material';
+import { Typography, Button, Stack, TextField, Container, Divider } from '@mui/material';
 import { useNavigate } from 'react-router-dom';
+import { Box } from '@mui/system';
+import logo from '../img/sait-logo.png';
 
 const Login = () => {
     const [email, setEmail] = useState('');
@@ -24,10 +26,20 @@ const Login = () => {
      * Clicking the button fires the onSubmit function on the form.
      */
     return (
-        <Container maxWidth="sm" sx={{ padding: '20px' }}>
-            <Typography variant="h4" component="h1">
-                Competency Tracking Tool
-            </Typography>
+        <Container maxWidth="sm" sx={{ padding: '30px' }}>
+            <Stack
+                direction="row"
+                spacing={2}
+                divider={<Divider orientation="vertical" flexItem />}
+                alignItems="center"
+                justifyContent="center"
+            >
+                <Box component="img" src={logo} sx={{ height: 100 }} />
+                <Typography variant="h4" component="h1">
+                    Competency Tracking Tool
+                </Typography>
+            </Stack>
+
             <form className="login" onSubmit={handleLogin}>
                 <br />
                 <Typography variant="h5" component="h2" sx={{ fontWeight: 'bold' }}>
