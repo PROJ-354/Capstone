@@ -14,7 +14,7 @@ import { useNavigate } from 'react-router-dom';
 
 const Navbar = () => {
     //functions and variables defined here
-    const user = JSON.parse(localStorage.getItem('auth')).result;
+    const user = JSON.parse(localStorage.getItem('auth'));
 
     const navigate = useNavigate();
 
@@ -46,8 +46,8 @@ const Navbar = () => {
                         Logout
                     </Button>
                     <Avatar>
-                        {user.firstName.charAt(0).toUpperCase()}
-                        {user.lastName.charAt(0).toUpperCase()}
+                        {user && user.result.firstName.charAt(0).toUpperCase()}
+                        {user && user.result.lastName.charAt(0).toUpperCase()}
                     </Avatar>
                     <IconButton color="inherit" size="small">
                         <SettingsIcon />
