@@ -14,6 +14,19 @@ import ViewChecklist, {
 // Pages
 import Login from './pages/Login';
 import Signup from './pages/Signup';
+
+//Preceptor Pages
+import PreceptorHome from './pages/preceptor/PreceptorHome';
+import PreceptorEvaluate from './pages/preceptor/PreceptorEvaluate';
+import ViewEvaluation from './pages/preceptor/ViewEvaluation';
+
+//Preceptor Actions/Loaders
+import { evaluateAction, evaluateLoader } from './pages/preceptor/PreceptorEvaluate';
+import {
+    editEvaluationAction,
+    viewEvaluationLoader,
+} from './pages/preceptor/ViewEvaluation';
+import { evalsLoader } from './pages/preceptor/PreceptorHome';
 import ViewSchedule from './pages/student/schedule/ViewSchedule';
 
 const router = createBrowserRouter(
@@ -28,13 +41,25 @@ const router = createBrowserRouter(
             />
             <Route path="/signup" element={<Signup />} />
 
-            <Route path='/student/schedules' element={<ViewSchedule/>}/>
-            <Route path='/preceptor/schedules' element={<ViewSchedule/>}/>
-            <Route path='/instructors/schedules' element={<ViewSchedule/>}/>
-<<<<<<< HEAD
-=======
+            <Route path="/preceptor">
+                <Route index element={<PreceptorHome />} loader={evalsLoader} />
+                <Route
+                    path="eval"
+                    element={<PreceptorEvaluate />}
+                    action={evaluateAction}
+                    loader={evaluateLoader}
+                />
+                <Route
+                    path=":evalId"
+                    element={<ViewEvaluation />}
+                    action={editEvaluationAction}
+                    loader={viewEvaluationLoader}
+                />
+            </Route>
 
->>>>>>> 87c3b9fdbb54f2fb9edc7b95b43b7888e2b38aa5
+            <Route path="/student/schedules" element={<ViewSchedule />} />
+            <Route path="/preceptor/schedules" element={<ViewSchedule />} />
+            <Route path="/instructors/schedules" element={<ViewSchedule />} />
         </Route>
     )
 );
