@@ -34,7 +34,11 @@ const Navbar = () => {
                     Competency Tracking Tool
                 </Typography>
                 <Stack direction="row" spacing={2}>
-                    <Button size="sm" color="inherit">
+                    <Button
+                        size="sm"
+                        color="inherit"
+                        onClick={() => navigate('/checklist')}
+                    >
                         Checklists
                     </Button>
                     <Button
