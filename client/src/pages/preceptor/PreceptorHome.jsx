@@ -21,18 +21,40 @@ export default function PreceptorHome() {
         <Grid container spacing={1} padding="10px">
             {sortedEvals.map((evaluation, idx) => (
                 <Grid item key={idx} sx={{ minWidth: 275 }}>
-                    <Card style={{ backgroundColor: evaluation.complete ? 'green' : 'orange',}} display="flex">
-
-
-                        <Grid container justifyContent="space-between" alignItems="center"> 
-                          <Grid item>
-                            <Link style={{ color: 'black' }} to={`/preceptor/${evaluation._id}`}> <LaunchIcon /> </Link>
-                          </Grid>
-                          <Grid item>
-                              <Link style={{ color: 'black'}}> <CloseIcon variant="white" onClick={() => handleDeleteEval(evaluation._id)} /> </Link>
-                          </Grid>
+                    <Card
+                        style={{
+                            border: 5,
+                            borderStyle: 'solid',
+                            borderColor: evaluation.complete ? 'green' : 'orange',
+                            // borderColor: 'green',
+                        }}
+                        display="flex"
+                    >
+                        <Grid
+                            container
+                            justifyContent="space-between"
+                            alignItems="center"
+                        >
+                            <Grid item>
+                                <Link
+                                    style={{ color: 'black' }}
+                                    to={`/preceptor/${evaluation._id}`}
+                                >
+                                    {' '}
+                                    <LaunchIcon />{' '}
+                                </Link>
+                            </Grid>
+                            <Grid item>
+                                <Link style={{ color: 'black' }}>
+                                    {' '}
+                                    <CloseIcon
+                                        variant="white"
+                                        onClick={() => handleDeleteEval(evaluation._id)}
+                                    />{' '}
+                                </Link>
+                            </Grid>
                         </Grid>
-                        
+
                         <CardHeader
                             fontWeight="bold"
                             title="Student ID:"
@@ -51,9 +73,7 @@ export default function PreceptorHome() {
                                 completed? {evaluation.complete ? 'yes' : 'no'}
                             </Typography>
                         </CardContent>
-                        
                     </Card>
-
                 </Grid>
             ))}
         </Grid>
