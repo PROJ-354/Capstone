@@ -15,7 +15,7 @@ export default function ViewChecklist() {
     const { checklistData, preceptorData } = useLoaderData();
 
     return (
-        <Box>
+        <Box p={2}>
             <Typography variant="h4">
                 {checklistData.week.name} Skills Assessment
             </Typography>
