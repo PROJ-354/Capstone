@@ -20,6 +20,8 @@ import weekRoutes from './src/routes/weekRoutes.js';
 import UserRouter from './src/routes/UserRouter.js';
 import authRouter from './src/routes/authRouter.js';
 import preceptorRoutes from './src/routes/PreceptorRoutes.js';
+import scheduleRouter from './src/routes/scheduleRouter.js';
+
 // create an instance of express (i think)
 const app = express();
 
@@ -33,6 +35,7 @@ app.use('/api/weeks', weekRoutes);
 app.use(UserRouter);
 app.use(authRouter);
 app.use('/preceptor', preceptorRoutes);
+app.use(scheduleRouter);
 
 // initialize error handling middleware
 app.use(errorHandler);
