@@ -112,7 +112,7 @@ export const checklistAction = async ({ request }) => {
         });
     });
 
-    //console.log(resData);
+    ///console.log(resData);
 
     const response = await fetch(`http://localhost:42069/api/weeks/${id}`, {
         method: 'PATCH',
