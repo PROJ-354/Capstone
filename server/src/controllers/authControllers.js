@@ -109,7 +109,7 @@ export const sendEmail = async (req, res, next) => {
             from: "CompetencyTrackingTool@outlook.com",
             to: "ryan.p.delorme@gmail.com", // Change to email variable
             subject: "Reset Password",
-            text: "http://localhost:42069/reset/" + resetCode._id,
+            text: "http://localhost:3000/reset/" + resetCode._id,
         });
         res.status(200).json({ result: resetCode});
     } catch (error) {
@@ -124,9 +124,11 @@ export const getCode = async (req, res, next) => {
             _id: recoveryID,
         });
         const currentDate = new Date();         
+        /* CHECKS EXPIRY DATE
         if(currentDate > codeObject.expiryDate) {
             return res.status(404).json('Reset password link expired');
         }
+        */
         res.status(200).json({ result: codeObject });
     } catch (error) {
         next(error);

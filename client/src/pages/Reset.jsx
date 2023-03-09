@@ -4,14 +4,15 @@ import { Typography, Button, Stack, TextField, Link } from '@mui/material';
 import { useNavigate, useParams } from 'react-router-dom';
 
 const Reset = () => {
-    const { recoveryID } = useParams();
+    const { id } = useParams();
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
     const [confirmPassword, setConfirmPassword] = useState('');
     const { getCode, resetPassword, codeObject, error, isLoading } = useReset();
 
     useEffect(() => {
-        getCode(recoveryID);
+        console.log(id);
+        getCode(id);
         setEmail(codeObject.email);
     });
 

@@ -7,23 +7,24 @@ export const useReset = () => {
     const [codeObject, setCodeObject] = useState(null);
     // const { dispatch } = useAuthContext();
 
-    const getCode = async (recoveryID) => {
+    const getCode = async (id) => {
         setIsLoading(true);
         setError(null);
 
-        const response = await fetch('http://localhost:42069/api/auth/getCode', {
-            method: 'GET',
+        const response = await fetch('http://localhost:42069/api/auth/getCode/${id}', {
+            method: 'PATCH',
             headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({ recoveryID }),
+            body: JSON.stringify({ id }),
         });
 
         const json = await response.json();
+        console.log(json);
+        console.log(id);
         
         if (!response.ok) {
             setIsLoading(false);
             setError(json.error);
-        }
-        if (response.ok) {
+        } else {
             setCodeObject(JSON.parse(json));
             setIsLoading(false);
         }
