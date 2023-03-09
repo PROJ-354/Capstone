@@ -109,7 +109,7 @@ export const sendEmail = async (req, res, next) => {
             from: "CompetencyTrackingTool@outlook.com",
             to: "ryan.p.delorme@gmail.com", // Change to email variable
             subject: "Reset Password",
-            text: "localhost:42069/reset/:" + resetCode._id,
+            text: "http://localhost:42069/reset/" + resetCode._id,
         });
         res.status(200).json({ result: resetCode});
     } catch (error) {
