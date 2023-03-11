@@ -5,7 +5,7 @@ import { useEffect } from 'react';
 
 export default function RootLayout() {
     const loggedIn = localStorage.getItem('auth');
-
+    //test
     const location = useLocation();
     useEffect(() => {}, [location]);
 
