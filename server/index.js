@@ -40,11 +40,12 @@ app.use(scheduleRouter);
 // initialize error handling middleware
 app.use(errorHandler);
 
+//AZURE
+app.use(express.static('../client/build/'));
+
 // hello, world 👋
-app.get('/', (request, response) => {
-    response.status(200).json({
-        message: 'a poison to erase my existance!',
-    });
+app.get('*', (request, response) => {
+    response.sendFile(path.resolve('../client/build/index.html'));
 });
 
 // 🐸
