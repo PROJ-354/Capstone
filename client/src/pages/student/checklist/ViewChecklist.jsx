@@ -2,7 +2,7 @@ import { Box, Button, MenuItem, Stack, Tab, TextField, Typography } from '@mui/m
 import { Form, redirect, useLoaderData } from 'react-router-dom';
 import { useState } from 'react';
 import { TabContext, TabList } from '@mui/lab';
-import ChecklistTabPanel from '../../../components/ChecklistTabPanel';
+import ChecklistTabPanel from '../../../components/checklist/ChecklistTabPanel';
 
 export default function ViewChecklist() {
     const [tabValue, setTabValue] = useState('Lensometry');

@@ -1,6 +1,6 @@
 import { Box, Typography, Grid } from '@mui/material';
 import { useLoaderData } from 'react-router-dom';
-import WeekCard from '../../../components/WeekCard';
+import WeekCard from '../../../components/checklist/ChecklistCard';
 
 export default function ViewAllChecklists() {
     const data = useLoaderData();
