@@ -65,11 +65,11 @@ export default function ViewChecklist() {
                         })}
                     </TextField>
                     <Stack direction="row" spacing={1} alignContent="center">
-                        {/* <Button variant="contained" onClick={() => setOpen(true)}>
-                            Submit
-                        </Button> */}
                         <Button variant="contained" type="submit">
                             Submit
+                        </Button>
+                        <Button variant="contained" onClick={() => setOpen(true)}>
+                            Dialog Submit
                         </Button>
                         <Typography variant="body1">
                             By submitting this form you agree that all information entered
