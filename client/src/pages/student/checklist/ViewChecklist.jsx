@@ -1,4 +1,17 @@
-import { Box, Button, MenuItem, Stack, Tab, TextField, Typography } from '@mui/material';
+import {
+    Box,
+    Button,
+    Dialog,
+    DialogActions,
+    DialogContent,
+    DialogContentText,
+    DialogTitle,
+    MenuItem,
+    Stack,
+    Tab,
+    TextField,
+    Typography,
+} from '@mui/material';
 import { Form, redirect, useLoaderData } from 'react-router-dom';
 import { useState } from 'react';
 import { TabContext, TabList } from '@mui/lab';
@@ -6,10 +19,13 @@ import ChecklistTabPanel from '../../../components/checklist/ChecklistTabPanel';
 
 export default function ViewChecklist() {
     const [tabValue, setTabValue] = useState('Lensometry');
+    const [open, setOpen] = useState(false);
 
     const handleChange = (event, newValue) => {
         setTabValue(newValue);
     };
+
+    const handleSubmit = () => {};
 
     //Grabs the data from the backend using the loader function
     const { checklistData, preceptorData } = useLoaderData();
@@ -51,6 +67,9 @@ export default function ViewChecklist() {
                         })}
                     </TextField>
                     <Stack direction="row" spacing={1} alignContent="center">
+                        {/* <Button variant="contained" onClick={() => setOpen(true)}>
+                            Submit
+                        </Button> */}
                         <Button variant="contained" type="submit">
                             Submit
                         </Button>
@@ -59,6 +78,19 @@ export default function ViewChecklist() {
                             is accurate and correct.
                         </Typography>
                     </Stack>
+                    <Dialog open={open} onClose={() => setOpen(false)}>
+                        <DialogTitle>Submit the form?</DialogTitle>
+                        <DialogContent>
+                            <DialogContentText>
+                                Are you sure you want to submit the form? You will not be
+                                able to edit after submitting.
+                            </DialogContentText>
+                        </DialogContent>
+                        <DialogActions>
+                            <Button onClick={() => setOpen(false)}>Cancel</Button>
+                            <Button type="submit">Submit</Button>
+                        </DialogActions>
+                    </Dialog>
                 </Form>
             </TabContext>
         </Box>
