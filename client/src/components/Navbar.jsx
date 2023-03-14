@@ -11,10 +11,11 @@ import {
 import SettingsIcon from '@mui/icons-material/Settings';
 import { useLogout } from '../hooks/useLogout';
 import { useNavigate } from 'react-router-dom';
+import { useAuthContext } from '../hooks/useAuthContext';
 
 const Navbar = () => {
     //functions and variables defined here
-    const user = JSON.parse(localStorage.getItem('auth'));
+    const { user } = useAuthContext();
 
     const navigate = useNavigate();
 
