@@ -25,8 +25,6 @@ export default function ViewChecklist() {
         setTabValue(newValue);
     };
 
-    const handleSubmit = () => {};
-
     //Grabs the data from the backend using the loader function
     const { checklistData, preceptorData } = useLoaderData();
 
@@ -97,10 +95,9 @@ export default function ViewChecklist() {
     );
 }
 
-export const checklistAction = async ({ request }) => {
+export const checklistAction = async ({ request, params }) => {
     const formData = await request.formData();
-    const id = request.url.split('/')[4];
-    const res = await fetch(`http://localhost:42069/api/weeks/${id}`);
+    const res = await fetch(`http://localhost:42069/api/weeks/${params.id}`);
     const loaderData = await res.json();
 
     const preceptorId = formData.get('selected-preceptor');
@@ -130,7 +127,7 @@ export const checklistAction = async ({ request }) => {
         });
     });
 
-    await fetch(`http://localhost:42069/api/weeks/${id}`, {
+    await fetch(`http://localhost:42069/api/weeks/${params.id}`, {
         method: 'PATCH',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(resData),
