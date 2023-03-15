@@ -1,5 +1,4 @@
 import {
-    Paper,
     TableContainer,
     Table,
     TableHead,
@@ -7,36 +6,33 @@ import {
     TableRow,
     TableCell,
 } from '@mui/material';
-import { TabPanel } from '@mui/lab';
-import ChecklistTabPanelDateInput from './ChecklistTabPanelDateInput';
-import ChecklistTabPanelCheckboxInput from './ChecklistTabPanelCheckboxInput';
+import ChecklistDateInput from './ChecklistDateInput';
+import ChecklistCheckboxInput from './ChecklistCheckboxInput';
 
-export default function ChecklistTabPanel({ section }) {
+export default function ChecklistAccordion({ section }) {
     return (
-        <TabPanel value={section.name}>
-            <TableContainer component={Paper}>
-                <Table>
-                    <TableHead>
-                        <TableRow>
-                            <TableCell>Skills performed by the student</TableCell>
-                            {loadExperienceHeaders(section)}
+        <TableContainer>
+            <Table>
+                <TableHead>
+                    <TableRow>
+                        <TableCell>Skills performed by the student</TableCell>
+                        {loadExperienceHeaders(section)}
+                    </TableRow>
+                </TableHead>
+                <TableBody>
+                    <TableRow>
+                        <TableCell>Date</TableCell>
+                        {loadDateInputs(section)}
+                    </TableRow>
+                    {section.skills.map((skill) => (
+                        <TableRow key={skill.name}>
+                            <TableCell>{skill.name}</TableCell>
+                            {loadCheckboxes(section, skill)}
                         </TableRow>
-                    </TableHead>
-                    <TableBody>
-                        <TableRow>
-                            <TableCell>Date</TableCell>
-                            {loadDateInputs(section)}
-                        </TableRow>
-                        {section.skills.map((skill) => (
-                            <TableRow key={skill.name}>
-                                <TableCell>{skill.name}</TableCell>
-                                {loadCheckboxes(section, skill)}
-                            </TableRow>
-                        ))}
-                    </TableBody>
-                </Table>
-            </TableContainer>
-        </TabPanel>
+                    ))}
+                </TableBody>
+            </Table>
+        </TableContainer>
     );
 }
 
@@ -57,7 +53,7 @@ const loadDateInputs = (section) => {
     for (let i = 0; i < section.experiences; i++) {
         const date = section.skills[0].experiences[i].date;
         content.push(
-            <ChecklistTabPanelDateInput
+            <ChecklistDateInput
                 key={`${section.name} date ${i}`}
                 sectionName={section.name}
                 id={i}
@@ -73,7 +69,7 @@ const loadCheckboxes = (section, skill) => {
     let content = [];
     for (let i = 0; i < section.experiences; i++) {
         content.push(
-            <ChecklistTabPanelCheckboxInput
+            <ChecklistCheckboxInput
                 key={`${section.name} ${skill.name} ${i}`}
                 sectionName={section.name}
                 skill={skill}
