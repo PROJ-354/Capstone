@@ -11,7 +11,6 @@ import {
     DialogTitle,
     MenuItem,
     Stack,
-    Tab,
     TextField,
     Typography,
 } from '@mui/material';
@@ -82,7 +81,7 @@ export default function ViewChecklist() {
                     </Button>
                     <Typography variant="body1">
                         By submitting this form you agree that all information entered is
-                        accurate and true.
+                        accurate and correct.
                     </Typography>
                 </Stack>
                 <Dialog open={open} onClose={() => setOpen(false)}>
