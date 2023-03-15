@@ -113,7 +113,7 @@ export const updateWeek = async (req, res) => {
             'skills_assessment.section.$[section].skills.$[skills].experiences.$[experience].student_checked':
                 entry.checked,
             'skills_assessment.section.$[section].skills.$[skills].experiences.$[experience].date':
-                entry.date === null ? null : Date.parse(entry.date),
+                entry.date === '' ? null : Date.parse(entry.date),
         };
 
         //Update the object
