@@ -20,6 +20,7 @@ export default function ViewAllChecklists() {
 }
 
 export const viewAllChecklistsLoader = async ({ params }) => {
+    //Get the currently logged in user's ID and the list of their checklists
     const auth = JSON.parse(localStorage.getItem('auth')).result;
     const checklistRes = await fetch(`http://localhost:42069/api/weeks/user/${auth._id}`);
 

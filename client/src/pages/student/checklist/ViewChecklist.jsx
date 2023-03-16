@@ -111,6 +111,7 @@ export default function ViewChecklist() {
 }
 
 export const checklistLoader = async ({ params }) => {
+    //Get the user's checklists and a list of all preceptors from the database
     const checklistRes = await fetch(`http://localhost:42069/api/weeks/${params.id}`);
     const preceptorRes = await fetch(`http://localhost:42069/api/users/preceptors`);
 
@@ -132,10 +133,12 @@ export const checklistLoader = async ({ params }) => {
 };
 
 export const saveChecklistAction = async ({ request, params }) => {
+    //Get the submitted from data and the checklist that is being updated from the database
     const formData = await request.formData();
     const res = await fetch(`http://localhost:42069/api/weeks/${params.id}`);
     const loaderData = await res.json();
 
+    //Get the selected preceptor's ID
     const preceptorId = formData.get('selected-preceptor');
 
     const resData = {
@@ -143,6 +146,7 @@ export const saveChecklistAction = async ({ request, params }) => {
         data: [],
     };
 
+    //Loop through the form data and get the values the student has submitted
     //eslint-disable-next-line
     loaderData.week.skills_assessment.section.map((section) => {
         //eslint-disable-next-line
@@ -163,11 +167,13 @@ export const saveChecklistAction = async ({ request, params }) => {
         });
     });
 
+    //Send the update to the database
     await fetch(`http://localhost:42069/api/weeks/${params.id}`, {
         method: 'PATCH',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(resData),
     });
 
+    //Redirect to the homepage
     return redirect('/checklist');
 };
