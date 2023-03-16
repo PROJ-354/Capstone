@@ -1,4 +1,5 @@
 import {
+    Alert,
     Button,
     Card,
     CardActions,
@@ -12,20 +13,25 @@ import {
 } from '@mui/material';
 import { LoadingButton } from '@mui/lab';
 import { useNavigate } from 'react-router-dom';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 
 export default function WeekCard({ checklist }) {
     const navigate = useNavigate();
 
-    //Use states for the button's availability and loading status
+    //useStates for the button's availability and loading status
     const [viewDisabled, setViewDisabled] = useState(false);
     const [submitDisabled, setSubmitDisabled] = useState(false);
     const [submitIsLoading, setSubmitIsLoading] = useState(false);
 
-    //Use state for the dialog
+    //useState for the dialog
     const [open, setOpen] = useState(false);
 
+    //useState and submit function for submitting checklists
+    const [error, setError] = useState(null);
+    const [message, setMessage] = useState(null);
     const handleSubmit = async () => {
+        setError(null);
+        setMessage(null);
         setOpen(false);
         setSubmitIsLoading(true);
         setViewDisabled(true);
@@ -38,23 +44,42 @@ export default function WeekCard({ checklist }) {
             }
         );
 
+        const json = await res.json();
+
+        if (!res.ok) {
+            setError(json.error);
+            setViewDisabled(false);
+            setSubmitDisabled(false);
+        } else {
+            setMessage(json.message);
+        }
+
         setSubmitIsLoading(false);
     };
 
+    useEffect(() => {}, [error, message]);
+
     return (
         <>
+            {error && <Alert severity="error">{error}</Alert>}
+            {message && <Alert severity="success">{message}</Alert>}
             <Card sx={{ maxWidth: '300px' }}>
                 <CardContent>
                     <Typography variant="h5">{checklist.name}</Typography>
                     <Typography variant="body1">
-                        Preceptor: {checklist.preceptor_id}
+                        Preceptor:{' '}
+                        {!checklist.preceptor_id
+                            ? 'None Selected'
+                            : checklist.preceptor_id}
+                        <br />
+                        Submitted: {checklist.submitted_to_preceptor ? 'Yes' : 'No'}
                     </Typography>
                 </CardContent>
                 <CardActions>
                     <Button
                         color="primary"
                         variant="contained"
-                        disabled={viewDisabled}
+                        disabled={checklist.submitted_to_preceptor || viewDisabled}
                         onClick={() => {
                             navigate(checklist._id);
                         }}
@@ -64,7 +89,7 @@ export default function WeekCard({ checklist }) {
                     <LoadingButton
                         color="success"
                         variant="contained"
-                        disabled={submitDisabled}
+                        disabled={checklist.submitted_to_preceptor || submitDisabled}
                         loading={submitIsLoading}
                         onClick={() => setOpen(true)}
                     >

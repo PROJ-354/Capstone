@@ -128,6 +128,19 @@ export const updateWeek = async (req, res) => {
 //SUBMIT a week
 export const submitWeek = async (req, res) => {
     const { id } = req.params;
+
+    if (!mongoose.Types.ObjectId.isValid(id)) {
+        return res.status(404).json({ error: 'Invalid id' });
+    }
+
+    const week = await Week.findById(id);
+
+    if (!week.preceptor_id) {
+        return res.status(400).json({ error: 'No preceptor has been selected' });
+    }
+
+    await Week.updateOne({ _id: id }, { submitted_to_preceptor: true });
+    res.status(200).json({ message: 'Checklist submitted successfully' });
 };
 
 //DELETE a week
