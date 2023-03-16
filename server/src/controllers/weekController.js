@@ -1,5 +1,6 @@
 import mongoose from 'mongoose';
 import Week from '../models/Week.js';
+import User from '../models/User.js';
 
 //GET a single week by the week's ID
 export const getWeek = async (req, res) => {
@@ -133,7 +134,26 @@ export const getUsersWeeks = async (req, res) => {
         return res.status(400).json({ error: 'Invalid id' });
     }
 
-    const weeks = await Week.find({ student_id: id });
+    const user = await User.findById(id);
+    const filter = {};
+    switch (user.role) {
+        case 'student':
+            filter.student_id = id;
+            break;
+        case 'preceptor':
+            filter.preceptor_id = id;
+            filter.submitted_to_preceptor = true;
+            filter.submitted_to_instructor = false;
+            break;
+        case 'instructor':
+            filter.instructor_id = id;
+            filter.submitted_to_instructor = true;
+            break;
+        default:
+            break;
+    }
+
+    const weeks = await Week.find(filter);
 
     if (!weeks) {
         res.status(404).json({ error: 'No weeks found for that user' });
