@@ -70,7 +70,9 @@ const tempWeek1 = {
     is_last: false,
     student_id: '63ebc5878e74a2adcd75d336',
     preceptor_id: null,
+    submitted_to_preceptor: false,
     instructor_id: null,
+    submitted_to_instructor: false,
     skills_assessment: {
         section: [
             {
@@ -599,7 +601,9 @@ const tempWeek2 = {
     is_last: false,
     student_id: '63ebc5878e74a2adcd75d336',
     preceptor_id: null,
+    submitted_to_preceptor: false,
     instructor_id: null,
+    submitted_to_instructor: false,
     skills_assessment: {
         section: [
             {

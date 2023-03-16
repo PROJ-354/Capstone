@@ -39,11 +39,21 @@ const WeekSchema = mongoose.Schema(
             type: String,
             default: null,
         },
+        //Whether or not this week has been submitted to the preceptor for evaluation
+        submitted_to_preceptor: {
+            type: Boolean,
+            default: false,
+        },
         //The ID of the instructor who created/assigned this week
         //Otherwise, the ID of the instructor who will be grading this week
         instructor_id: {
             type: String,
             default: null,
+        },
+        //Whether or not this week has been submitted to the instructor for evaluation
+        submitted_to_instructor: {
+            type: Boolean,
+            default: false,
         },
         //Equivalent form: Skills assessment form
         skills_assessment: {
