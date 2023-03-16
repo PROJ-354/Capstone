@@ -37,7 +37,7 @@ export default function ViewChecklist() {
             <Typography variant="h4">
                 {checklistData.week.name} Skills Assessment
             </Typography>
-            <Form method="post">
+            <Form method="post" id="checklist-form">
                 {checklistData.week.skills_assessment.section.map((section) => (
                     <Accordion
                         key={section.name}
@@ -73,15 +73,12 @@ export default function ViewChecklist() {
                     })}
                 </TextField>
                 <Stack direction="row" spacing={1} alignContent="center">
-                    <Button variant="contained" type="submit">
-                        Submit
-                    </Button>
                     <Button variant="contained" onClick={() => setOpen(true)}>
-                        Dialog Submit
+                        Submit
                     </Button>
                     <Typography variant="body1">
                         By submitting this form you agree that all information entered is
-                        accurate and correct.
+                        accurate and true.
                     </Typography>
                 </Stack>
                 <Dialog open={open} onClose={() => setOpen(false)}>
@@ -94,7 +91,9 @@ export default function ViewChecklist() {
                     </DialogContent>
                     <DialogActions>
                         <Button onClick={() => setOpen(false)}>Cancel</Button>
-                        <Button type="submit">Submit</Button>
+                        <Button type="submit" form="checklist-form">
+                            Submit
+                        </Button>
                     </DialogActions>
                 </Dialog>
             </Form>
