@@ -1,7 +1,7 @@
 import mongoose from 'mongoose';
 import Week from '../models/Week.js';
 
-//GET a single week
+//GET a single week by the week's ID
 export const getWeek = async (req, res) => {
     //The ID of the week to get
     const { id } = req.params;
@@ -22,31 +22,10 @@ export const getWeek = async (req, res) => {
     }
 };
 
-//GET a master week
-export const getMasterWeek = async (req, res) => {
-    //The name of the week to get
-    const { name } = req.params;
+//ADD a new master week
+export const addMasterWeek = async (req, res) => {};
 
-    //Find the week
-    const week = await Week.findOne({ name, is_master: true });
-
-    //If no week is returned, respond with an error
-    if (!week) {
-        res.status(404).json({ error: 'No such master week' });
-    } else {
-        res.status(200).json({ week });
-    }
-};
-
-//GET all master weeks
-export const getAllMasterWeeks = async (req, res) => {
-    //Find the weeks
-    const weeks = Week.find({ is_maste: true });
-};
-
-//CREATE a new master week
-
-//CREATE a new week based on a master week
+//ADD a new week based on a master week's ID
 export const createWeek = async (req, res) => {
     //The name of the master weak to copy from
     const { name } = req.params;
@@ -62,7 +41,7 @@ export const createWeek = async (req, res) => {
     //Duplicate the master and change is_master to false
 };
 
-//UPDATE a week
+//UPDATE a week based on it's ID
 export const updateWeek = async (req, res) => {
     const { id } = req.params;
 
@@ -77,7 +56,7 @@ export const updateWeek = async (req, res) => {
     }
 
     //Set the preceptor's ID in the checklist
-    await Week.findOneAndUpdate({ _id: id }, { preceptor_id: req.body.preceptorId });
+    await Week.updateOne({ _id: id }, { preceptor_id: req.body.preceptorId });
 
     //Filters for determining which data to change
     const arrayFilters = {
@@ -117,7 +96,7 @@ export const updateWeek = async (req, res) => {
         };
 
         //Update the object
-        await Week.findOneAndUpdate({ _id: id }, newData, arrayFilters);
+        await Week.updateOne({ _id: id }, newData, arrayFilters);
     });
 
     //Get the week so we can return it
@@ -125,7 +104,7 @@ export const updateWeek = async (req, res) => {
     res.status(200).json(week);
 };
 
-//SUBMIT a week
+//SUBMIT a week to a preceptor
 export const submitWeek = async (req, res) => {
     const { id } = req.params;
 
@@ -144,6 +123,7 @@ export const submitWeek = async (req, res) => {
 };
 
 //DELETE a week
+export const deleteWeek = async (req, res) => {};
 
 //GET all of a user's weeks
 export const getUsersWeeks = async (req, res) => {
