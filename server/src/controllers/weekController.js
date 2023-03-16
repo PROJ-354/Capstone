@@ -125,6 +125,11 @@ export const updateWeek = async (req, res) => {
     res.status(200).json(week);
 };
 
+//SUBMIT a week
+export const submitWeek = async (req, res) => {
+    const { id } = req.params;
+};
+
 //DELETE a week
 
 //GET all of a user's weeks

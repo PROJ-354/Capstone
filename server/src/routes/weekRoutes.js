@@ -1,5 +1,10 @@
 import express from 'express';
-import { getUsersWeeks, getWeek, updateWeek } from '../controllers/weekController.js';
+import {
+    getUsersWeeks,
+    getWeek,
+    submitWeek,
+    updateWeek,
+} from '../controllers/weekController.js';
 
 const router = express.Router();
 
@@ -16,6 +21,9 @@ router.post('/:id');
 
 //PATCH a week
 router.patch('/:id', updateWeek);
+
+//SUBMIT a week
+router.patch('/submit/:id', submitWeek);
 
 //DELETE a week
 router.delete('/:id');

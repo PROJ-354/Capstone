@@ -30,3 +30,8 @@ export const viewAllChecklistsLoader = async ({ params }) => {
 
     return await checklistRes.json();
 };
+
+export const submitChecklistAction = async ({ request }) => {
+    const formData = await request.formData();
+    console.log(formData.getItem('id'));
+};
