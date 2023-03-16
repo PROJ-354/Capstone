@@ -16,7 +16,6 @@ import Login from './pages/Login';
 import Signup from './pages/Signup';
 import ViewAllChecklists, {
     viewAllChecklistsLoader,
-    submitChecklistAction,
 } from './pages/student/checklist/ViewAllChecklists';
 
 //Preceptor Pages
@@ -43,7 +42,6 @@ const router = createBrowserRouter(
                     index
                     element={<ViewAllChecklists />}
                     loader={viewAllChecklistsLoader}
-                    action={submitChecklistAction}
                 />
                 <Route
                     path=":id"
