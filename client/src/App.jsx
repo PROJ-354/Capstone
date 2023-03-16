@@ -8,7 +8,7 @@ import {
 // Layouts
 import RootLayout from './layouts/RootLayout';
 import ViewChecklist, {
-    checklistAction,
+    saveChecklistAction,
     checklistLoader,
 } from './pages/student/checklist/ViewChecklist';
 // Pages
@@ -47,7 +47,7 @@ const router = createBrowserRouter(
                     path=":id"
                     element={<ViewChecklist />}
                     loader={checklistLoader}
-                    action={checklistAction}
+                    action={saveChecklistAction}
                 />
             </Route>
 

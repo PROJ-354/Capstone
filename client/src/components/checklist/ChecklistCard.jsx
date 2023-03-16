@@ -5,11 +5,11 @@ export default function WeekCard({ checklist }) {
     const navigate = useNavigate();
 
     return (
-        <Card sx={{ maxWidth: '250px' }}>
+        <Card sx={{ maxWidth: '300px' }}>
             <CardContent>
                 <Typography variant="h5">{checklist.name}</Typography>
                 <Typography variant="body1">
-                    View your form for this week's skills assessment!
+                    Preceptor: {checklist.preceptor_id}
                 </Typography>
             </CardContent>
             <CardActions>
@@ -21,9 +21,6 @@ export default function WeekCard({ checklist }) {
                     }}
                 >
                     View
-                </Button>
-                <Button color="success" variant="contained">
-                    Submit
                 </Button>
             </CardActions>
         </Card>

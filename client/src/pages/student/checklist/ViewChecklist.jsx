@@ -37,7 +37,7 @@ export default function ViewChecklist() {
             <Typography variant="h4">
                 {checklistData.week.name} Skills Assessment
             </Typography>
-            <Form method="post" id="checklist-form">
+            <Form method="post" id="submit-checklist-form">
                 {checklistData.week.skills_assessment.section.map((section) => (
                     <Accordion
                         key={section.name}
@@ -62,7 +62,12 @@ export default function ViewChecklist() {
                     select
                     fullWidth
                     name="selected-preceptor"
-                    defaultValue={''}
+                    defaultValue={
+                        checklistData.week.preceptor_id !== '' &&
+                        checklistData.week.preceptor_id !== null
+                            ? checklistData.week.preceptor_id
+                            : ''
+                    }
                 >
                     {preceptorData.map((preceptor) => {
                         return (
@@ -73,7 +78,11 @@ export default function ViewChecklist() {
                     })}
                 </TextField>
                 <Stack direction="row" spacing={1} alignContent="center">
-                    <Button variant="contained" onClick={() => setOpen(true)}>
+                    <Button
+                        variant="contained"
+                        color="primary"
+                        onClick={() => setOpen(true)}
+                    >
                         Submit
                     </Button>
                     <Typography variant="body1">
@@ -91,7 +100,7 @@ export default function ViewChecklist() {
                     </DialogContent>
                     <DialogActions>
                         <Button onClick={() => setOpen(false)}>Cancel</Button>
-                        <Button type="submit" form="checklist-form">
+                        <Button type="submit" form="submit-checklist-form">
                             Submit
                         </Button>
                     </DialogActions>
@@ -101,7 +110,28 @@ export default function ViewChecklist() {
     );
 }
 
-export const checklistAction = async ({ request, params }) => {
+export const checklistLoader = async ({ params }) => {
+    const checklistRes = await fetch(`http://localhost:42069/api/weeks/${params.id}`);
+    const preceptorRes = await fetch(`http://localhost:42069/api/users/preceptors`);
+
+    if (!checklistRes.ok) {
+        console.log('There was an error retreiving that checklist');
+    }
+
+    if (!preceptorRes.ok) {
+        console.log('There was an error retreiving the preceptors');
+    }
+
+    const checklistData = await checklistRes.json();
+    const preceptorData = await preceptorRes.json();
+
+    return {
+        checklistData,
+        preceptorData,
+    };
+};
+
+export const saveChecklistAction = async ({ request, params }) => {
     const formData = await request.formData();
     const res = await fetch(`http://localhost:42069/api/weeks/${params.id}`);
     const loaderData = await res.json();
@@ -140,25 +170,4 @@ export const checklistAction = async ({ request, params }) => {
     });
 
     return redirect('/checklist');
-};
-
-export const checklistLoader = async ({ params }) => {
-    const checklistRes = await fetch(`http://localhost:42069/api/weeks/${params.id}`);
-    const preceptorRes = await fetch(`http://localhost:42069/api/users/preceptors`);
-
-    if (!checklistRes.ok) {
-        console.log('There was an error retreiving that checklist');
-    }
-
-    if (!preceptorRes.ok) {
-        console.log('There was an error retreiving the preceptors');
-    }
-
-    const checklistData = await checklistRes.json();
-    const preceptorData = await preceptorRes.json();
-
-    return {
-        checklistData,
-        preceptorData,
-    };
 };
