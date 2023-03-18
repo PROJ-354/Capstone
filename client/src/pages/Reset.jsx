@@ -11,9 +11,11 @@ const Reset = () => {
     const { getCode, resetPassword, codeObject, error, isLoading } = useReset();
 
     useEffect(() => {
-        console.log(id);
-        getCode(id);
-        setEmail(codeObject.email);
+        const wraper = async () => {
+            await getCode(id);
+            console.log(codeObject);
+            setEmail(codeObject.email);
+        }
     });
 
     const handlePassword = (event) => {

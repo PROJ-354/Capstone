@@ -17,15 +17,15 @@ export const useReset = () => {
             body: JSON.stringify({ id }),
         });
 
-        const json = await response.json();
-        console.log(json);
+        const codeObject = await response.json();
+        console.log(codeObject);
         console.log(id);
         
         if (!response.ok) {
             setIsLoading(false);
-            setError(json.error);
+            setError(codeObject.error);
         } else {
-            setCodeObject(JSON.parse(json));
+            setCodeObject(codeObject);
             setIsLoading(false);
         }
     }

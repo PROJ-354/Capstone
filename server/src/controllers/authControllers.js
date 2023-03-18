@@ -107,7 +107,7 @@ export const sendEmail = async (req, res, next) => {
 
         const info = await transporter.sendMail({
             from: "CompetencyTrackingTool@outlook.com",
-            to: "ryan.p.delorme@gmail.com", // Change to email variable
+            to: "CompetencyTrackingTool@outlook.com", // Change to email variable
             subject: "Reset Password",
             text: "http://localhost:3000/reset/" + resetCode._id,
         });
@@ -119,10 +119,12 @@ export const sendEmail = async (req, res, next) => {
 
 export const getCode = async (req, res, next) => {
     try {
-        const { recoveryID } = req.body;
+        const { id } = req.body;
+        console.log(id);
         const codeObject = await Forgot.findOne({
-            _id: recoveryID,
+            _id: id,
         });
+        console.log(codeObject);
         const currentDate = new Date();         
         /* CHECKS EXPIRY DATE
         if(currentDate > codeObject.expiryDate) {
