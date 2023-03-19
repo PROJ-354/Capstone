@@ -34,8 +34,8 @@ export const useReset = () => {
             const email = res.result.email;
             return email;
         }
-    }
-    
+    };
+
     const resetPassword = async (id, email, password, confirmPassword) => {
         setIsLoading(true);
         setError(null);
@@ -52,10 +52,10 @@ export const useReset = () => {
         if (!response.ok) {
             setIsLoading(false);
             setError(res.error);
-        } 
+        }
         if (response.ok) {
-            setMessage(res.success); 
-            deleteCode(id);           
+            setMessage(res.success);
+            deleteCode(id);
         }
     };
 
@@ -65,7 +65,7 @@ export const useReset = () => {
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify({ id }),
         });
-    }
+    };
 
     return { getCode, resetPassword, isLoading, message, error };
 };

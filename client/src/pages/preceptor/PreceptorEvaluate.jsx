@@ -112,7 +112,7 @@ export default function PreceptorEvaluate() {
 }
 
 export const evaluateLoader = async () => {
-    const res = await fetch('http://localhost:42069/preceptor/eval');
+    const res = await fetch('http://localhost:42069/api/preceptor/eval');
     return res;
 };
 
@@ -120,7 +120,7 @@ export const evaluateAction = async ({ request }) => {
     //grab the form data
     const data = await request.formData();
     //grab the master evaluation
-    const res = await fetch('http://localhost:42069/preceptor/eval');
+    const res = await fetch('http://localhost:42069/api/preceptor/eval');
     const newEval = await res.json();
 
     const student_id = Math.floor(Math.random() * 10000);
@@ -138,7 +138,7 @@ export const evaluateAction = async ({ request }) => {
         evals.skill_rating = data.get(evals.skill_name + 'rating');
     });
 
-    fetch('http://localhost:42069/preceptor/eval', {
+    fetch('http://localhost:42069/api/preceptor/eval', {
         method: 'POST',
         body: JSON.stringify(newEval),
         headers: { 'Content-Type': 'application/json' },

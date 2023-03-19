@@ -1,14 +1,6 @@
 import { useSignup } from '../hooks/useSignup';
 import { useState } from 'react';
-import {
-    Typography,
-    Button,
-    Stack,
-    TextField,
-    Link,
-    Alert,
-    Container,
-} from '@mui/material';
+import { Typography, Button, Stack, TextField, Alert, Container } from '@mui/material';
 import { useNavigate } from 'react-router-dom';
 const Signup = () => {
     const [role, setRole] = useState('');
@@ -127,7 +119,7 @@ const Signup = () => {
                         Sign up
                     </Button>
                     <Stack direction="row">
-                        <Button variant="text" onClick={() => navigate('/recover')}>
+                        <Button variant="text" onClick={() => navigate('/request')}>
                             Forgot Password
                         </Button>
                         <Button variant="text" onClick={() => navigate('/')}>
