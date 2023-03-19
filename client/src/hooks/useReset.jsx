@@ -25,10 +25,9 @@ export const useReset = () => {
         const res = await response.json();
 
         if (!response.ok) {
-            setIsLoading(false);
-            setError(res.error);
-            navigate('/request/' + res.error);
-        } 
+            deleteCode(id);
+            navigate('*');
+        }
         if (response.ok) {
             setIsLoading(false);
             setMessage(res.success);
@@ -37,7 +36,7 @@ export const useReset = () => {
         }
     }
     
-    const resetPassword = async (email, password, confirmPassword) => {
+    const resetPassword = async (id, email, password, confirmPassword) => {
         setIsLoading(true);
         setError(null);
         setMessage(null);
@@ -45,7 +44,7 @@ export const useReset = () => {
         const response = await fetch('http://localhost:42069/api/auth/reset', {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({ email, password, confirmPassword }),
+            body: JSON.stringify({ id, email, password, confirmPassword }),
         });
 
         const res = await response.json();
@@ -55,9 +54,18 @@ export const useReset = () => {
             setError(res.error);
         } 
         if (response.ok) {
-            setMessage(res.success);            
+            setMessage(res.success); 
+            deleteCode(id);           
         }
     };
+
+    const deleteCode = async (id) => {
+        const response = await fetch(`http://localhost:42069/api/auth/deleteCode/${id}`, {
+            method: 'DELETE',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ id }),
+        });
+    }
 
     return { getCode, resetPassword, isLoading, message, error };
 };

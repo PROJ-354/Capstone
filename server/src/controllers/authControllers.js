@@ -125,6 +125,9 @@ export const getCode = async (req, res, next) => {
         const resetCode = await ResetCode.findOne({
             _id: id,
         });
+        if (!resetCode) {
+            return res.status(401).json({ error: 'Your password reset link has expired.' });
+        }
         const currentDate = new Date();         
         // Check the expiry date
         if(currentDate > resetCode.expiryDate) {
@@ -166,6 +169,20 @@ export const resetPassword = async (req, res, next) => {
         }
 
         return res.status(200).json({ success: 'Password updated!' });
+    } catch (error) {
+        next(error);
+    }
+}
+
+export const deleteCode = async (req, res, next) => {
+    try {
+        const { id } = req.body;
+        const filter = { _id: id };
+        const resetCode = await ResetCode.deleteOne(filter);     
+        if(!resetCode) {
+            return res.status(500).json({ error: 'Sorry the application encountered a problem.' });
+        }
+        return res.status(200).json({ message: 'Reset code has been used.' })
     } catch (error) {
         next(error);
     }

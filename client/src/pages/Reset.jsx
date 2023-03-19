@@ -23,7 +23,7 @@ const Reset = () => {
 
     const handlePassword = (event) => {
         event.preventDefault();
-        resetPassword(email, password, confirmPassword);
+        resetPassword(id, email, password, confirmPassword);
     };
 
     return (

@@ -16,6 +16,7 @@ import Login from './pages/Login';
 import Signup from './pages/Signup';
 import Request from './pages/Request';
 import Reset from './pages/Reset';
+import NotFound from './pages/NotFound';
 
 const router = createBrowserRouter(
     createRoutesFromElements(
@@ -29,8 +30,8 @@ const router = createBrowserRouter(
             />
             <Route path="/signup" element={<Signup />} />
             <Route path="/request" element={<Request />} />
-            <Route path="/request/:e" element={<Request />} />
             <Route path="/reset/:id" element={<Reset />} />
+            <Route path="*" element={<NotFound />} />
         </Route>
     )
 );

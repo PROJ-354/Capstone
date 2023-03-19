@@ -1,11 +1,8 @@
 import { useRequest } from '../hooks/useRequest';
 import { useState } from 'react';
 import { Typography, Button, Stack, TextField, Link, Alert } from '@mui/material';
-import { useParams } from 'react-router-dom';
-
 
 const Request = () => {
-    const { e } = useParams();
     const [email, setEmail] = useState('');
     const { sendEmail, isLoading, message, error } = useRequest();
     
@@ -24,7 +21,6 @@ const Request = () => {
                 <br />
                 {message && <Alert severity='success'>{message}</Alert>}
                 {error && <Alert severity='error'>{error}</Alert>}
-                {e && <Alert severity='error'>{e}</Alert>}
                 <br /><br />
                 <Stack direction="row" spacing={2}>
                     <TextField
