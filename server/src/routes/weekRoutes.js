@@ -1,23 +1,35 @@
 import express from 'express';
-import { getWeek, updateWeek } from '../controllers/weekController.js';
+import {
+    addMasterWeek,
+    createWeek,
+    deleteWeek,
+    getUsersWeeks,
+    getWeek,
+    submitWeek,
+    updateWeek,
+} from '../controllers/weekController.js';
 
 const router = express.Router();
 
-//GET a single week
+//GET a single week by the week's ID
 router.get('/:id', getWeek);
 
-//POST a new master week
-router.post('/master');
+//ADD a new master week
+router.post('/master', addMasterWeek);
 
-//POST a new week based on a master week
-router.post('/:id');
+//ADD a new week based on a master week's ID
+router.post('/:id', createWeek);
 
-//router.post('/',);
-
-//PATCH a week
+//UPDATE a week based on it's ID
 router.patch('/:id', updateWeek);
 
+//SUBMIT a week to a preceptor
+router.patch('/submit/:id', submitWeek);
+
 //DELETE a week
-router.delete('/:id');
+// router.delete('/:id', deleteWeek);
+
+//GET all of a user's weeks
+router.get('/user/:id', getUsersWeeks);
 
 export default router;

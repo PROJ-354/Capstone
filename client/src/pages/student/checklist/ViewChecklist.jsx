@@ -1,96 +1,152 @@
 import {
-    Autocomplete,
+    Accordion,
+    AccordionDetails,
+    AccordionSummary,
     Box,
     Button,
+    Dialog,
+    DialogActions,
+    DialogContent,
+    DialogContentText,
+    DialogTitle,
+    MenuItem,
     Stack,
-    Tab,
     TextField,
     Typography,
 } from '@mui/material';
 import { Form, redirect, useLoaderData } from 'react-router-dom';
 import { useState } from 'react';
-import { TabContext, TabList } from '@mui/lab';
-import ChecklistTabPanel from '../../../components/ChecklistTabPanel';
-
-const preceptors = [
-    {
-        name: 'Simon Dumalski',
-        id: '1234',
-    },
-    {
-        name: 'Brooks Maclean',
-        id: '4321',
-    },
-];
+import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
+import ChecklistAccordion from '../../../components/checklist/ChecklistAccordion';
 
 export default function ViewChecklist() {
-    const [tabValue, setTabValue] = useState('Lensometry');
-    const [preceptor, setPreceptor] = useState(null);
+    //Grabs the data from the backend using the loader function
+    const { checklistData, preceptorData } = useLoaderData();
 
-    const handleChange = (event, newValue) => {
-        setTabValue(newValue);
+    //Which accordion is currently expanded
+    const [expanded, setExpanded] = useState(false);
+    const handleChange = (isExpanded, panel) => {
+        setExpanded(isExpanded ? panel : false);
     };
 
-    //Grabs the data from the backend using the loader function
-    const checklist = useLoaderData();
+    //Whether or not the dialog/modal is currently open
+    const [open, setOpen] = useState(false);
 
     return (
-        <Box>
-            <Typography variant="h4">{checklist.week.name} Skills Assessment</Typography>
-            <TabContext value={tabValue}>
-                <Box>
-                    <TabList aria-label="Skills assessment forms" onChange={handleChange}>
-                        {checklist.week.skills_assessment.section.map((section) => (
-                            <Tab
-                                key={section.name}
-                                label={section.name}
-                                value={section.name}
-                            />
-                        ))}
-                    </TabList>
-                </Box>
-                <Form method="post">
-                    {checklist.week.skills_assessment.section.map((section) => (
-                        <ChecklistTabPanel key={section.name} section={section} />
-                    ))}
-                    <Autocomplete
-                        disablePortal
-                        options={preceptors}
-                        renderInput={(params) => (
-                            <TextField
-                                name={'selected-preceptor-name'}
-                                {...params}
-                                label="Preceptor"
-                            />
-                        )}
-                        value={preceptor}
-                        onChange={(event, newValue) => setPreceptor(newValue)}
-                    />
-                    <Stack direction="row" spacing={1} alignContent="center">
-                        <Button variant="contained" type="submit">
+        <Box p={2}>
+            <Typography variant="h4">
+                {checklistData.week.name} Skills Assessment
+            </Typography>
+            <Form method="post" id="submit-checklist-form">
+                {checklistData.week.skills_assessment.section.map((section) => (
+                    <Accordion
+                        key={section.name}
+                        expanded={expanded === section.name}
+                        onChange={(event, isExpanded) =>
+                            handleChange(isExpanded, section.name)
+                        }
+                    >
+                        <AccordionSummary
+                            id={`${section.name}-header`}
+                            expandIcon={<ExpandMoreIcon />}
+                        >
+                            <Typography>{section.name}</Typography>
+                        </AccordionSummary>
+                        <AccordionDetails>
+                            <ChecklistAccordion section={section} />
+                        </AccordionDetails>
+                    </Accordion>
+                ))}
+                <TextField
+                    label="Preceptor"
+                    select
+                    fullWidth
+                    name="selected-preceptor"
+                    defaultValue={
+                        checklistData.week.preceptor_id !== '' &&
+                        checklistData.week.preceptor_id !== null
+                            ? checklistData.week.preceptor_id
+                            : ''
+                    }
+                >
+                    {preceptorData.map((preceptor) => {
+                        return (
+                            <MenuItem key={preceptor._id} value={preceptor._id}>
+                                {preceptor.firstName} {preceptor.lastName}
+                            </MenuItem>
+                        );
+                    })}
+                </TextField>
+                <Stack direction="row" spacing={1} alignContent="center">
+                    <Button
+                        variant="contained"
+                        color="primary"
+                        onClick={() => setOpen(true)}
+                    >
+                        Submit
+                    </Button>
+                    <Typography variant="body1">
+                        By submitting this form you agree that all information entered is
+                        accurate and true.
+                    </Typography>
+                </Stack>
+                <Dialog open={open} onClose={() => setOpen(false)}>
+                    <DialogTitle>Submit the form?</DialogTitle>
+                    <DialogContent>
+                        <DialogContentText>
+                            Are you sure you want to submit the form? You will not be able
+                            to edit after submitting.
+                        </DialogContentText>
+                    </DialogContent>
+                    <DialogActions>
+                        <Button onClick={() => setOpen(false)}>Cancel</Button>
+                        <Button type="submit" form="submit-checklist-form">
                             Submit
                         </Button>
-                        <Typography variant="body1">
-                            By submitting this form you agree that all information entered
-                            is accurate and correct.
-                        </Typography>
-                    </Stack>
-                </Form>
-            </TabContext>
+                    </DialogActions>
+                </Dialog>
+            </Form>
         </Box>
     );
 }
 
-export const checklistAction = async ({ request }) => {
+export const checklistLoader = async ({ params }) => {
+    //Get the user's checklists and a list of all preceptors from the database
+    const checklistRes = await fetch(`http://localhost:42069/api/weeks/${params.id}`);
+    const preceptorRes = await fetch(`http://localhost:42069/api/users/preceptors`);
+
+    if (!checklistRes.ok) {
+        console.log('There was an error retreiving that checklist');
+    }
+
+    if (!preceptorRes.ok) {
+        console.log('There was an error retreiving the preceptors');
+    }
+
+    const checklistData = await checklistRes.json();
+    const preceptorData = await preceptorRes.json();
+
+    return {
+        checklistData,
+        preceptorData,
+    };
+};
+
+export const saveChecklistAction = async ({ request, params }) => {
+    //Get the submitted from data and the checklist that is being updated from the database
     const formData = await request.formData();
-    const id = request.url.split('/')[4];
-    const res = await fetch(`http://localhost:42069/api/weeks/${id}`);
+    const res = await fetch(`http://localhost:42069/api/weeks/${params.id}`);
     const loaderData = await res.json();
 
-    const resData = [];
+    //Get the selected preceptor's ID
+    const preceptorId = formData.get('selected-preceptor');
 
-    const preceptorName = formData.get('selected-preceptor-name');
+    const resData = {
+        preceptorId,
+        data: [],
+    };
 
+    //Loop through the form data and get the values the student has submitted
     //eslint-disable-next-line
     loaderData.week.skills_assessment.section.map((section) => {
         //eslint-disable-next-line
@@ -100,40 +156,24 @@ export const checklistAction = async ({ request }) => {
                     `${section.name} ${skill.name} Experience ${i}`
                 );
                 const date = formData.get(`${section.name} date ${i}`);
-                resData.push({
+                resData.data.push({
                     section: section.name,
                     skill: skill.name,
                     experience: i + 1,
                     date: date,
                     checked: data === null ? false : true,
-                    preceptorName,
                 });
             }
         });
     });
 
-    //console.log(resData);
-
-    const response = await fetch(`http://localhost:42069/api/weeks/${id}`, {
+    //Send the update to the database
+    await fetch(`http://localhost:42069/api/weeks/${params.id}`, {
         method: 'PATCH',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(resData),
     });
 
-    const json = await response.json();
-    console.log(json);
-
-    return redirect('/checklist/63ebfbda6549b2938d8c11f1');
-};
-
-export const checklistLoader = async ({ params }) => {
-    const res = await fetch(`http://localhost:42069/api/weeks/${params.id}`);
-
-    if (!res.ok) {
-        console.log('There was an error retreiving that checklist');
-    }
-
-    const data = await res.json();
-    //console.log(data);
-    return data;
+    //Redirect to the homepage
+    return redirect('/checklist');
 };

@@ -8,9 +8,12 @@ import {
 // Layouts
 import RootLayout from './layouts/RootLayout';
 import ViewChecklist, {
-    checklistAction,
+    saveChecklistAction,
     checklistLoader,
 } from './pages/student/checklist/ViewChecklist';
+import ViewAllChecklists, {
+    viewAllChecklistsLoader,
+} from './pages/student/checklist/ViewAllChecklists';
 // Pages
 import Login from './pages/Login';
 import Signup from './pages/Signup';
@@ -36,12 +39,21 @@ const router = createBrowserRouter(
     createRoutesFromElements(
         <Route path="/" element={<RootLayout />}>
             <Route index element={<Login />} />
-            <Route
-                path="/checklist/:id"
-                element={<ViewChecklist />}
-                loader={checklistLoader}
-                action={checklistAction}
-            />
+
+            <Route path="checklist">
+                <Route
+                    index
+                    element={<ViewAllChecklists />}
+                    loader={viewAllChecklistsLoader}
+                />
+                <Route
+                    path=":id"
+                    element={<ViewChecklist />}
+                    loader={checklistLoader}
+                    action={saveChecklistAction}
+                />
+            </Route>
+
             <Route path="/signup" element={<Signup />} />
             <Route path="/request" element={<Request />} />
             <Route path="/reset/:id" element={<Reset />} />

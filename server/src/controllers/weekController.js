@@ -1,7 +1,8 @@
 import mongoose from 'mongoose';
 import Week from '../models/Week.js';
+import User from '../models/User.js';
 
-//GET a single week
+//GET a single week by the week's ID
 export const getWeek = async (req, res) => {
     //The ID of the week to get
     const { id } = req.params;
@@ -22,31 +23,10 @@ export const getWeek = async (req, res) => {
     }
 };
 
-//GET a master week
-export const getMasterWeek = async (req, res) => {
-    //The name of the week to get
-    const { name } = req.params;
+//ADD a new master week
+export const addMasterWeek = async (req, res) => {};
 
-    //Find the week
-    const week = await Week.findOne({ name, is_master: true });
-
-    //If no week is returned, respond with an error
-    if (!week) {
-        res.status(404).json({ error: 'No such master week' });
-    } else {
-        res.status(200).json({ week });
-    }
-};
-
-//GET all master weeks
-export const getAllMasterWeeks = async (req, res) => {
-    //Find the weeks
-    const weeks = Week.find({ is_maste: true });
-};
-
-//CREATE a new master week
-
-//CREATE a new week based on a master week
+//ADD a new week based on a master week's ID
 export const createWeek = async (req, res) => {
     //The name of the master weak to copy from
     const { name } = req.params;
@@ -62,7 +42,7 @@ export const createWeek = async (req, res) => {
     //Duplicate the master and change is_master to false
 };
 
-//UPDATE a week
+//UPDATE a week based on it's ID
 export const updateWeek = async (req, res) => {
     const { id } = req.params;
 
@@ -76,6 +56,9 @@ export const updateWeek = async (req, res) => {
         return res.status(404).json({ error: 'No such week' });
     }
 
+    //Set the preceptor's ID in the checklist
+    await Week.updateOne({ _id: id }, { preceptor_id: req.body.preceptorId });
+
     //Filters for determining which data to change
     const arrayFilters = {
         arrayFilters: [],
@@ -87,7 +70,7 @@ export const updateWeek = async (req, res) => {
     };
 
     //Loop through the provided request body
-    req.body.map(async (entry) => {
+    req.body.data.map(async (entry) => {
         //Reset the filters and new data
         arrayFilters.arrayFilters = [];
         newData.$set = [];
@@ -110,11 +93,11 @@ export const updateWeek = async (req, res) => {
             'skills_assessment.section.$[section].skills.$[skills].experiences.$[experience].student_checked':
                 entry.checked,
             'skills_assessment.section.$[section].skills.$[skills].experiences.$[experience].date':
-                entry.date === null ? null : Date.parse(entry.date),
+                entry.date === '' ? null : Date.parse(entry.date),
         };
 
         //Update the object
-        await Week.findOneAndUpdate({ _id: id }, newData, arrayFilters);
+        await Week.updateOne({ _id: id }, newData, arrayFilters);
     });
 
     //Get the week so we can return it
@@ -122,4 +105,59 @@ export const updateWeek = async (req, res) => {
     res.status(200).json(week);
 };
 
+//SUBMIT a week to a preceptor
+export const submitWeek = async (req, res) => {
+    const { id } = req.params;
+
+    if (!mongoose.Types.ObjectId.isValid(id)) {
+        return res.status(404).json({ error: 'Invalid id' });
+    }
+
+    const week = await Week.findById(id);
+
+    if (!week.preceptor_id) {
+        return res.status(400).json({ error: 'No preceptor has been selected' });
+    }
+
+    await Week.updateOne({ _id: id }, { submitted_to_preceptor: true });
+    res.status(200).json({ message: 'Checklist submitted successfully' });
+};
+
 //DELETE a week
+export const deleteWeek = async (req, res) => {};
+
+//GET all of a user's weeks
+export const getUsersWeeks = async (req, res) => {
+    const { id } = req.params;
+
+    if (!mongoose.Types.ObjectId.isValid(id)) {
+        return res.status(400).json({ error: 'Invalid id' });
+    }
+
+    const user = await User.findById(id);
+    const filter = {};
+    switch (user.role) {
+        case 'student':
+            filter.student_id = id;
+            break;
+        case 'preceptor':
+            filter.preceptor_id = id;
+            filter.submitted_to_preceptor = true;
+            filter.submitted_to_instructor = false;
+            break;
+        case 'instructor':
+            filter.instructor_id = id;
+            filter.submitted_to_instructor = true;
+            break;
+        default:
+            break;
+    }
+
+    const weeks = await Week.find(filter);
+
+    if (!weeks) {
+        res.status(404).json({ error: 'No weeks found for that user' });
+    } else {
+        res.status(200).json(weeks);
+    }
+};

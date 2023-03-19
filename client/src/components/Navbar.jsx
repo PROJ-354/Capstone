@@ -2,19 +2,20 @@ import React from 'react';
 import {
     AppBar,
     Toolbar,
-    Box,
     Typography,
     Button,
     Stack,
-    TextField,
-    Link,
+    Avatar,
+    IconButton,
 } from '@mui/material';
+import SettingsIcon from '@mui/icons-material/Settings';
 import { useLogout } from '../hooks/useLogout';
 import { useNavigate } from 'react-router-dom';
+import { useAuthContext } from '../hooks/useAuthContext';
 
 const Navbar = () => {
     //functions and variables defined here
-    const user = JSON.parse(localStorage.getItem('auth'));
+    const { user } = useAuthContext();
 
     const navigate = useNavigate();
 
@@ -28,41 +29,37 @@ const Navbar = () => {
 
     //return jsx component
     return (
-        <Box sx={{ flexGrow: 1 }}>
-            <AppBar position="static">
+        <AppBar position="static">
+            <Toolbar>
+                <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
+                    Competency Tracking Tool
+                </Typography>
                 <Stack direction="row" spacing={2}>
-                    <Toolbar>
-                        <Typography variant="h6" sx={{ flexGrow: 1 }}>
-                            Competency Tracking Tool
-                        </Typography>
-                    </Toolbar>
-                    <Toolbar>
-                        <Typography variant="h6">
-                            {user && (
-                                <Stack direction="row" spacing={6}>
-                                    <Typography variant="h6">
-                                        {user.result.firstName} {user.result.lastName}
-                                    </Typography>
-                                    <Button color="inherit" onClick={handleClick}>
-                                        Logout
-                                    </Button>
-                                </Stack>
-                            )}
-                        </Typography>
-                    </Toolbar>
-                    <Toolbar>
-                        <Button
-                            color="inherit"
-                            onClick={() =>
-                                navigate('/checklist/63ebfbda6549b2938d8c11f1')
-                            }
-                        >
-                            Checklist
-                        </Button>
-                    </Toolbar>
+                    <Button
+                        size="sm"
+                        color="inherit"
+                        onClick={() => navigate('/checklist')}
+                    >
+                        Checklists
+                    </Button>
+                    <Button
+                        size="sm"
+                        variant="contained"
+                        color="error"
+                        onClick={handleClick}
+                    >
+                        Logout
+                    </Button>
+                    <Avatar>
+                        {user && user.result.firstName.charAt(0).toUpperCase()}
+                        {user && user.result.lastName.charAt(0).toUpperCase()}
+                    </Avatar>
+                    <IconButton color="inherit" size="small">
+                        <SettingsIcon />
+                    </IconButton>
                 </Stack>
-            </AppBar>
-        </Box>
+            </Toolbar>
+        </AppBar>
     );
 };
 

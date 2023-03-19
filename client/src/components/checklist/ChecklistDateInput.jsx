@@ -2,7 +2,7 @@ import { TableCell, Input } from '@mui/material';
 import { useState } from 'react';
 
 export default function ChecklistTabPanelDateInput({ sectionName, id, dateValue }) {
-    const [date, setDate] = useState(dateValue.split('T')[0]);
+    const [date, setDate] = useState(dateValue == null ? '' : dateValue.split('T')[0]);
 
     return (
         <TableCell>
