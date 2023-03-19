@@ -57,7 +57,7 @@ const Login = () => {
                         </Link>
                     </Typography>
                     <Typography variant="h6">
-                        <Link href="/recover" underline="hover">
+                        <Link href="/request" underline="hover">
                             Forgot password?
                         </Link>
                     </Typography>

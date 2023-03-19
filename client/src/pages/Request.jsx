@@ -1,11 +1,11 @@
-import { useRecover } from '../hooks/useRecover';
+import { useRequest } from '../hooks/useRequest';
 import { useState } from 'react';
 import { Typography, Button, Stack, TextField, Link } from '@mui/material';
 
 
-const Recover = () => {
+const Request = () => {
     const [email, setEmail] = useState('');
-    const { sendEmail, error, isLoading } = useRecover();
+    const { sendEmail, error, isLoading } = useRequest();
 
     const handleEmail = (event) => {
         event.preventDefault();
@@ -45,4 +45,4 @@ const Recover = () => {
     );
 };
 
-export default Recover;
+export default Request;

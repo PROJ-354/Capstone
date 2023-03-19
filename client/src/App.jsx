@@ -14,7 +14,7 @@ import ViewChecklist, {
 // Pages
 import Login from './pages/Login';
 import Signup from './pages/Signup';
-import Recover from './pages/Recover';
+import Request from './pages/Request';
 import Reset from './pages/Reset';
 
 const router = createBrowserRouter(
@@ -28,7 +28,7 @@ const router = createBrowserRouter(
                 action={checklistAction}
             />
             <Route path="/signup" element={<Signup />} />
-            <Route path="/recover" element={<Recover />} />
+            <Route path="/request" element={<Request />} />
             <Route path="/reset/:id" element={<Reset />} />
         </Route>
     )

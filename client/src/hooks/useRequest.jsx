@@ -1,7 +1,7 @@
 import { useState } from 'react';
 // import { useAuthContext } from './useAuthContext';
 
-export const useRecover = () => {
+export const useRequest = () => {
     const [error, setError] = useState(null);
     const [isLoading, setIsLoading] = useState(null);
     // const { dispatch } = useAuthContext();
@@ -10,7 +10,7 @@ export const useRecover = () => {
         setIsLoading(true);
         setError(null);
 
-        const response = await fetch('http://localhost:42069/api/auth/forgot', {
+        const response = await fetch('http://localhost:42069/api/auth/request', {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify({ email }),
