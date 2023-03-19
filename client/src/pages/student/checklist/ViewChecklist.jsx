@@ -28,7 +28,7 @@ export default function ViewChecklist() {
     const handleChange = (isExpanded, panel) => {
         setExpanded(isExpanded ? panel : false);
     };
-    //test commit
+
     //Whether or not the dialog/modal is currently open
     const [open, setOpen] = useState(false);
 
