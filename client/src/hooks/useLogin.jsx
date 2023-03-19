@@ -16,15 +16,15 @@ export const useLogin = () => {
             body: JSON.stringify({ email, password }),
         });
 
-        const json = await response.json();
+        const res = await response.json();
 
         if (!response.ok) {
             setIsLoading(false);
-            setError(json.error);
+            setError(res.error);
         }
         if (response.ok) {
-            localStorage.setItem('auth', JSON.stringify(json));
-            dispatch({ type: 'LOGIN', payload: json });
+            localStorage.setItem('auth', JSON.stringify(res));
+            dispatch({ type: 'LOGIN', payload: res });
             setIsLoading(false);
         }
     };

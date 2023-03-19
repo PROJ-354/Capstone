@@ -1,8 +1,15 @@
 import { useSignup } from '../hooks/useSignup';
 import { useState } from 'react';
-import { Typography, Button, Stack, TextField, Container } from '@mui/material';
+import {
+    Typography,
+    Button,
+    Stack,
+    TextField,
+    Link,
+    Alert,
+    Container,
+} from '@mui/material';
 import { useNavigate } from 'react-router-dom';
-
 const Signup = () => {
     const [role, setRole] = useState('');
     const [sait_id, setID] = useState('');
@@ -48,6 +55,9 @@ const Signup = () => {
                 <Typography variant="h5" component="h2" sx={{ fontWeight: 'bold' }}>
                     Sign up
                 </Typography>
+                <br />
+                {error && <Alert severity="error">{error}</Alert>}
+                <br />
                 <br />
                 <Stack spacing={2}>
                     <Stack spacing={2} direction="row">
@@ -125,7 +135,6 @@ const Signup = () => {
                         </Button>
                     </Stack>
                 </Stack>
-                {error && <div className="error">{error}</div>}
             </form>
         </Container>
     );
