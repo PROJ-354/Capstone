@@ -35,8 +35,6 @@ export const useReset = () => {
     const resetPassword = async (email, password, confirmPassword) => {
         setIsLoading(true);
         setError(null);
-        console.log(email)
-        console.log(password, confirmPassword);
 
         const response = await fetch('http://localhost:42069/api/auth/reset', {
             method: 'POST',

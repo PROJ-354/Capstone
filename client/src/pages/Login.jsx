@@ -1,6 +1,6 @@
 import { useLogin } from '../hooks/useLogin';
 import { useState } from 'react';
-import { Typography, Button, Stack, TextField, Link } from '@mui/material';
+import { Typography, Button, Stack, TextField, Link, Alert } from '@mui/material';
 import { useNavigate } from 'react-router-dom';
 
 const Login = () => {
@@ -15,7 +15,7 @@ const Login = () => {
         // Prevent default refresh page behaviour on form submission.
         event.preventDefault();
         login(email, password);
-        navigate('/checklist/63ebfbda6549b2938d8c11f1');
+        //navigate('/checklist/63ebfbda6549b2938d8c11f1');
     };
 
     /* onChange fires a function that takes in the event.
@@ -30,6 +30,8 @@ const Login = () => {
                 Sign in to your account
             </Typography>
             <br />
+            {error && <Alert severity='error'>{error}</Alert>}
+            <br /><br />
             <Stack direction="column" spacing={2}>
                 <Stack direction="row" spacing={2}>
                     <TextField
@@ -63,7 +65,6 @@ const Login = () => {
                     </Typography>
                 </Stack>
             </Stack>
-            {error && <div className="error">{error}</div>}
         </form>
     );
 };

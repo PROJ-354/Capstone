@@ -17,10 +17,11 @@ export const useLogin = () => {
         });
 
         const json = await response.json();
+        console.log("response is " + json);
 
         if (!response.ok) {
             setIsLoading(false);
-            setError(json.error);
+            setError(json);
         }
         if (response.ok) {
             localStorage.setItem('auth', JSON.stringify(json));

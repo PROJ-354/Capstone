@@ -6,15 +6,14 @@ import nodemailer from 'nodemailer';
 
 export const login = async (req, res, next) => {
     try {
-        console.log(req.body); // checking to see if req body is null
         const { email, password } = req.body;
         const existingUser = await User.findOne({ email: email });
         if (!existingUser) {
-            return res.status(500).json('User does not exist');
+            return res.status(401).send('Login unsuccessful. Please double check the email or password and try again.');
         }
         const isPasswordValid = await bcrypt.compare(password, existingUser.password);
         if (!isPasswordValid) {
-            return res.status(500).json('password is not valid');
+            return res.status(401).json('Login unsuccessful. Please double check the email or password and try again.');
         }
         const token = jwt.sign(
             { email: existingUser.email, id: existingUser._id },
@@ -22,7 +21,7 @@ export const login = async (req, res, next) => {
             process.env.SECRET,
             { expiresIn: '5h' }
         );
-        res.status(200).json({ result: existingUser, token: token });
+        return res.status(200).json({ result: existingUser, token: token });
     } catch (error) {
         next(error);
     }
@@ -45,10 +44,10 @@ export const register = async (req, res, next) => {
             email: email,
         });
         if (existingUser) {
-            res.status(500).json('User already exists'); // hello
+            return res.status(401).json('User already exists'); // hello
         }
         if (password !== confirmPassword) {
-            res.status(401).json('passwords do not match');
+            return res.status(401).json('passwords do not match');
         }
 
         //code for validating access code for students and preceptors here
@@ -70,7 +69,7 @@ export const register = async (req, res, next) => {
             process.env.SECRET,
             { expiresIn: '5h' }
         );
-        res.status(200).json({ result: userProfile, token: token });
+        return res.status(200).json({ result: userProfile, token: token });
     } catch (error) {
         next(error);
     }
@@ -108,7 +107,7 @@ export const sendEmail = async (req, res, next) => {
 
         const info = await transporter.sendMail({
             from: "CompetencyTrackingTool@outlook.com",
-            to: email, // Can change to specific email for testing
+            to: "CompetencyTrackingTool@outlook.com", // Change to email variable
             subject: "Reset Password",
             text: "http://localhost:3000/reset/" + resetCode._id,
         });
@@ -127,7 +126,7 @@ export const getCode = async (req, res, next) => {
         const currentDate = new Date();         
         // Check the expiry date
         if(currentDate > resetCode.expiryDate) {
-            return res.status(200).json(null);
+            return res.status(401).json(null);
         } else {
         }
         return res.status(200).json({ resetCode });
@@ -157,10 +156,10 @@ export const resetPassword = async (req, res, next) => {
         });
 
         if (!existingUser) {
-            return res.status(500).json('Internal system error');
+            return res.status(401).json('Internal system error');
         }
 
-        res.status(200).json({ result: existingUser });
+        return res.status(200).json({ result: existingUser });
     } catch (error) {
         next(error);
     }
