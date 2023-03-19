@@ -65,7 +65,7 @@ const Login = () => {
                         Sign In
                     </Button>
                     <Stack direction="row">
-                        <Button variant="text" onClick={() => navigate('/recover')}>
+                        <Button variant="text" onClick={() => navigate('/request')}>
                             Forgot Password
                         </Button>
                         <Button variant="text" onClick={() => navigate('/signup')}>
