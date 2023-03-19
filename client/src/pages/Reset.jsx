@@ -8,15 +8,16 @@ const Reset = () => {
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
     const [confirmPassword, setConfirmPassword] = useState('');
-    const { getCode, resetPassword, codeObject, error, isLoading } = useReset();
+    const { getCode, resetPassword, error, isLoading } = useReset();
+    const navigate = useNavigate();
 
     useEffect(() => {
-        const wraper = async () => {
-            await getCode(id);
-            console.log(codeObject);
-            setEmail(codeObject.email);
+        const wrapper = async () => {
+            const value = await getCode(id);
+            setEmail(value);
         }
-    });
+        wrapper();
+    }, []);
 
     const handlePassword = (event) => {
         event.preventDefault();
@@ -25,6 +26,10 @@ const Reset = () => {
 
     return (
         <form className="reset_password" onSubmit={handlePassword}>
+            <br />
+            <Typography variant="h5" component="h2" sx={{ fontWeight: 'bold' }}>
+                Enter your new password
+            </Typography><br />
             <Stack spacing={2}>
                 <Stack direction="row" spacing={2}>
                     <TextField
@@ -45,7 +50,6 @@ const Reset = () => {
                         Reset password
                     </Button>
                 </Stack>
-                <br />
                 <Stack direction="row" spacing={2}>
                     <Typography variant="h6">
                         <Link href="/" underline="hover">

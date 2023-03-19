@@ -1,9 +1,11 @@
 import { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 // import { useAuthContext } from './useAuthContext';
 
 export const useRequest = () => {
     const [error, setError] = useState(null);
     const [isLoading, setIsLoading] = useState(null);
+    const navigate = useNavigate();
     // const { dispatch } = useAuthContext();
 
     const sendEmail = async (email) => {
@@ -16,13 +18,13 @@ export const useRequest = () => {
             body: JSON.stringify({ email }),
         });
 
-        const json = await response.json();
+        const object = await response.json();
 
-        if (!response.ok) {
+        if (object == null) {
+            alert("Not a valid email");
             setIsLoading(false);
-            setError(json.error);
-        }
-        if (response.ok) {
+            navigate("/");
+        } else {
             // localStorage.setItem('resetCode', JSON.stringify(json));
             // dispatch({ type: 'RESET', payload: json });
             setIsLoading(false);

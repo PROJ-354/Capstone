@@ -1,10 +1,12 @@
 import { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 // import { useAuthContext } from './useAuthContext';
 
 export const useReset = () => {
     const [error, setError] = useState(null);
     const [isLoading, setIsLoading] = useState(null);
-    const [codeObject, setCodeObject] = useState(null);
+    const navigate = useNavigate();
+    //const [resetCode, setResetCode] = useState(null);
     // const { dispatch } = useAuthContext();
 
     const getCode = async (id) => {
@@ -17,22 +19,24 @@ export const useReset = () => {
             body: JSON.stringify({ id }),
         });
 
-        const codeObject = await response.json();
-        console.log(codeObject);
-        console.log(id);
-        
-        if (!response.ok) {
+        const object = await response.json();
+
+        if (object == null) {
             setIsLoading(false);
-            setError(codeObject.error);
+            alert("link has expired");
+            navigate("/");
         } else {
-            setCodeObject(codeObject);
+            const email = object.resetCode.email;
             setIsLoading(false);
+            return email;
         }
     }
     
     const resetPassword = async (email, password, confirmPassword) => {
         setIsLoading(true);
         setError(null);
+        console.log(email)
+        console.log(password, confirmPassword);
 
         const response = await fetch('http://localhost:42069/api/auth/reset', {
             method: 'POST',
@@ -43,15 +47,18 @@ export const useReset = () => {
         const json = await response.json();
 
         if (!response.ok) {
+            alert("unable to change password");
             setIsLoading(false);
             setError(json.error);
         }
         if (response.ok) {
-            localStorage.setItem('password', JSON.stringify(json));
+            //localStorage.setItem('password', JSON.stringify(json));
             // dispatch({ type: 'RESET', payload: json });
+            alert("password was successfully changed to " + password);
             setIsLoading(false);
+            navigate("/");
         }
     };
     
-    return { getCode, resetPassword, codeObject, isLoading, error };
+    return { getCode, resetPassword, isLoading, error };
 };

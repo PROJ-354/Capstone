@@ -79,20 +79,21 @@ export const register = async (req, res, next) => {
 export const sendEmail = async (req, res, next) => {
     try {
         const { email } = req.body;
-        // Create date object as current date + 1 hour
-        const date = new Date(Date.now() + 1);
+        // Create date object as current date + 20 minutes
+        const date = new Date();
+        const expiryDate = date.getTime() + (20 * 60 * 1000);
 
         const existingUser = await User.findOne({
             email: email,
         });
 
         if (!existingUser) {
-            return res.status(401).json('Email does not match our records');
+            return res.status(401).json(null);
         }
 
         const resetCode = await ResetCode.create({
             email: email,
-            expiryDate: date
+            expiryDate: expiryDate
         });
 
         const transporter = nodemailer.createTransport({
@@ -111,7 +112,7 @@ export const sendEmail = async (req, res, next) => {
             subject: "Reset Password",
             text: "http://localhost:3000/reset/" + resetCode._id,
         });
-        res.status(200).json({ result: resetCode});
+        return res.status(200).json({ result: resetCode});
     } catch (error) {
         next(error);
     }
@@ -120,18 +121,16 @@ export const sendEmail = async (req, res, next) => {
 export const getCode = async (req, res, next) => {
     try {
         const { id } = req.body;
-        console.log(id);
-        const codeObject = await ResetCode.findOne({
+        const resetCode = await ResetCode.findOne({
             _id: id,
         });
-        console.log(codeObject);
         const currentDate = new Date();         
-        /* CHECKS EXPIRY DATE
-        if(currentDate > codeObject.expiryDate) {
-            return res.status(404).json('Reset password link expired');
+        // Check the expiry date
+        if(currentDate > resetCode.expiryDate) {
+            return res.status(200).json(null);
+        } else {
         }
-        */
-        res.status(200).json({ result: codeObject });
+        return res.status(200).json({ resetCode });
     } catch (error) {
         next(error);
     }
@@ -152,7 +151,7 @@ export const resetPassword = async (req, res, next) => {
         const hashedPassword = await bcrypt.hash(password, 12);
 
         const filter = { email: email };
-        const update = { password: password };
+        const update = { password: password }; // replace with hashed password
         const existingUser = await User.findOneAndUpdate( filter, update, {
             returnOriginal: false
         });
