@@ -81,7 +81,7 @@ export default function PreceptorHome() {
 
     //delete eval handler
     async function handleDeleteEval(evalId) {
-        const response = await fetch(`http://localhost:42069/preceptor/${evalId}`, {
+        const response = await fetch(`http://localhost:42069/api/preceptor/${evalId}`, {
             method: 'DELETE',
         });
 
@@ -91,6 +91,6 @@ export default function PreceptorHome() {
 
 //preliminary loader
 export const evalsLoader = async () => {
-    const res = await fetch('http://localhost:42069/preceptor/');
+    const res = await fetch('http://localhost:42069/api/preceptor/');
     return res;
 };

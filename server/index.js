@@ -17,10 +17,10 @@ dotenv.config({ path: './.env' });
 
 // import routers
 import weekRoutes from './src/routes/weekRoutes.js';
-import UserRouter from './src/routes/UserRouter.js';
-import authRouter from './src/routes/authRouter.js';
-import preceptorRoutes from './src/routes/PreceptorRoutes.js';
-import scheduleRouter from './src/routes/scheduleRouter.js';
+import userRoutes from './src/routes/userRoutes.js';
+import authRoutes from './src/routes/authRoutes.js';
+import preceptorRoutes from './src/routes/preceptorRoutes.js';
+import scheduleRoutes from './src/routes/scheduleRoutes.js';
 
 // create an instance of express (i think)
 const app = express();
@@ -32,10 +32,10 @@ app.use(cors()); // enables cross origin requests
 // initialize routers
 // app.use(yourRouterHere);
 app.use('/api/weeks', weekRoutes);
-app.use(UserRouter);
-app.use(authRouter);
-app.use('/preceptor', preceptorRoutes);
-app.use(scheduleRouter);
+app.use('/api/users', userRoutes);
+app.use('/api/auth', authRoutes);
+app.use('/api/preceptor', preceptorRoutes);
+app.use('/api/schedules', scheduleRoutes);
 
 // initialize error handling middleware
 app.use(errorHandler);

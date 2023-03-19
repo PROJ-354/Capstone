@@ -17,11 +17,11 @@ import authorize from '../middleware/authorize.js';
 // import middleware functions
 // blah blah blah
 
-router.get('/api/users', authorize, getAllUsers);
-router.post('/api/users', createUser);
-router.put('/api/users/:id', updateUser);
-router.delete('/api/users/:id', deleteUser);
+router.get('/', authorize, getAllUsers);
+router.post('/', createUser);
+router.put('/:id', updateUser);
+router.delete('/:id', deleteUser);
 
-router.get('/api/users/preceptors', getAllPreceptors);
+router.get('/preceptors', getAllPreceptors);
 
 export default router;
