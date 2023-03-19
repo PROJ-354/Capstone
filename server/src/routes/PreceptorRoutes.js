@@ -1,18 +1,25 @@
-import express from "express";
-import { getEvals, createEval, getMasterEval, deleteEval, getEval, editEval } from "../controllers/PreceptorController.js";
+import express from 'express';
+import {
+    getEvals,
+    createEval,
+    getMasterEval,
+    deleteEval,
+    getEval,
+    editEval,
+} from '../controllers/preceptorController.js';
 
 const router = express.Router();
 
 router.get('/', getEvals);
 
-router.get('/eval', getMasterEval)
+router.get('/eval', getMasterEval);
 
 router.post('/eval', createEval);
 
-router.delete('/:evalId', deleteEval)
+router.delete('/:evalId', deleteEval);
 
-router.get('/:evalId', getEval)
+router.get('/:evalId', getEval);
 
-router.put('/:evalId', editEval)
+router.put('/:evalId', editEval);
 
 export default router;
