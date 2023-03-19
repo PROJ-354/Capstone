@@ -108,7 +108,7 @@ export const sendEmail = async (req, res, next) => {
 
         const info = await transporter.sendMail({
             from: "CompetencyTrackingTool@outlook.com",
-            to: "CompetencyTrackingTool@outlook.com", // Change to email variable
+            to: email, // Can change to specific email for testing
             subject: "Reset Password",
             text: "http://localhost:3000/reset/" + resetCode._id,
         });
@@ -151,7 +151,7 @@ export const resetPassword = async (req, res, next) => {
         const hashedPassword = await bcrypt.hash(password, 12);
 
         const filter = { email: email };
-        const update = { password: password }; // replace with hashed password
+        const update = { password: hashedPassword }; // Can replace with normal password for testing
         const existingUser = await User.findOneAndUpdate( filter, update, {
             returnOriginal: false
         });
