@@ -14,6 +14,9 @@ import ViewChecklist, {
 // Pages
 import Login from './pages/Login';
 import Signup from './pages/Signup';
+import Request from './pages/Request';
+import Reset from './pages/Reset';
+import NotFound from './pages/NotFound';
 
 //Preceptor Pages
 import PreceptorHome from './pages/preceptor/PreceptorHome';
@@ -40,7 +43,8 @@ const router = createBrowserRouter(
                 action={checklistAction}
             />
             <Route path="/signup" element={<Signup />} />
-
+            <Route path="/request" element={<Request />} />
+            <Route path="/reset/:id" element={<Reset />} />
             <Route path="/preceptor">
                 <Route index element={<PreceptorHome />} loader={evalsLoader} />
                 <Route
@@ -56,10 +60,10 @@ const router = createBrowserRouter(
                     loader={viewEvaluationLoader}
                 />
             </Route>
-
             <Route path="/student/schedules" element={<ViewSchedule />} />
             <Route path="/preceptor/schedules" element={<ViewSchedule />} />
             <Route path="/instructors/schedules" element={<ViewSchedule />} />
+            <Route path="*" element={<NotFound />} />
         </Route>
     )
 );

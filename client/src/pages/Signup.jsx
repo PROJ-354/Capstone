@@ -1,7 +1,7 @@
 import { useSignup } from '../hooks/useSignup';
 import { useState } from 'react';
-import { Typography, Button, Stack, TextField, Link } from '@mui/material';
-import Navbar from '../components/Navbar';
+import { Typography, Button, Stack, TextField, Link, Alert } from '@mui/material';
+
 const Signup = () => {
     const [role, setRole] = useState('');
     const [sait_id, setID] = useState('');
@@ -39,14 +39,12 @@ const Signup = () => {
         <>
             {/* <Navbar></Navbar> */}
             <form className="signup" onSubmit={handleLogin}>
-                <Typography variant="h4" component="h1">
-                    Competency Tracking Tool
-                </Typography>
-                <br />
                 <Typography variant="h5" component="h2" sx={{ fontWeight: 'bold' }}>
                     Create an account
                 </Typography>
                 <br />
+                {error && <Alert severity='error'>{error}</Alert>}
+                <br /><br />
                 <Stack spacing={2}>
                     <Stack direction="row" spacing={2}>
                         <TextField
@@ -119,7 +117,6 @@ const Signup = () => {
                         </Typography>
                     </Stack>
                 </Stack>
-                {error && <div className="error">{error}</div>}
             </form>
         </>
     );
