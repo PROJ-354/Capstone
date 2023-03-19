@@ -1,12 +1,10 @@
 import { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
 // import { useAuthContext } from './useAuthContext';
 
 export const useRequest = () => {
     const [isLoading, setIsLoading] = useState(null);
     const [message, setMessage] = useState(null);
     const [error, setError] = useState(null);
-    const navigate = useNavigate();
     // const { dispatch } = useAuthContext();
 
     const sendEmail = async (email) => {
@@ -25,12 +23,12 @@ export const useRequest = () => {
         if (!response.ok) {
             setIsLoading(false);
             setError(res.error);
-        } 
+        }
         if (response.ok) {
             setIsLoading(false);
             setMessage(res.success);
         }
-    };    
+    };
 
-    return { sendEmail, isLoading, message, error  };
+    return { sendEmail, isLoading, message, error };
 };

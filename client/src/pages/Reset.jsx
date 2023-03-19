@@ -1,9 +1,7 @@
 import { useReset } from '../hooks/useReset';
 import { useState, useEffect } from 'react';
-import { 
-    Typography, Button, Stack, TextField, Link, Alert, Dialog, DialogTitle, DialogContentText, DialogActions 
-} from '@mui/material';
-import { useNavigate, useParams } from 'react-router-dom';
+import { Typography, Button, Stack, TextField, Link, Alert } from '@mui/material';
+import { useParams } from 'react-router-dom';
 
 const Reset = () => {
     const { id } = useParams();
@@ -11,13 +9,12 @@ const Reset = () => {
     const [password, setPassword] = useState('');
     const [confirmPassword, setConfirmPassword] = useState('');
     const { getCode, resetPassword, isLoading, message, error } = useReset();
-    const navigate = useNavigate();
 
     useEffect(() => {
         const wrapper = async () => {
             const value = await getCode(id);
             setEmail(value);
-        }
+        };
         wrapper();
     }, []);
 
@@ -33,8 +30,8 @@ const Reset = () => {
                 Enter your new password
             </Typography>
             <br />
-            {message && <Alert severity='success'>{message}</Alert>}
-            {error && <Alert severity='error'>{error}</Alert>}
+            {message && <Alert severity="success">{message}</Alert>}
+            {error && <Alert severity="error">{error}</Alert>}
             <br />
             <Stack spacing={2}>
                 <Stack direction="row" spacing={2}>
