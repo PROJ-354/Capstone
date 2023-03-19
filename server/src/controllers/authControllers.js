@@ -9,15 +9,14 @@ export const login = async (req, res, next) => {
         const { email, password } = req.body;
         const existingUser = await User.findOne({ email: email });
         if (!existingUser) {
-            return res.status(401).send('Login unsuccessful. Please double check the email or password and try again.');
+            return res.status(401).json({ error: 'Login unsuccessful. Please double check the email or password and try again.' });
         }
         const isPasswordValid = await bcrypt.compare(password, existingUser.password);
         if (!isPasswordValid) {
-            return res.status(401).json('Login unsuccessful. Please double check the email or password and try again.');
+            return res.status(401).json({ error: 'Login unsuccessful. Please double check the email or password and try again.' });
         }
         const token = jwt.sign(
             { email: existingUser.email, id: existingUser._id },
-
             process.env.SECRET,
             { expiresIn: '5h' }
         );
@@ -44,10 +43,13 @@ export const register = async (req, res, next) => {
             email: email,
         });
         if (existingUser) {
-            return res.status(401).json('User already exists'); // hello
+            return res.status(401).json({ error: 'An account with that email already exists.' });
+        }
+        if (password.trim() === "" || password == null) {
+            return res.status(401).json({ error: 'Password cannot be empty.' });
         }
         if (password !== confirmPassword) {
-            return res.status(401).json('passwords do not match');
+            return res.status(401).json({ error: 'The passwords entered do not match.' });
         }
 
         //code for validating access code for students and preceptors here
@@ -87,7 +89,7 @@ export const sendEmail = async (req, res, next) => {
         });
 
         if (!existingUser) {
-            return res.status(401).json(null);
+            return res.status(401).json({ error: 'The email entered does not match an existing account.' });
         }
 
         const resetCode = await ResetCode.create({
@@ -107,11 +109,11 @@ export const sendEmail = async (req, res, next) => {
 
         const info = await transporter.sendMail({
             from: "CompetencyTrackingTool@outlook.com",
-            to: "CompetencyTrackingTool@outlook.com", // Change to email variable
+            to: email, // ###### Change to specific email for testing ######
             subject: "Reset Password",
             text: "http://localhost:3000/reset/" + resetCode._id,
         });
-        return res.status(200).json({ result: resetCode});
+        return res.status(200).json({ success: 'Please check your inbox.' });
     } catch (error) {
         next(error);
     }
@@ -126,10 +128,10 @@ export const getCode = async (req, res, next) => {
         const currentDate = new Date();         
         // Check the expiry date
         if(currentDate > resetCode.expiryDate) {
-            return res.status(401).json(null);
+            return res.status(401).json({ error: 'Your password reset link has expired.' });
         } else {
         }
-        return res.status(200).json({ resetCode });
+        return res.status(200).json({ result: resetCode });
     } catch (error) {
         next(error);
     }
@@ -143,23 +145,27 @@ export const resetPassword = async (req, res, next) => {
             confirmPassword,
         } = req.body;
 
+        if (password.trim() === "" || password == null) {
+            return res.status(401).json({ error: 'New password cannot be empty.' });
+        }
+
         if (password !== confirmPassword) {
-            return res.status(401).json('Passwords do not match');
+            return res.status(401).json({ error: 'The passwords entered do not match.' });
         }
 
         const hashedPassword = await bcrypt.hash(password, 12);
 
         const filter = { email: email };
-        const update = { password: hashedPassword }; // Can replace with normal password for testing
+        const update = { password: hashedPassword };
         const existingUser = await User.findOneAndUpdate( filter, update, {
             returnOriginal: false
         });
 
         if (!existingUser) {
-            return res.status(401).json('Internal system error');
+            return res.status(500).json({ error: 'Sorry the application encountered a problem.' });
         }
 
-        return res.status(200).json({ result: existingUser });
+        return res.status(200).json({ success: 'Password updated!' });
     } catch (error) {
         next(error);
     }

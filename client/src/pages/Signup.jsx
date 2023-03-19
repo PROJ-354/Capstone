@@ -1,6 +1,6 @@
 import { useSignup } from '../hooks/useSignup';
 import { useState } from 'react';
-import { Typography, Button, Stack, TextField, Link } from '@mui/material';
+import { Typography, Button, Stack, TextField, Link, Alert } from '@mui/material';
 
 const Signup = () => {
     const [role, setRole] = useState('');
@@ -43,6 +43,8 @@ const Signup = () => {
                     Create an account
                 </Typography>
                 <br />
+                {error && <Alert severity='error'>{error}</Alert>}
+                <br /><br />
                 <Stack spacing={2}>
                     <Stack direction="row" spacing={2}>
                         <TextField
@@ -115,7 +117,6 @@ const Signup = () => {
                         </Typography>
                     </Stack>
                 </Stack>
-                {error && <div className="error">{error}</div>}
             </form>
         </>
     );

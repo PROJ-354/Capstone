@@ -1,10 +1,12 @@
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+
 // import { useAuthContext } from './useAuthContext';
 
 export const useReset = () => {
-    const [error, setError] = useState(null);
     const [isLoading, setIsLoading] = useState(null);
+    const [message, setMessage] = useState(null);
+    const [error, setError] = useState(null);
     const navigate = useNavigate();
     //const [resetCode, setResetCode] = useState(null);
     // const { dispatch } = useAuthContext();
@@ -12,6 +14,7 @@ export const useReset = () => {
     const getCode = async (id) => {
         setIsLoading(true);
         setError(null);
+        setMessage(null);
 
         const response = await fetch(`http://localhost:42069/api/auth/getCode/${id}`, {
             method: 'PATCH',
@@ -19,15 +22,17 @@ export const useReset = () => {
             body: JSON.stringify({ id }),
         });
 
-        const object = await response.json();
+        const res = await response.json();
 
-        if (object == null) {
+        if (!response.ok) {
             setIsLoading(false);
-            alert("link has expired");
-            navigate("/");
-        } else {
-            const email = object.resetCode.email;
+            setError(res.error);
+            navigate('/request/' + res.error);
+        } 
+        if (response.ok) {
             setIsLoading(false);
+            setMessage(res.success);
+            const email = res.result.email;
             return email;
         }
     }
@@ -35,6 +40,7 @@ export const useReset = () => {
     const resetPassword = async (email, password, confirmPassword) => {
         setIsLoading(true);
         setError(null);
+        setMessage(null);
 
         const response = await fetch('http://localhost:42069/api/auth/reset', {
             method: 'POST',
@@ -42,21 +48,16 @@ export const useReset = () => {
             body: JSON.stringify({ email, password, confirmPassword }),
         });
 
-        const json = await response.json();
+        const res = await response.json();
 
         if (!response.ok) {
-            alert("unable to change password");
             setIsLoading(false);
-            setError(json.error);
-        }
+            setError(res.error);
+        } 
         if (response.ok) {
-            //localStorage.setItem('password', JSON.stringify(json));
-            // dispatch({ type: 'RESET', payload: json });
-            alert("password was successfully changed to " + password);
-            setIsLoading(false);
-            navigate("/");
+            setMessage(res.success);            
         }
     };
-    
-    return { getCode, resetPassword, isLoading, error };
+
+    return { getCode, resetPassword, isLoading, message, error };
 };

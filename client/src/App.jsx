@@ -29,6 +29,7 @@ const router = createBrowserRouter(
             />
             <Route path="/signup" element={<Signup />} />
             <Route path="/request" element={<Request />} />
+            <Route path="/request/:e" element={<Request />} />
             <Route path="/reset/:id" element={<Reset />} />
         </Route>
     )

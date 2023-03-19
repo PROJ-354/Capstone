@@ -12,22 +12,22 @@ export const useSignup = () => {
 
         const response = await fetch('http://localhost:42069/api/auth/register', {
             method: 'POST',
-            headers: {'Content-Type': 'application/json'},
+            headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify({role, sait_id, firstName, lastName, secretCode, email, password, confirmPassword})
         });
 
-        const json = await response.json();
+        const res = await response.json();
 
         if (!response.ok) {
             setIsLoading(false);
-            setError(json.error);
+            setError(res.error);
         }
         if (response.ok) {
-            localStorage.setItem('auth', JSON.stringify(json));
-            dispatch({type: 'LOGIN', payload: json});
+            localStorage.setItem('auth', JSON.stringify(res));
+            dispatch({ type: 'LOGIN', payload: res });
             setIsLoading(false);
         }
     }
 
-    return {signup, isLoading, error}
+    return { signup, isLoading, error }
 }

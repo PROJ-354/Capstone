@@ -1,12 +1,14 @@
 import { useRequest } from '../hooks/useRequest';
 import { useState } from 'react';
-import { Typography, Button, Stack, TextField, Link } from '@mui/material';
+import { Typography, Button, Stack, TextField, Link, Alert } from '@mui/material';
+import { useParams } from 'react-router-dom';
 
 
 const Request = () => {
+    const { e } = useParams();
     const [email, setEmail] = useState('');
-    const { sendEmail, error, isLoading } = useRequest();
-
+    const { sendEmail, isLoading, message, error } = useRequest();
+    
     const handleEmail = (event) => {
         event.preventDefault();
         sendEmail(email);
@@ -17,9 +19,13 @@ const Request = () => {
             <form className="send_email" onSubmit={handleEmail}>
                 <br />                
                 <Typography variant="h5" component="h2" sx={{ fontWeight: 'bold' }}>
-                    Enter your email to receive a password-reset code
+                    Enter your email to receive a password reset link
                 </Typography>
                 <br />
+                {message && <Alert severity='success'>{message}</Alert>}
+                {error && <Alert severity='error'>{error}</Alert>}
+                {e && <Alert severity='error'>{e}</Alert>}
+                <br /><br />
                 <Stack direction="row" spacing={2}>
                     <TextField
                         label="Email"
@@ -39,7 +45,6 @@ const Request = () => {
                     </Link>
                 </Typography>
                 </Stack>
-                {error && <div className="error">{error}</div>}
             </form>     
         </>
     );
