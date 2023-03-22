@@ -23,6 +23,17 @@ export const getWeek = async (req, res) => {
     }
 };
 
+//GET all master weeks
+export const getAllMasterWeeks = async (req, res) => {
+    const weeks = await Week.find({ is_master: true });
+
+    if (!weeks) {
+        res.status(404).json({ error: 'Could not find any master weeks' });
+    } else {
+        res.status(200).json({ weeks });
+    }
+};
+
 //ADD a new master week
 export const addMasterWeek = async (req, res) => {};
 

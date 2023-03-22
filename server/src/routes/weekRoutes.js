@@ -3,6 +3,8 @@ import {
     addMasterWeek,
     createWeek,
     deleteWeek,
+    getAllMasterWeeks,
+    getMasterWeek,
     getUsersWeeks,
     getWeek,
     submitWeek,
@@ -13,6 +15,9 @@ const router = express.Router();
 
 //GET a single week by the week's ID
 router.get('/:id', getWeek);
+
+//GET all master weeks
+router.get('/master', getAllMasterWeeks);
 
 //ADD a new master week
 router.post('/master', addMasterWeek);
