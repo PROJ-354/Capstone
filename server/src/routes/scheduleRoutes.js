@@ -18,7 +18,7 @@ import authorize from '../middleware/authorize.js';
 
 router.get('/:studentID', getScheduleByStudentId);
 
-router.put('/:studentID/week/:weekNumber', updateWeek);
+router.put('/:studentID/:weekNumber', updateWeek);
 
 router.put('/submit/:studentID', sumbitSchedule);
 

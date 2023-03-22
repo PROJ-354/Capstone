@@ -14,28 +14,6 @@ import { useState } from 'react';
 import { useEffect } from 'react';
 import Week from './Week';
 
-// test data
-const data = [
-    {
-        sunday: { scheduledHours: 1, actualHours: 2 },
-        monday: { scheduledHours: 3, actualHours: 4 },
-        tuesday: { scheduledHours: 5, actualHours: 6 },
-        wednesday: { scheduledHours: 7, actualHours: 8 },
-        thursday: { scheduledHours: 9, actualHours: 10 },
-        friday: { scheduledHours: 11, actualHours: 12 },
-        saturday: { scheduledHours: 13, actualHours: 14 },
-    },
-    {
-        sunday: { scheduledHours: 0, actualHours: 0 },
-        monday: { scheduledHours: 0, actualHours: 0 },
-        tuesday: { scheduledHours: 2, actualHours: 0 },
-        wednesday: { scheduledHours: 0, actualHours: 0 },
-        thursday: { scheduledHours: 0, actualHours: 0 },
-        friday: { scheduledHours: 0, actualHours: 0 },
-        saturday: { scheduledHours: 0, actualHours: 0 },
-    },
-];
-
 /**
  * this component renders a schedule,
  * aka a list of (8) weeks
@@ -59,7 +37,6 @@ const Schedule = () => {
 
         fn();
     }, []);
-    // todo: fetch & render the logged in users schedule
 
     //
     return (
