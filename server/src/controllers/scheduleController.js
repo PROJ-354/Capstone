@@ -38,16 +38,32 @@ export const updateWeek = async (request, response, next) => {
 //
 export const sumbitSchedule = async (request, response, next) => {
     try {
-        response.status(200).json({ message: 'mreow' });
+        // get relevant data
+        const studentID = request.params.studentID
+
+        // TODO: prevent sumbissions if
+        // a. it is already sumbitted
+        // b. it is passed a due date
+        const schedule = await Schedule.findOneAndUpdate({ student_id: studentID }, { is_sumbitted: true });
+
+        response.status(200).json({ message: 'successfully sumbitted the schedule!' });
     } catch (error) {
         next(error);
     }
 }
 
-//
+// preceptors can unsubmit
 export const unsumbitSchedule = async (request, response, next) => {
     try {
-        response.status(200).json({ message: 'mreow' });
+        // get relevant data
+        const studentID = request.params.studentID
+
+        // TODO: prevent unsumbissions if
+        // a. it is already sumbitted
+        // b. it is passed a due date
+        const schedule = await Schedule.findOne({ _id: studentID }, { is_sumbitted: false });
+
+        response.status(200).json({ message: 'successfully unsumbitted the schedule!' });
     } catch (error) {
         next(error);
     }
@@ -56,7 +72,15 @@ export const unsumbitSchedule = async (request, response, next) => {
 //
 export const approveSchedule = async (request, response, next) => {
     try {
-        response.status(200).json({ message: 'mreow' });
+        // get relevant data
+        const studentID = request.params.studentID
+
+        // TODO: prevent approve if
+        // a. it is already sumbitted
+        // b. it is passed a due date
+        const schedule = await Schedule.findOne({ _id: studentID }, { is_approved: true });
+
+        response.status(200).json({ message: 'successfully unsumbitted the schedule!' });
     } catch (error) {
         next(error);
     }
@@ -65,7 +89,15 @@ export const approveSchedule = async (request, response, next) => {
 //
 export const unapproveSchedule = async (request, response, next) => {
     try {
-        response.status(200).json({ message: 'mreow' });
+        // get relevant data
+        const studentID = request.params.studentID
+
+        // TODO: prevent unapprove if
+        // a. it is already sumbitted
+        // b. it is passed a due date
+        const schedule = await Schedule.findOne({ _id: studentID }, { is_approved: false });
+
+        response.status(200).json({ message: 'successfully unsumbitted the schedule!' });
     } catch (error) {
         next(error);
     }

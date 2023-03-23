@@ -20,7 +20,7 @@ router.get('/:studentID', getScheduleByStudentId);
 
 router.put('/:studentID/:weekNumber', updateWeek);
 
-router.put('/submit/:studentID', sumbitSchedule);
+router.put('/student/submit/:studentID', sumbitSchedule);
 
 router.put('/unsubmit/:studentID', unsumbitSchedule);
 

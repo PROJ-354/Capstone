@@ -4,7 +4,7 @@ import { useState } from "react";
 /**
  * 
  */
-const Week = ({ weekData, weekNumber }) => {
+const Week = ({ weekData, weekNumber, isSubmitted }) => {
     // this is very bad :)
     const [sundayScheduledHours, setSundayScheduledHours]       = useState(weekData.sunday.scheduledHours);
     const [sundayActualHours, setSundayActualHours]             = useState(weekData.sunday.actualHours);
@@ -54,12 +54,6 @@ const Week = ({ weekData, weekNumber }) => {
         .then((data) => {
             console.log(data)
         })
-
-
-
-
-        // todo: sent a put request to the backend that,
-        // updates this week of this student
     }
 
     return (
@@ -209,6 +203,7 @@ const Week = ({ weekData, weekNumber }) => {
             <Button
                 variant="contained"
                 color="warning"
+                disabled={isSubmitted}
                 onClick={handleWeekUpdate}
             >
                 Update Week

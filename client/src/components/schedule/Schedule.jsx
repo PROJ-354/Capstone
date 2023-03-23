@@ -21,6 +21,7 @@ import Week from './Week';
 const Schedule = () => {
     //
     const [weeks, setWeeks] = useState(null);
+    const [isSubmitted, setIsSubmitted] = useState(false);
 
     // mreow
     const authenticatedUsersId = JSON.parse(localStorage.getItem('auth')).result._id;
@@ -32,11 +33,20 @@ const Schedule = () => {
                 `http://localhost:42069/api/schedules/${authenticatedUsersId}`
             );
             const json = await response.json();
+            setIsSubmitted(json[0].is_sumbitted)
             setWeeks(json[0].weeks);
         }
 
         fn();
     }, []);
+
+    // handle submission
+    async function handleSubmission(e) {
+        e.preventDefault();
+        const response = await fetch(`http://localhost:42069/api/schedules/student/submit/${authenticatedUsersId}`, { method: 'PUT' });
+        const json =  await response.json();
+        alert(json.message) // todo: change to dialog box
+    }
 
     //
     return (
@@ -48,13 +58,14 @@ const Schedule = () => {
                             <Week
                                 weekData={weekData}
                                 weekNumber={index + 1}
+                                isSubmitted={isSubmitted}
                                 key={index}
                             />
                         ))}
                 </Box>
             </Box>
             <Box sx={{ display: 'flex', justifyContent: 'center', my: 5 }}>
-                <Button variant="contained" color="success">
+                <Button variant="contained" color="success" onClick={handleSubmission} disabled={isSubmitted}>
                     Submit
                 </Button>
             </Box>
