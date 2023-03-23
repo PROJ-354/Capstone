@@ -39,6 +39,12 @@ import Reset from './pages/Reset';
 
 //Other Pages
 import NotFound from './pages/NotFound';
+import ViewAllMasterChecklists, {
+    viewAllMasterChecklistsLoader,
+} from './pages/student/checklist/master/ViewAllMasterChecklists';
+import ViewMasterChecklist, {
+    viewMasterChecklistLoader,
+} from './pages/student/checklist/master/ViewMasterChecklist';
 
 const router = createBrowserRouter(
     createRoutesFromElements(
@@ -63,6 +69,18 @@ const router = createBrowserRouter(
                     loader={checklistLoader}
                     action={saveChecklistAction}
                 />
+                <Route path="master">
+                    <Route
+                        index
+                        element={<ViewAllMasterChecklists />}
+                        loader={viewAllMasterChecklistsLoader}
+                    />
+                    <Route
+                        path=":id"
+                        element={<ViewMasterChecklist />}
+                        loader={viewMasterChecklistLoader}
+                    />
+                </Route>
             </Route>
 
             {/* Preceptors */}

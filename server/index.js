@@ -66,9 +66,9 @@ mongoose
 
 const tempWeek1 = {
     name: 'Week 1',
-    is_master: false,
+    is_master: true,
     is_last: false,
-    student_id: '63ebc5878e74a2adcd75d336',
+    student_id: null,
     preceptor_id: null,
     submitted_to_preceptor: false,
     instructor_id: null,
