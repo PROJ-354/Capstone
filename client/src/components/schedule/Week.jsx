@@ -4,7 +4,7 @@ import { useState } from "react";
 /**
  * 
  */
-const Week = ({ weekData, weekNumber }) => {
+const Week = ({ weekData, weekNumber, isSubmitted }) => {
     // this is very bad :)
     const [sundayScheduledHours, setSundayScheduledHours]       = useState(weekData.sunday.scheduledHours);
     const [sundayActualHours, setSundayActualHours]             = useState(weekData.sunday.actualHours);
@@ -23,10 +23,37 @@ const Week = ({ weekData, weekNumber }) => {
 
     //
     const handleWeekUpdate = (e) => {
-        e.preventDefualt();
+        e.preventDefault()
 
-        // todo: sent a put request to the backend that,
-        // updates this week of this student
+        // grab auth info from local storage
+        const auth = JSON.parse(localStorage.getItem('auth'));
+        const token = auth.result.token
+        const studentId = auth.result._id
+
+        fetch(`http://localhost:42069/api/schedules/${studentId}/${weekNumber}`, {
+            method: 'PUT',
+            headers: { 'Content-Type': 'Application/json' },
+            body: JSON.stringify({
+                weeks: {
+                    sunday:    { scheduledHours: Number(sundayScheduledHours), actualHours:    Number(sundayActualHours) },
+                    monday:    { scheduledHours: Number(mondayScheduledHours), actualHours:    Number(mondayActualHours) },
+                    tuesday:   { scheduledHours: Number(tuesdayScheduledHours), actualHours:   Number(tuesdayActualHours) },
+                    wednesday: { scheduledHours: Number(wednesdayScheduledHours), actualHours: Number(wednesdayActualHours) },
+                    thursday:  { scheduledHours: Number(thursdayScheduledHours), actualHours:  Number(thursdayActualHours) },
+                    friday:    { scheduledHours: Number(fridayScheduledHours), actualHours:    Number(fridayActualHours) },
+                    saturday:  { scheduledHours: Number(saturdayScheduledHours), actualHours:  Number(saturdayActualHours) },
+                    total_scheduled_hours: 0,
+                    total_actual_hours: 0
+                },
+                weekNumber: weekNumber - 1 // account for zero based indexing
+            })
+        })
+        .then((response) => {
+            return response.json();
+        })
+        .then((data) => {
+            console.log(data)
+        })
     }
 
     return (
@@ -176,7 +203,8 @@ const Week = ({ weekData, weekNumber }) => {
             <Button
                 variant="contained"
                 color="warning"
-                onClick={(e) => alert('mreow')}
+                disabled={isSubmitted}
+                onClick={handleWeekUpdate}
             >
                 Update Week
             </Button>
