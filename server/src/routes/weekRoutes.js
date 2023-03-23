@@ -2,9 +2,7 @@ import express from 'express';
 import {
     addMasterWeek,
     createWeek,
-    deleteWeek,
     getAllMasterWeeks,
-    getMasterWeek,
     getUsersWeeks,
     getWeek,
     submitWeek,
