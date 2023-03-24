@@ -7,9 +7,9 @@ const router = express.Router();
 // import controller functions
 import {
     getAllUsers,
-    createUser,
-    updateUser,
-    deleteUser,
+    getUserById,
+    getUserByEmail,
+    updateUserEmail,
     getAllPreceptors,
 } from '../controllers/userController.js';
 import authorize from '../middleware/authorize.js';
@@ -18,10 +18,9 @@ import authorize from '../middleware/authorize.js';
 // blah blah blah
 
 router.get('/', authorize, getAllUsers);
-router.post('/', createUser);
-router.put('/:id', updateUser);
-router.delete('/:id', deleteUser);
-
+router.get('/user', getUserByEmail);
+router.get('/user/:id', getUserById);
+router.put('/:id', updateUserEmail);
 router.get('/preceptors', getAllPreceptors);
 
 export default router;
