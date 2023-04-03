@@ -56,14 +56,14 @@ mongoose
             console.log('database connection successful!');
             console.log(`listening @ http://localhost:${process.env.PORT}!`);
         });
-        Week.create(week1);
-        Week.create(week2);
-        Week.create(week3);
-        Week.create(week4);
-        Week.create(week5);
-        Week.create(week6);
-        Week.create(week7);
-        Week.create(week8);
+        // Week.create(week1);
+        // Week.create(week2);
+        // Week.create(week3);
+        // Week.create(week4);
+        // Week.create(week5);
+        // Week.create(week6);
+        // Week.create(week7);
+        // Week.create(week8);
     })
     .catch((error) => {
         console.error('database connection failed', error);

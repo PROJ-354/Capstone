@@ -161,3 +161,17 @@ export const getUsersWeeks = async (req, res) => {
         res.status(200).json(weeks);
     }
 };
+
+export const giveUserWeeks = async (userId) => {
+    const masterWeeks = await Week.find({ is_master: true });
+
+    const modifiedWeeks = masterWeeks.map((week) => {
+        week.student_id = userId;
+    });
+
+    const userWeeks = modifiedWeeks.map(async (week) => {
+        await Week.create(week);
+    });
+
+    return userWeeks;
+};
