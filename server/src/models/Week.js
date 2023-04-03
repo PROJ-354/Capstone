@@ -80,11 +80,6 @@ const WeekSchema = mongoose.Schema(
                                 type: String,
                                 required: true,
                             },
-                            //A description of the skill
-                            description: {
-                                type: String,
-                                required: true,
-                            },
                             //Array of the different experiences for this skill
                             experiences: [
                                 {
