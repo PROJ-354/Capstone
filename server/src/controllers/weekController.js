@@ -165,13 +165,19 @@ export const getUsersWeeks = async (req, res) => {
 export const giveUserWeeks = async (userId) => {
     const masterWeeks = await Week.find({ is_master: true });
 
-    const modifiedWeeks = masterWeeks.map((week) => {
+    const userWeeks = masterWeeks.map(async (week) => {
         week.student_id = userId;
+        week.is_master = false;
+        week._id = mongoose.Types.ObjectId();
+        week.isNew = true;
+        return await Week.create(week);
     });
 
-    const userWeeks = modifiedWeeks.map(async (week) => {
-        await Week.create(week);
-    });
+    console.log(userWeeks);
+
+    // const userWeeks = modifiedWeeks.map(async (week) => {
+    //     return await Week.create(week);
+    // });
 
     return userWeeks;
 };

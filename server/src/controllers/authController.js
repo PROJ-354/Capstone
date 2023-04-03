@@ -87,9 +87,11 @@ export const register = async (req, res, next) => {
         const schedule = await Schedule.create(INIT_SCHEDULE(userProfile._id));
         console.log(schedule);
 
-        //This creates the user's weeks when the account is created
-        const userWeeks = await giveUserWeeks(userProfile._id);
-        console.log(userWeeks);
+        //This creates the student user's weeks when the account is created
+        if ((role = 'student')) {
+            const userWeeks = await giveUserWeeks(userProfile._id);
+            // console.log(userWeeks);
+        }
 
         return res.status(200).json({ result: userProfile, token: token });
     } catch (error) {
