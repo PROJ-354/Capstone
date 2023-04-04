@@ -7,7 +7,8 @@ import mongoose from 'mongoose';
 const JoinCodeSchema = new mongoose.Schema({
     code: {
         type: String,
-        required: [true, 'a code is required']
+        required: [true, 'a code is required'],
+        unique: true
     },
     instructorId: {
         type: mongoose.Schema.Types.ObjectId,

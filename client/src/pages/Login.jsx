@@ -1,8 +1,8 @@
 import { useLogin } from '../hooks/useLogin';
 import { useState } from 'react';
 import { Typography, Button, Stack, TextField, Container, Divider } from '@mui/material';
-import { useNavigate } from 'react-router-dom';
 import { Box } from '@mui/system';
+import { useNavigate } from 'react-router-dom';
 import logo from '../img/sait-logo.png';
 
 const Login = () => {
@@ -17,7 +17,6 @@ const Login = () => {
         // Prevent default refresh page behaviour on form submission.
         event.preventDefault();
         await login(email, password);
-        navigate('/checklist');
     };
 
     /* onChange fires a function that takes in the event.
