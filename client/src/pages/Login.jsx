@@ -17,7 +17,29 @@ const Login = () => {
         // Prevent default refresh page behaviour on form submission.
         event.preventDefault();
         await login(email, password);
-        navigate('/checklist');
+
+        const user = JSON.parse(localStorage.getItem('auth'));
+
+        const userRole = await user.result.role;
+        
+        console.log(userRole);
+
+        switch (userRole) {
+            case 'preceptor':
+                navigate(`/preceptor/home/${user._id}`);
+                break;
+            case 'student':
+                navigate('/checklist');
+                break;
+            case 'instructor':
+                navigate('/instructor');
+                break;
+            case 'academic_chair':
+                navigate('/admin');
+                break;
+            default:
+                navigate('never gonna give you up');
+        }
     };
 
     /* onChange fires a function that takes in the event.
