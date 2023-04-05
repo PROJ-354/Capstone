@@ -7,21 +7,21 @@ const router = express.Router();
 // import controller functions
 import {
     getAllUsers,
-    createUser,
-    updateUser,
-    deleteUser,
+    getUserById,
+    getUserByEmail,
+    updateUserEmail,
     getAllPreceptors,
-} from '../controllers/userController.js';
+} from '../controllers/UserController.js';
 import authorize from '../middleware/authorize.js';
 
 // import middleware functions
 // blah blah blah
 
-router.get('/', authorize, getAllUsers);
-router.post('/', createUser);
-router.put('/:id', updateUser);
-router.delete('/:id', deleteUser);
-
+// router.get('/', authorize, getAllUsers);
+router.get('/', getAllUsers);
+router.get('/:id', getUserById);
+router.get('/email', getUserByEmail);
+router.put('/:id', updateUserEmail);
 router.get('/preceptors', getAllPreceptors);
 
 export default router;

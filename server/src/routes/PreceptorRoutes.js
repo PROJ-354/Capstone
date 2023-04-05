@@ -6,11 +6,11 @@ import {
     deleteEval,
     getEval,
     editEval,
-} from '../controllers/preceptorController.js';
+} from '../controllers/PreceptorController.js';
 
 const router = express.Router();
 
-router.get('/', getEvals);
+router.get('/home/:userId', getEvals);
 
 router.get('/eval', getMasterEval);
 
