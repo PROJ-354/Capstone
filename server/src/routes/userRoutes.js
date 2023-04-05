@@ -11,7 +11,7 @@ import {
     getUserByEmail,
     updateUserEmail,
     getAllPreceptors,
-} from '../controllers/userController.js';
+} from '../controllers/UserController.js';
 import authorize from '../middleware/authorize.js';
 
 // import middleware functions

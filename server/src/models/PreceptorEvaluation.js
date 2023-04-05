@@ -14,16 +14,18 @@ const PreceptorEvaluationSchema = mongoose.Schema({
     //chosen rating
     skill_rating: {type: Number}
 }],
+  //the student_id will be added to the month to ensure that more than 1 eval per student per month is not completed
+  unique: {type: String, unique: true},
   //Preceptor comment box
   comments: { type: String },
   //has this been looked at since it was sent to the preceptor? notifcation purposes
   notify: { type: String },
   //has this been completed and submitted to the instructor?
-  complete: { type: Boolean, required: true },
+  complete: { type: Boolean},
   //omg this stuff makes no sense wat it for?
-  student_id: { type: String },
-  preceptor_id: { type: String },
-  instructor_id: { type: String }
+  student_id: {  type: mongoose.Schema.Types.ObjectId, ref: 'User'  },
+  preceptor_id: { type: mongoose.Schema.Types.ObjectId, ref: 'User' },
+  instructor_id: { type: mongoose.Schema.Types.ObjectId, ref: 'User' }
 });
 const PEval = mongoose.model("PEval", PreceptorEvaluationSchema);
 export default PEval;

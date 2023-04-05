@@ -32,4 +32,6 @@ router.patch('/submit/:id', submitWeek);
 //GET all of a user's weeks
 router.get('/user/:id', getUsersWeeks);
 
+
+
 export default router;
