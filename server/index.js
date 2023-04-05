@@ -21,6 +21,7 @@ import userRoutes from './src/routes/userRoutes.js';
 import authRoutes from './src/routes/authRoutes.js';
 import preceptorRoutes from './src/routes/PreceptorRoutes.js';
 import scheduleRoutes from './src/routes/scheduleRoutes.js';
+import instructorRoutes from './src/routes/instructorRoutes.js';
 
 // create an instance of express (i think)
 const app = express();
@@ -36,6 +37,7 @@ app.use('/api/users', userRoutes);
 app.use('/api/auth', authRoutes);
 app.use('/api/preceptor', preceptorRoutes);
 app.use('/api/schedules', scheduleRoutes);
+app.use('/api/instructor', instructorRoutes);
 
 // initialize error handling middleware
 app.use(errorHandler);

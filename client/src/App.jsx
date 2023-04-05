@@ -28,6 +28,10 @@ import ViewEvaluation, {
     viewEvaluationLoader,
 } from './pages/preceptor/ViewEvaluation';
 
+//Instructor Pages
+import InstructorHome from './pages/instructor/InstructorHome';
+import ManageJoinCode from './pages/instructor/ManageJoinCode';
+
 //Schedule Pages, Actions & Loaders
 import ViewSchedule from './pages/student/schedule/ViewSchedule';
 
@@ -64,6 +68,12 @@ const router = createBrowserRouter(
                     loader={checklistLoader}
                     action={saveChecklistAction}
                 />
+            </Route>
+            
+            {/* Instructors */}
+            <Route path="/instructor">
+                <Route index element={<InstructorHome />} />
+                <Route path="/instructor/manageJoinCode" element={<ManageJoinCode/>} />
             </Route>
 
             {/* Preceptors */}

@@ -1,8 +1,8 @@
 import { useLogin } from '../hooks/useLogin';
 import { useState } from 'react';
-import { Typography, Button, Stack, TextField, Container, Divider } from '@mui/material';
-import { useNavigate } from 'react-router-dom';
+import { Typography, Button, Stack, TextField, Container, Divider, Alert } from '@mui/material';
 import { Box } from '@mui/system';
+import { useNavigate } from 'react-router-dom';
 import logo from '../img/sait-logo.png';
 
 const Login = () => {
@@ -17,29 +17,6 @@ const Login = () => {
         // Prevent default refresh page behaviour on form submission.
         event.preventDefault();
         await login(email, password);
-
-        const user = JSON.parse(localStorage.getItem('auth'));
-
-        const userRole = await user.result.role;
-        
-        console.log(userRole);
-
-        switch (userRole) {
-            case 'preceptor':
-                navigate(`/preceptor/home/${user._id}`);
-                break;
-            case 'student':
-                navigate('/checklist');
-                break;
-            case 'instructor':
-                navigate('/instructor');
-                break;
-            case 'academic_chair':
-                navigate('/admin');
-                break;
-            default:
-                navigate('never gonna give you up');
-        }
     };
 
     /* onChange fires a function that takes in the event.
@@ -95,7 +72,7 @@ const Login = () => {
                         </Button>
                     </Stack>
                 </Stack>
-                {error && <div className="error">{error}</div>}
+                {error && <Alert severity='error'>{error}</Alert>}
             </form>
         </Container>
     );
