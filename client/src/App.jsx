@@ -69,7 +69,6 @@ const router = createBrowserRouter(
                     action={saveChecklistAction}
                 />
             </Route>
-
             
             {/* Instructors */}
             <Route path="/instructor">

@@ -28,7 +28,24 @@ export const useLogin = () => {
             localStorage.setItem('auth', JSON.stringify(res));
             dispatch({ type: 'LOGIN', payload: res });
             setIsLoading(false);
-            navigate('/instructor');
+            // Navigate to the appropriate page for each user role
+            const role = res.result.role;   
+            switch (role) {
+                case 'preceptor':
+                    navigate(`/preceptor/home/${user._id}`);
+                    break;
+                case 'student':
+                    navigate('/checklist');
+                    break;
+                case 'instructor':
+                    navigate('/instructor');
+                    break;
+                case 'academic_chair':
+                    navigate('/admin');
+                    break;
+                default:
+                    navigate('never gonna give you up');
+            }
         }
     };
 
