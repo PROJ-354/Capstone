@@ -1,6 +1,6 @@
 import { useLogin } from '../hooks/useLogin';
 import { useState } from 'react';
-import { Typography, Button, Stack, TextField, Container, Divider } from '@mui/material';
+import { Typography, Button, Stack, TextField, Container, Divider, Alert } from '@mui/material';
 import { Box } from '@mui/system';
 import { useNavigate } from 'react-router-dom';
 import logo from '../img/sait-logo.png';
@@ -72,7 +72,7 @@ const Login = () => {
                         </Button>
                     </Stack>
                 </Stack>
-                {error && <div className="error">{error}</div>}
+                {error && <Alert severity='error'>{error}</Alert>}
             </form>
         </Container>
     );
