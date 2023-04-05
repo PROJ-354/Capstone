@@ -1,15 +1,15 @@
 import { Typography, Button, Stack, TextField, Link, Alert } from '@mui/material';
 
-const InstructorHome = () => {
+const AdminHome = () => {
     return (
         <>
             <br />                
             <Typography variant="h5" component="h2" sx={{ fontWeight: 'bold' }}>
-                Placeholder Instructor Homepage
+                Placeholder Admin Homepage
             </Typography>
             <br />
             <Typography variant="h6">
-                <Link href="/instructor/manageJoinCode" underline="always">
+                <Link href="/admin/manageJoinCode" underline="always">
                     Manage Join Codes
                 </Link>
             </Typography>
@@ -22,4 +22,4 @@ const InstructorHome = () => {
     );
 };
 
-export default InstructorHome;
+export default AdminHome;

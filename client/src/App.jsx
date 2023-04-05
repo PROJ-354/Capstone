@@ -32,6 +32,10 @@ import ViewEvaluation, {
 import InstructorHome from './pages/instructor/InstructorHome';
 import ManageJoinCode from './pages/instructor/ManageJoinCode';
 
+//Admin Pages
+import AdminHome from './pages/admin/AdminHome';
+import AdminManageJoinCode from './pages/admin/AdminManageJoinCode';
+
 //Schedule Pages, Actions & Loaders
 import ViewSchedule from './pages/student/schedule/ViewSchedule';
 
@@ -68,6 +72,11 @@ const router = createBrowserRouter(
                     loader={checklistLoader}
                     action={saveChecklistAction}
                 />
+            </Route>
+            {/* Admins */}
+            <Route path="/admin">
+                <Route index element={<AdminHome />} />
+                <Route path="/admin/manageJoinCode" element={<AdminManageJoinCode/>} />
             </Route>
             
             {/* Instructors */}
