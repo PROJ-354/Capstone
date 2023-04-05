@@ -33,7 +33,6 @@ const UserSchema = new mongoose.Schema({
     instructorId: {
         type: mongoose.Schema.Types.ObjectId,
         ref: 'User',
-        required: [true, 'an instructor ID is required']
     },
 
     joinCode: {

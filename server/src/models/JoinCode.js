@@ -13,7 +13,6 @@ const JoinCodeSchema = new mongoose.Schema({
     instructorId: {
         type: mongoose.Schema.Types.ObjectId,
         ref: 'User',
-        required: [true, 'an instructor ID is required']
     },
     role: {
         type: String,
