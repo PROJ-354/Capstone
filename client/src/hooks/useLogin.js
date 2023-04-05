@@ -29,6 +29,7 @@ export const useLogin = () => {
             dispatch({ type: 'LOGIN', payload: res });
             setIsLoading(false);
             // Navigate to the appropriate page for each user role
+            const user = res.result;
             const role = res.result.role;   
             switch (role) {
                 case 'preceptor':
