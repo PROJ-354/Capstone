@@ -43,6 +43,7 @@ import Reset from './pages/Reset';
 
 //Other Pages
 import NotFound from './pages/NotFound';
+import RequestPreceptorEvaluation, { evaluationRequestAction, preceptorListLoader } from './pages/student/RequestPreceptorEvaluation';
 
 const router = createBrowserRouter(
     createRoutesFromElements(
@@ -77,14 +78,27 @@ const router = createBrowserRouter(
             </Route>
 
             {/* Preceptors */}
-            <Route path="/preceptor">
-                <Route index element={<PreceptorHome />} loader={evalsLoader} />
+            <Route path="preceptor">
+
+                <Route path="home/:userId" 
+                element={<PreceptorHome />} 
+                loader={evalsLoader}
+                />
+
                 <Route
                     path="eval"
                     element={<PreceptorEvaluate />}
                     action={evaluateAction}
                     loader={evaluateLoader}
                 />
+
+                {/* <Route 
+                path="checklist/:checklistId" 
+                element={< PreceptorChecklist/>}
+                action={checklistAction}
+                loader={checklistLoader}
+                /> */}
+
                 <Route
                     path=":evalId"
                     element={<ViewEvaluation />}
@@ -97,6 +111,10 @@ const router = createBrowserRouter(
             <Route path="/student/schedules" element={<ViewSchedule />} />
             <Route path="/preceptor/schedules" element={<ViewSchedule />} />
             <Route path="/instructors/schedules" element={<ViewSchedule />} />
+
+            {/* Student page for requesting an evaluation from a preceptor */}
+            <Route path="requestpreceptorevaluation" element={<RequestPreceptorEvaluation />} loader={preceptorListLoader} action={evaluationRequestAction} />
+
 
             {/* Other Pages */}
             <Route path="*" element={<NotFound />} />

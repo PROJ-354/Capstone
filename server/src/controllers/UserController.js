@@ -57,7 +57,7 @@ export const updateUserEmail = async (request, response, next) => {
 
 export const getAllPreceptors = async (request, response, next) => {
     try {
-        const preceptors = await User.find({ role: 'Preceptor' });
+        const preceptors = await User.find({ role: 'preceptor' });
         return response.status(200).json(preceptors);
     } catch (error) {
         next(error);

@@ -35,13 +35,51 @@ const Navbar = () => {
                     Competency Tracking Tool
                 </Typography>
                 <Stack direction="row" spacing={2}>
-                    <Button
-                        size="sm"
-                        color="inherit"
-                        onClick={() => navigate('/checklist')}
-                    >
-                        Checklists
-                    </Button>
+                    {
+                        (user.result.role === 'student' && (
+                            <>
+                            <Button
+                                size="sm"
+                                color="inherit"
+                                onClick={() => navigate('/checklist')}
+                            >
+                                Checklists
+                            </Button>
+
+                            <Button
+                            size="sm"
+                            color="inherit"
+                            onClick={() => navigate('/requestpreceptorevaluation')}
+                        >
+                            Request Preceptor Evaluation
+                        </Button>
+                        </>
+                        ))
+                    }
+                    {
+                        (user.result.role === 'preceptor' && (
+                            <Button
+                                size="sm"
+                                color="inherit"
+                                onClick={() => navigate('/checklist')}
+                            >
+                                Something for preceptors
+                            </Button>
+                        ))
+                    }
+                    
+                    {
+                        (user.result.role === 'instructor' && (
+                            <Button
+                                size="sm"
+                                color="inherit"
+                                onClick={() => navigate('/checklist')}
+                            >
+                                Something for instructors
+                            </Button>
+                        ))
+                    }
+
                     <Button
                         size="sm"
                         variant="contained"
