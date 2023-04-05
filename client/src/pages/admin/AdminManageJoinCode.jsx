@@ -1,21 +1,14 @@
-import { useManageJoinCode } from '../../hooks/useManageJoinCode';
+import { useAdminManageJoinCode } from '../../hooks/useAdminManageJoinCode';
 import { useState } from 'react';
 import { Typography, Button, Stack, TextField, Link, Alert } from '@mui/material';
 
-const ManageJoinCode = () => {
-    const { getStudentCode, getPreceptorCode, resetJoinCode, isLoading, message, error } = useManageJoinCode();
+const AdminManageJoinCode = () => {
+    const { getInstructorCode, resetJoinCode, isLoading, message, error } = useAdminManageJoinCode();
     const [joinCode, setJoinCode] = useState('');
-    const auth = JSON.parse(localStorage.getItem('auth'));
-    const id = auth.result._id;
 
-    const handleStudentCode = (event) => {
+    const handleInstructorCode = (event) => {
         event.preventDefault();
-        getStudentCode(id);
-    }
-
-    const handlePreceptorCode = (event) => {
-        event.preventDefault();
-        getPreceptorCode(id);
+        getInstructorCode();
     }
 
     const handleResetJoinCode = (event) => {
@@ -29,27 +22,17 @@ const ManageJoinCode = () => {
             {error && <Alert severity='error'>{error}</Alert>}
             <br />
             <Stack direction="row" spacing={2}>
-                <form className="student_code" onSubmit={handleStudentCode}>
+                <form className="instructor_code" onSubmit={handleInstructorCode}>
                     <br /><br />
                     <Stack direction="row" spacing={2}>
                         <Button type="submit" variant="contained" disabled={isLoading}>
-                            Generate student join code
+                            Generate instructor join code
                         </Button>
                     </Stack>
                 </form>
-            </Stack>
-            <br />
+            </Stack>         
             <Stack direction="row" spacing={2}>
-                <form className="preceptor_code" onSubmit={handlePreceptorCode}>
-                    <Stack direction="row" spacing={2}>
-                        <Button type="submit" variant="contained" disabled={isLoading}>
-                            Generate preceptor join code
-                        </Button>
-                    </Stack>
-                </form>
-            </Stack>            
-            <Stack direction="row" spacing={2}>
-                <form className="reset_join_code" onSubmit={handleResetJoinCode}>
+                <form className="reset_code" onSubmit={handleResetJoinCode}>
                     <br /><br />
                     <Stack direction="row" spacing={2}>
                         <TextField
@@ -69,4 +52,4 @@ const ManageJoinCode = () => {
 
 };
 
-export default ManageJoinCode;
+export default AdminManageJoinCode;
