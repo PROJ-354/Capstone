@@ -122,19 +122,12 @@ const router = createBrowserRouter(
             <Route path="/instructor/schedules" element={<InstructorSchedulePage />} />
 
             {/* Student page for requesting an evaluation from a preceptor */}
-<<<<<<< HEAD
-
-            {/* i commented this out because it was throwing an error; file not found   */}
-            {/* <Route path="requestpreceptorevaluation" element={<RequestPreceptorEvaluation />} loader={preceptorListLoader} action={evaluationRequestAction} /> */}
-
-=======
-            <Route
+            {/* <Route
                 path="requestpreceptorevaluation"
                 element={<RequestPreceptorEvaluation />}
                 loader={preceptorListLoader}
                 action={evaluationRequestAction}
-            />
->>>>>>> main
+            /> */}
 
             {/* Other Pages */}
             <Route path="*" element={<NotFound />} />
