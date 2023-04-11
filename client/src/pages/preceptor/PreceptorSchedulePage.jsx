@@ -29,8 +29,7 @@ const InstructorSchedulePage = () => {
         e.preventDefault();
         const response = await fetch(`http://localhost:42069/api/schedules/student/unapprove/${studentIDState}`, { method: 'PUT' });
         const json = await response.json();
-        setDisapproveDialogState(!disapproveDialogState);
-    }
+}
 
     return (
         <>
