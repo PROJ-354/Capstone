@@ -12,19 +12,15 @@ export const login = async (req, res, next) => {
         const { email, password } = req.body;
         const existingUser = await User.findOne({ email: email });
         if (!existingUser) {
-            return res
-                .status(401)
-                .json({
-                    error: 'Login unsuccessful. Please double check the email or password and try again.',
-                });
+            return res.status(401).json({
+                error: 'Login unsuccessful. Please double check the email or password and try again.',
+            });
         }
         const isPasswordValid = await bcrypt.compare(password, existingUser.password);
         if (!isPasswordValid) {
-            return res
-                .status(401)
-                .json({
-                    error: 'Login unsuccessful. Please double check the email or password and try again.',
-                });
+            return res.status(401).json({
+                error: 'Login unsuccessful. Please double check the email or password and try again.',
+            });
         }
         const token = jwt.sign(
             { email: existingUser.email, id: existingUser._id },
@@ -39,14 +35,7 @@ export const login = async (req, res, next) => {
 
 export const register = async (req, res, next) => {
     try {
-        const {
-            firstName,
-            lastName,
-            code,
-            email,
-            password,
-            confirmPassword,
-        } = req.body;
+        const { firstName, lastName, code, email, password, confirmPassword } = req.body;
 
         const existingUser = await User.findOne({
             email: email,
@@ -69,7 +58,9 @@ export const register = async (req, res, next) => {
         });
 
         if (!joinCode) {
-            return res.status(401).json({ error: 'Invalid join code. Please contact your instructor.' });
+            return res
+                .status(401)
+                .json({ error: 'Invalid join code. Please contact your instructor.' });
         }
 
         const role = joinCode.role;
@@ -84,10 +75,10 @@ export const register = async (req, res, next) => {
             password: hashedPassword,
             role: role,
             instructorId: instructorId,
-            joinCode: code
+            joinCode: code,
         });
 
-        if(!userProfile) {
+        if (!userProfile) {
             return res.status(500).json({ error: 'Unable to create account.' });
         }
 

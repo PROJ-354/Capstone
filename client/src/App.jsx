@@ -50,7 +50,6 @@ import NotFound from './pages/NotFound';
 import PreceptorSchedulePage from './pages/preceptor/PreceptorSchedulePage';
 import InstructorSchedulePage from './pages/instructor/InstructorSchedulePage';
 
-
 const router = createBrowserRouter(
     createRoutesFromElements(
         <Route path="/" element={<RootLayout />}>
@@ -78,21 +77,21 @@ const router = createBrowserRouter(
             {/* Admins */}
             <Route path="/admin">
                 <Route index element={<AdminHome />} />
-                <Route path="/admin/manageJoinCode" element={<AdminManageJoinCode/>} />
+                <Route path="/admin/manageJoinCode" element={<AdminManageJoinCode />} />
             </Route>
-            
+
             {/* Instructors */}
             <Route path="/instructor">
                 <Route index element={<InstructorHome />} />
-                <Route path="/instructor/manageJoinCode" element={<ManageJoinCode/>} />
+                <Route path="/instructor/manageJoinCode" element={<ManageJoinCode />} />
             </Route>
 
             {/* Preceptors */}
             <Route path="preceptor">
-
-                <Route path="home/:userId" 
-                element={<PreceptorHome />} 
-                loader={evalsLoader}
+                <Route
+                    path="home/:userId"
+                    element={<PreceptorHome />}
+                    loader={evalsLoader}
                 />
 
                 <Route
@@ -123,10 +122,19 @@ const router = createBrowserRouter(
             <Route path="/instructor/schedules" element={<InstructorSchedulePage />} />
 
             {/* Student page for requesting an evaluation from a preceptor */}
+<<<<<<< HEAD
 
             {/* i commented this out because it was throwing an error; file not found   */}
             {/* <Route path="requestpreceptorevaluation" element={<RequestPreceptorEvaluation />} loader={preceptorListLoader} action={evaluationRequestAction} /> */}
 
+=======
+            <Route
+                path="requestpreceptorevaluation"
+                element={<RequestPreceptorEvaluation />}
+                loader={preceptorListLoader}
+                action={evaluationRequestAction}
+            />
+>>>>>>> main
 
             {/* Other Pages */}
             <Route path="*" element={<NotFound />} />
