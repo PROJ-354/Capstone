@@ -91,9 +91,9 @@ export const register = async (req, res, next) => {
         /**
          * creates a schedule & attach it to this user
          */
-        const schedule = await Schedule.create(INIT_SCHEDULE(userProfile.sait_id));
-        console.log(schedule);
-
+        const schedule = await Schedule.create(INIT_SCHEDULE(userProfile.email));
+        console.log(schedule)
+        
         return res.status(200).json({ result: userProfile, token: token });
     } catch (error) {
         next(error);

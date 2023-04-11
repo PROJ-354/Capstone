@@ -16,16 +16,16 @@ import {
 
 import authorize from '../middleware/authorize.js';
 
-router.get('/student/:studentID', getScheduleByStudentId);
+router.get('/student/:studentEmail', getScheduleByStudentId);
 
-router.put('/:studentID/:weekNumber', updateWeek);
+router.put('/:studentEmail/:weekNumber', updateWeek);
 
-router.put('/student/submit/:studentID', sumbitSchedule);
+router.put('/student/submit/:studentEmail', sumbitSchedule);
 
-router.put('/unsubmit/:studentID', unsumbitSchedule);
+router.put('/unsubmit/:studentEmail', unsumbitSchedule);
 
-router.put('/student/approve/:studentID', approveSchedule);
+router.put('/student/approve/:studentEmail', approveSchedule);
 
-router.put('/student/unapprove/:studentID', unapproveSchedule);
+router.put('/student/unapprove/:studentEmail', unapproveSchedule);
 
 export default router;

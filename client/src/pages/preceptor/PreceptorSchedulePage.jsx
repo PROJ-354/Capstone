@@ -1,4 +1,4 @@
-import { Button, Paper, Table, TableBody, TableCell, TableContainer, TableHead, TableRow, TextField, Typography } from "@mui/material";
+import { Button, Dialog, DialogActions, DialogTitle, Paper, Table, TableBody, TableCell, TableContainer, TableHead, TableRow, TextField, Typography } from "@mui/material";
 import { Box } from "@mui/system";
 import { useEffect, useState } from "react";
 
@@ -6,6 +6,8 @@ const InstructorSchedulePage = () => {
     // state
     const [studentIDState, setStudentIDState] = useState(null);
     const [weekData, setWeekData] = useState(null);
+    const [approveDialogState, setApproveDialogState] = useState(null)
+    const [disapproveDialogState, setDisapproveDialogState] = useState(null)
 
     // handle search button click; get a schedule by a users sait id
     async function handleSearch(e) {
@@ -19,7 +21,7 @@ const InstructorSchedulePage = () => {
         e.preventDefault();
         const response = await fetch(`http://localhost:42069/api/schedules/student/approve/${studentIDState}`, { method: 'PUT' });
         const json = await response.json();
-        alert(json.message);
+        setApproveDialogState(!approveDialogState);
     }
 
     // handle disapproving
@@ -27,8 +29,7 @@ const InstructorSchedulePage = () => {
         e.preventDefault();
         const response = await fetch(`http://localhost:42069/api/schedules/student/unapprove/${studentIDState}`, { method: 'PUT' });
         const json = await response.json();
-        alert(json.message);
-    }
+}
 
     return (
         <>
@@ -48,7 +49,7 @@ const InstructorSchedulePage = () => {
 
             {!weekData &&
                 <Typography align="center" color="red">
-                    Please Enter A Valid Student ID To View A Schedule...
+                    Please Enter A Valid Student Email To View A Schedule...
                 </Typography>
             }
 
@@ -138,6 +139,32 @@ const InstructorSchedulePage = () => {
                     </Button>
                 </Box>
             )}
+
+
+
+            <Dialog open={approveDialogState}>
+                <DialogTitle>Successfully Approved Schedule!</DialogTitle>
+                <DialogActions>
+                    <Button
+                        variant='contained'
+                        onClick={(e) => setApproveDialogState(!approveDialogState)}
+                    >
+                        OK
+                    </Button>
+                </DialogActions>
+            </Dialog>
+
+            <Dialog open={disapproveDialogState}>
+                <DialogTitle>Successfully Dipproved Schedule!</DialogTitle>
+                <DialogActions>
+                    <Button
+                        variant='contained'
+                        onClick={(e) => setDisapproveDialogState(!disapproveDialogState)}
+                    >
+                        OK
+                    </Button>
+                </DialogActions>
+            </Dialog>
         </>
     );
 }

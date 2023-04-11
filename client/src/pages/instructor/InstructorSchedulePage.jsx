@@ -20,7 +20,7 @@ const InstructorSchedulePage = () => {
             <Box sx={{ display: "flex", justifyContent: "center", my: 8}}>
                 <Box>
                     <TextField
-                        label='Student ID'
+                        label='Student Email'
                         onChange={(e) => setStudentIDState(e.target.value)}
                     />
                     <Button
@@ -35,7 +35,7 @@ const InstructorSchedulePage = () => {
 
             {!weekData && 
                 <Typography align="center" color="red">
-                    Please Enter A Valid Student ID To View A Schedule...
+                    Please Enter A Valid Student Email To View A Schedule...
                 </Typography>
             }
 
@@ -115,7 +115,7 @@ const InstructorSchedulePage = () => {
                             <Typography>Sumbission Status: Not Submitted</Typography>
                         )}
                         {weekData && weekData.is_approved && (
-                            <Typography>Approval Status: Submitted</Typography>
+                            <Typography>Approval Status: Approved</Typography>
                         )}
                         {weekData && !weekData.is_approved && (
                             <Typography>Approval Status: Not Approved</Typography>

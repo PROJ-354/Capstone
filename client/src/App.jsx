@@ -49,10 +49,6 @@ import Reset from './pages/Reset';
 import NotFound from './pages/NotFound';
 import PreceptorSchedulePage from './pages/preceptor/PreceptorSchedulePage';
 import InstructorSchedulePage from './pages/instructor/InstructorSchedulePage';
-import RequestPreceptorEvaluation, {
-    evaluationRequestAction,
-    preceptorListLoader,
-} from './pages/student/RequestPreceptorEvaluation';
 
 const router = createBrowserRouter(
     createRoutesFromElements(
@@ -126,12 +122,19 @@ const router = createBrowserRouter(
             <Route path="/instructor/schedules" element={<InstructorSchedulePage />} />
 
             {/* Student page for requesting an evaluation from a preceptor */}
+<<<<<<< HEAD
+
+            {/* i commented this out because it was throwing an error; file not found   */}
+            {/* <Route path="requestpreceptorevaluation" element={<RequestPreceptorEvaluation />} loader={preceptorListLoader} action={evaluationRequestAction} /> */}
+
+=======
             <Route
                 path="requestpreceptorevaluation"
                 element={<RequestPreceptorEvaluation />}
                 loader={preceptorListLoader}
                 action={evaluationRequestAction}
             />
+>>>>>>> main
 
             {/* Other Pages */}
             <Route path="*" element={<NotFound />} />
