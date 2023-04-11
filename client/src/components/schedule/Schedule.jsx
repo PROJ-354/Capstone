@@ -20,14 +20,14 @@ const Schedule = () => {
     const [dialogState, setDialogState] = useState(false);
 
     // mreow
-    const authenticatedUsersStudentId = JSON.parse(localStorage.getItem('auth')).result.sait_id;
+    const authenticatedUsersStudentEmail = JSON.parse(localStorage.getItem('auth')).result.email;
     const authenticatedUsersObjId = JSON.parse(localStorage.getItem('auth')).result._id;
 
     // todo: fetch & render the logged in users schedule
     useEffect(() => {
         async function fn() {
             const response = await fetch(
-                `http://localhost:42069/api/schedules/student/${authenticatedUsersStudentId}`
+                `http://localhost:42069/api/schedules/student/${authenticatedUsersStudentEmail}`
             );
             const json = await response.json();
             setIsSubmitted(json.is_sumbitted)
@@ -40,7 +40,7 @@ const Schedule = () => {
     // handle submission
     async function handleSubmission(e) {
         e.preventDefault();
-        const response = await fetch(`http://localhost:42069/api/schedules/student/submit/${authenticatedUsersStudentId}`, { method: 'PUT' });
+        const response = await fetch(`http://localhost:42069/api/schedules/student/submit/${authenticatedUsersStudentEmail}`, { method: 'PUT' });
         const json = await response.json();
         console.log(json)
         setIsSubmitted(!isSubmitted);

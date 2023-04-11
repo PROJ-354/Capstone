@@ -26,12 +26,12 @@ const Week = ({ weekData, weekNumber, isSubmitted }) => {
         e.preventDefault()
 
         // grab auth info from local storage
-        const authenticatedUsersStudentId = JSON.parse(localStorage.getItem('auth')).result.sait_id;
+        const authenticatedUsersStudentEmail = JSON.parse(localStorage.getItem('auth')).result.email;
         const auth = JSON.parse(localStorage.getItem('auth'));
         const token = auth.result.token
         const studentId = auth.result._id
 
-        fetch(`http://localhost:42069/api/schedules/${authenticatedUsersStudentId}/${weekNumber}`, {
+        fetch(`http://localhost:42069/api/schedules/${authenticatedUsersStudentEmail}/${weekNumber}`, {
             method: 'PUT',
             headers: { 'Content-Type': 'Application/json' },
             body: JSON.stringify({

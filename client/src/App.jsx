@@ -50,6 +50,7 @@ import NotFound from './pages/NotFound';
 import PreceptorSchedulePage from './pages/preceptor/PreceptorSchedulePage';
 import InstructorSchedulePage from './pages/instructor/InstructorSchedulePage';
 
+
 const router = createBrowserRouter(
     createRoutesFromElements(
         <Route path="/" element={<RootLayout />}>
@@ -122,7 +123,9 @@ const router = createBrowserRouter(
             <Route path="/instructor/schedules" element={<InstructorSchedulePage />} />
 
             {/* Student page for requesting an evaluation from a preceptor */}
-            <Route path="requestpreceptorevaluation" element={<RequestPreceptorEvaluation />} loader={preceptorListLoader} action={evaluationRequestAction} />
+
+            {/* i commented this out because it was throwing an error; file not found   */}
+            {/* <Route path="requestpreceptorevaluation" element={<RequestPreceptorEvaluation />} loader={preceptorListLoader} action={evaluationRequestAction} /> */}
 
 
             {/* Other Pages */}

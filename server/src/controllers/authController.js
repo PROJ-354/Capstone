@@ -5,10 +5,7 @@ import User from '../models/User.js';
 import ResetCode from '../models/ResetCode.js';
 import nodemailer from 'nodemailer';
 import INIT_SCHEDULE from '../config/INIT_SCHEDULE.js';
-<<<<<<< HEAD
-=======
 import JoinCode from '../models/JoinCode.js';
->>>>>>> main
 
 export const login = async (req, res, next) => {
     try {
@@ -103,7 +100,7 @@ export const register = async (req, res, next) => {
         /**
          * creates a schedule & attach it to this user
          */
-        const schedule = await Schedule.create(INIT_SCHEDULE(userProfile.sait_id));
+        const schedule = await Schedule.create(INIT_SCHEDULE(userProfile.email));
         console.log(schedule)
         
         return res.status(200).json({ result: userProfile, token: token });
