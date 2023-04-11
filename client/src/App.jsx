@@ -47,12 +47,12 @@ import Reset from './pages/Reset';
 
 //Other Pages
 import NotFound from './pages/NotFound';
-<<<<<<< HEAD
 import PreceptorSchedulePage from './pages/preceptor/PreceptorSchedulePage';
 import InstructorSchedulePage from './pages/instructor/InstructorSchedulePage';
-=======
-import RequestPreceptorEvaluation, { evaluationRequestAction, preceptorListLoader } from './pages/student/RequestPreceptorEvaluation';
->>>>>>> main
+import RequestPreceptorEvaluation, {
+    evaluationRequestAction,
+    preceptorListLoader,
+} from './pages/student/RequestPreceptorEvaluation';
 
 const router = createBrowserRouter(
     createRoutesFromElements(
@@ -81,21 +81,21 @@ const router = createBrowserRouter(
             {/* Admins */}
             <Route path="/admin">
                 <Route index element={<AdminHome />} />
-                <Route path="/admin/manageJoinCode" element={<AdminManageJoinCode/>} />
+                <Route path="/admin/manageJoinCode" element={<AdminManageJoinCode />} />
             </Route>
-            
+
             {/* Instructors */}
             <Route path="/instructor">
                 <Route index element={<InstructorHome />} />
-                <Route path="/instructor/manageJoinCode" element={<ManageJoinCode/>} />
+                <Route path="/instructor/manageJoinCode" element={<ManageJoinCode />} />
             </Route>
 
             {/* Preceptors */}
             <Route path="preceptor">
-
-                <Route path="home/:userId" 
-                element={<PreceptorHome />} 
-                loader={evalsLoader}
+                <Route
+                    path="home/:userId"
+                    element={<PreceptorHome />}
+                    loader={evalsLoader}
                 />
 
                 <Route
@@ -126,8 +126,12 @@ const router = createBrowserRouter(
             <Route path="/instructor/schedules" element={<InstructorSchedulePage />} />
 
             {/* Student page for requesting an evaluation from a preceptor */}
-            <Route path="requestpreceptorevaluation" element={<RequestPreceptorEvaluation />} loader={preceptorListLoader} action={evaluationRequestAction} />
-
+            <Route
+                path="requestpreceptorevaluation"
+                element={<RequestPreceptorEvaluation />}
+                loader={preceptorListLoader}
+                action={evaluationRequestAction}
+            />
 
             {/* Other Pages */}
             <Route path="*" element={<NotFound />} />
