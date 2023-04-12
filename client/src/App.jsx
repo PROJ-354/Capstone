@@ -49,6 +49,9 @@ import Reset from './pages/Reset';
 import NotFound from './pages/NotFound';
 import PreceptorSchedulePage from './pages/preceptor/PreceptorSchedulePage';
 import InstructorSchedulePage from './pages/instructor/InstructorSchedulePage';
+import PreceptorViewChecklist, {
+    preceptorSaveChecklistAction,
+} from './pages/preceptor/PreceptorViewChecklist';
 
 const router = createBrowserRouter(
     createRoutesFromElements(
@@ -74,6 +77,7 @@ const router = createBrowserRouter(
                     action={saveChecklistAction}
                 />
             </Route>
+
             {/* Admins */}
             <Route path="/admin">
                 <Route index element={<AdminHome />} />
@@ -92,6 +96,13 @@ const router = createBrowserRouter(
                     path="home/:userId"
                     element={<PreceptorHome />}
                     loader={evalsLoader}
+                />
+
+                <Route
+                    path="home/:userId/:id"
+                    element={<PreceptorViewChecklist />}
+                    loader={checklistLoader}
+                    action={preceptorSaveChecklistAction}
                 />
 
                 <Route

@@ -15,7 +15,7 @@ import { LoadingButton } from '@mui/lab';
 import { useNavigate } from 'react-router-dom';
 import { useState, useEffect } from 'react';
 
-export default function WeekCard({ checklist }) {
+export default function PreceptorWeekCard({ checklist }) {
     const navigate = useNavigate();
 
     //useStates for the button's availability and loading status
@@ -38,7 +38,7 @@ export default function WeekCard({ checklist }) {
         setSubmitDisabled(true);
 
         const res = await fetch(
-            `http://localhost:42069/api/weeks/submit/${checklist._id}`,
+            `http://localhost:42069/api/weeks/submit/preceptor/${checklist._id}`,
             {
                 method: 'PATCH',
             }
@@ -67,19 +67,17 @@ export default function WeekCard({ checklist }) {
                 <CardContent>
                     <Typography variant="h5">{checklist.name}</Typography>
                     <Typography variant="body1">
-                        Preceptor: ADD THE PRECEPTOR'S NAME HERE{' '}
-                        {!checklist.preceptor_id
-                            ? 'None Selected'
-                            : checklist.preceptor_id}
+                        Student: ADD THE STUDENT'S NAME HERE{' '}
+                        {!checklist.student_id ? 'None Selected' : checklist.student_id}
                         <br />
-                        Submitted: {checklist.submitted_to_preceptor ? 'Yes' : 'No'}
+                        Marked: {checklist.submitted_to_instructor ? 'Yes' : 'No'}
                     </Typography>
                 </CardContent>
                 <CardActions>
                     <Button
                         color="primary"
                         variant="contained"
-                        disabled={checklist.submitted_to_preceptor || viewDisabled}
+                        disabled={checklist.submitted_to_instructor || viewDisabled}
                         onClick={() => {
                             navigate(checklist._id);
                         }}
@@ -89,7 +87,7 @@ export default function WeekCard({ checklist }) {
                     <LoadingButton
                         color="success"
                         variant="contained"
-                        disabled={checklist.submitted_to_preceptor || submitDisabled}
+                        disabled={checklist.submitted_to_instructor || submitDisabled}
                         loading={submitIsLoading}
                         onClick={() => setOpen(true)}
                     >
