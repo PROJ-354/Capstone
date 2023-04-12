@@ -11,13 +11,14 @@ import {
     getUserByEmail,
     updateUserEmail,
     getAllPreceptors,
-} from '../controllers/userController.js';
+} from '../controllers/UserController.js';
 import authorize from '../middleware/authorize.js';
 
 // import middleware functions
 // blah blah blah
 
-router.get('/', authorize, getAllUsers);
+// router.get('/', authorize, getAllUsers);
+router.get('/', getAllUsers);
 router.get('/:id', getUserById);
 router.get('/email', getUserByEmail);
 router.put('/:id', updateUserEmail);

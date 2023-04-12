@@ -117,22 +117,22 @@ export const evaluateLoader = async () => {
 };
 
 export const evaluateAction = async ({ request }) => {
+    const user = JSON.parse(localStorage.getItem('auth')).result._id;
+
     //grab the form data
     const data = await request.formData();
     //grab the master evaluation
     const res = await fetch('http://localhost:42069/api/preceptor/eval');
     const newEval = await res.json();
 
-    const student_id = Math.floor(Math.random() * 10000);
-
+    newEval.complete = true;
     newEval._id = null;
     newEval.is_master = false;
     newEval.month = parseInt(data.get('month'));
     newEval.comments = data.get('comments');
-    newEval.complete = true;
-    newEval.student_id = student_id;
-    newEval.preceptor_id = 2345;
-    newEval.instructor_id = 3456;
+    newEval.preceptor_id = user;
+    newEval.student_id = "63ebc4288e74a2adcd75d332";
+
 
     newEval.performance_assessment.map((evals) => {
         evals.skill_rating = data.get(evals.skill_name + 'rating');
@@ -143,5 +143,5 @@ export const evaluateAction = async ({ request }) => {
         body: JSON.stringify(newEval),
         headers: { 'Content-Type': 'application/json' },
     });
-    return redirect('/preceptor');
+    return redirect(`/preceptor/home/${user}`);
 };

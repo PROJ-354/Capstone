@@ -28,6 +28,14 @@ import ViewEvaluation, {
     viewEvaluationLoader,
 } from './pages/preceptor/ViewEvaluation';
 
+//Instructor Pages
+import InstructorHome from './pages/instructor/InstructorHome';
+import ManageJoinCode from './pages/instructor/ManageJoinCode';
+
+//Admin Pages
+import AdminHome from './pages/admin/AdminHome';
+import AdminManageJoinCode from './pages/admin/AdminManageJoinCode';
+
 //Schedule Pages, Actions & Loaders
 import ViewSchedule from './pages/student/schedule/ViewSchedule';
 
@@ -39,6 +47,8 @@ import Reset from './pages/Reset';
 
 //Other Pages
 import NotFound from './pages/NotFound';
+import PreceptorSchedulePage from './pages/preceptor/PreceptorSchedulePage';
+import InstructorSchedulePage from './pages/instructor/InstructorSchedulePage';
 
 const router = createBrowserRouter(
     createRoutesFromElements(
@@ -64,16 +74,40 @@ const router = createBrowserRouter(
                     action={saveChecklistAction}
                 />
             </Route>
+            {/* Admins */}
+            <Route path="/admin">
+                <Route index element={<AdminHome />} />
+                <Route path="/admin/manageJoinCode" element={<AdminManageJoinCode />} />
+            </Route>
+
+            {/* Instructors */}
+            <Route path="/instructor">
+                <Route index element={<InstructorHome />} />
+                <Route path="/instructor/manageJoinCode" element={<ManageJoinCode />} />
+            </Route>
 
             {/* Preceptors */}
-            <Route path="/preceptor">
-                <Route index element={<PreceptorHome />} loader={evalsLoader} />
+            <Route path="preceptor">
+                <Route
+                    path="home/:userId"
+                    element={<PreceptorHome />}
+                    loader={evalsLoader}
+                />
+
                 <Route
                     path="eval"
                     element={<PreceptorEvaluate />}
                     action={evaluateAction}
                     loader={evaluateLoader}
                 />
+
+                {/* <Route 
+                path="checklist/:checklistId" 
+                element={< PreceptorChecklist/>}
+                action={checklistAction}
+                loader={checklistLoader}
+                /> */}
+
                 <Route
                     path=":evalId"
                     element={<ViewEvaluation />}
@@ -84,8 +118,16 @@ const router = createBrowserRouter(
 
             {/* Schedules */}
             <Route path="/student/schedules" element={<ViewSchedule />} />
-            <Route path="/preceptor/schedules" element={<ViewSchedule />} />
-            <Route path="/instructors/schedules" element={<ViewSchedule />} />
+            <Route path="/preceptor/schedules" element={<PreceptorSchedulePage />} />
+            <Route path="/instructor/schedules" element={<InstructorSchedulePage />} />
+
+            {/* Student page for requesting an evaluation from a preceptor */}
+            {/* <Route
+                path="requestpreceptorevaluation"
+                element={<RequestPreceptorEvaluation />}
+                loader={preceptorListLoader}
+                action={evaluationRequestAction}
+            /> */}
 
             {/* Other Pages */}
             <Route path="*" element={<NotFound />} />

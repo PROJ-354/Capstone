@@ -27,12 +27,17 @@ const UserSchema = new mongoose.Schema({
 
     role: {
         type: String,
-        required: [true, 'a role  is required'] // todo: validate roles
+        required: [true, 'a role  is required']
     },
 
-    sait_id: {
+    instructorId: {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'User',
+    },
+
+    joinCode: {
         type: String,
-        required: [true, 'a sait is required']
+        required: [true, 'a code is required'],
     }
 }, { timestamps: true });
 

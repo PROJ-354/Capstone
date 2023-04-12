@@ -6,6 +6,7 @@ import ResetCode from '../models/ResetCode.js';
 import nodemailer from 'nodemailer';
 import INIT_SCHEDULE from '../config/INIT_SCHEDULE.js';
 import { giveUserWeeks } from './weekController.js';
+import JoinCode from '../models/JoinCode.js';
 
 export const login = async (req, res, next) => {
     try {
@@ -35,16 +36,7 @@ export const login = async (req, res, next) => {
 
 export const register = async (req, res, next) => {
     try {
-        const {
-            role,
-            sait_id,
-            firstName,
-            lastName,
-            secretCode,
-            email,
-            password,
-            confirmPassword,
-        } = req.body;
+        const { firstName, lastName, code, email, password, confirmPassword } = req.body;
 
         const existingUser = await User.findOne({
             email: email,
@@ -62,18 +54,34 @@ export const register = async (req, res, next) => {
         }
 
         //code for validating access code for students and preceptors here
+        const joinCode = await JoinCode.findOne({
+            code: code,
+        });
+
+        if (!joinCode) {
+            return res
+                .status(401)
+                .json({ error: 'Invalid join code. Please contact your instructor.' });
+        }
+
+        const role = joinCode.role;
+        const instructorId = joinCode.instructorId;
 
         const hashedPassword = await bcrypt.hash(password, 12);
 
         const userProfile = await User.create({
-            role: role,
-            sait_id: role !== 'preceptor' ? sait_id : 'not assigned',
-            /**if a student registering then saitid exists, if preceptor saitid field is not assigned */
             firstName: firstName,
             lastName: lastName,
             email: email,
             password: hashedPassword,
+            role: role,
+            instructorId: instructorId,
+            joinCode: code,
         });
+
+        if (!userProfile) {
+            return res.status(500).json({ error: 'Unable to create account.' });
+        }
 
         const token = jwt.sign(
             { email: email, id: userProfile._id },
@@ -81,16 +89,16 @@ export const register = async (req, res, next) => {
             { expiresIn: '5h' }
         );
 
-        /**
-         * refaat's todo: create a schedule & attach it to this user
-         */
-        const schedule = await Schedule.create(INIT_SCHEDULE(userProfile._id));
-        console.log(schedule);
-
         //This creates the student user's weeks when the account is created
         if ((role = 'student')) {
             const userWeeks = await giveUserWeeks(userProfile._id);
         }
+
+        /**
+         * creates a schedule & attach it to this user
+         */
+        const schedule = await Schedule.create(INIT_SCHEDULE(userProfile.email));
+        console.log(schedule);
 
         return res.status(200).json({ result: userProfile, token: token });
     } catch (error) {

@@ -24,40 +24,20 @@ export default function PreceptorEvaluate() {
 
     return (
         <Form method="post">
-            <TextField
-                sx={{ display: 'none' }}
-                hidden
-                name="evaluationId"
-                defaultValue={instantiatedEval._id}
-            ></TextField>
-            <InputLabel id="demo-simple-select-label">
-                First or last evaluation?
-            </InputLabel>
-            <TextField
-                label="Choose Month"
-                select
-                required
-                fullWidth
-                name="month"
-                size="small"
-                color="secondary"
-                defaultValue={instantiatedEval.month}
-            >
-                <MenuItem value={1}>First</MenuItem>
-                <MenuItem value={2}>Last</MenuItem>
-            </TextField>
+
+            <input hidden name='evaluationId' value={instantiatedEval._id}></input>
 
             <TableContainer component={Paper}>
-                <Table sx={{ minWidth: 650 }} aria-label="simple table">
+                <Table text-align='center' sx={{ minWidth: 650 }} aria-label="simple table">
                     <TableHead>
                         <TableRow>
                             <TableCell>Evaluation Criteria</TableCell>
-                            <TableCell align="right">Industry Ready</TableCell>
-                            <TableCell align="right">Entry Level</TableCell>
-                            <TableCell align="right">Satisfactory</TableCell>
-                            <TableCell align="right">Needs Improvement</TableCell>
-                            <TableCell align="right">Unnacceptable</TableCell>
-                            <TableCell align="right">Rating</TableCell>
+                            <TableCell align="center">Industry Ready</TableCell>
+                            <TableCell align="center">Entry Level</TableCell>
+                            <TableCell align="center">Satisfactory</TableCell>
+                            <TableCell align="center">Needs Improvement</TableCell>
+                            <TableCell align="center">Unnacceptable</TableCell>
+                            <TableCell align="center">Rating</TableCell>
                         </TableRow>
                     </TableHead>
                     <TableBody>
@@ -80,7 +60,7 @@ export default function PreceptorEvaluate() {
                                         select
                                         required
                                         fullWidth
-                                        defaultValue={evals.skill_rating}
+                                        defaultValue=""
                                         name={evals.skill_name + 'rating'}
                                         size="small"
                                         color="secondary"
@@ -126,18 +106,22 @@ export const viewEvaluationLoader = async ({ params }) => {
 
 export const editEvaluationAction = async ({ request }) => {
     //grab the form data
+    const user = JSON.parse(localStorage.getItem('auth')).result._id;
     const data = await request.formData();
     const evaluationId = data.get('evaluationId');
+
+    console.log(evaluationId);
 
     //grab the master evaluation
     const res = await fetch(`http://localhost:42069/api/preceptor/${evaluationId}`);
     const newEval = await res.json();
 
-    newEval.is_master = false;
-    newEval.month = parseInt(data.get('month'));
+
+    newEval.instructor_id = '63ebcc0b8e74a2adcd75d33a';
     newEval.comments = data.get('comments');
-    newEval.preceptor_id = 2345;
-    newEval.instructor_id = 3456;
+    newEval.complete = true;
+    
+    
 
     newEval.performance_assessment.map((evals) => {
         evals.skill_rating = data.get(evals.skill_name + 'rating');
@@ -149,11 +133,11 @@ export const editEvaluationAction = async ({ request }) => {
         headers: { 'Content-Type': 'application/json' },
     });
 
-    await fetch(`http://localhost:42069/api/preceptor/${evaluationId}`, {
-        method: 'PUT',
-        body: JSON.stringify(newEval),
-        headers: { 'Content-Type': 'application/json' },
-    });
+    // await fetch(`http://localhost:42069/api/preceptor/${evaluationId}`, {
+    //     method: 'PUT',
+    //     body: JSON.stringify(newEval),
+    //     headers: { 'Content-Type': 'application/json' },
+    // });
 
-    return redirect('/preceptor');
+    return redirect(`/preceptor/home/${user}`);
 };
