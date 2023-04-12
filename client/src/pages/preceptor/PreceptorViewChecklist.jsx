@@ -36,6 +36,9 @@ export default function PreceptorViewChecklist() {
             <Typography variant="h4">
                 {checklistData.week.name} Skills Assessment for Student XXX
             </Typography>
+            <Typography variant="body1">
+                First checkbox is the student's, second checkbox is yours
+            </Typography>
             <Form method="post" id="submit-checklist-form">
                 {checklistData.week.skills_assessment.section.map((section) => (
                     <Accordion
