@@ -38,7 +38,7 @@ export default function PreceptorWeekCard({ checklist }) {
         setSubmitDisabled(true);
 
         const res = await fetch(
-            `http://localhost:42069/api/weeks/submit/${checklist._id}`,
+            `http://localhost:42069/api/weeks/submit/preceptor/${checklist._id}`,
             {
                 method: 'PATCH',
             }
@@ -68,9 +68,7 @@ export default function PreceptorWeekCard({ checklist }) {
                     <Typography variant="h5">{checklist.name}</Typography>
                     <Typography variant="body1">
                         Student: ADD THE STUDENT'S NAME HERE{' '}
-                        {!checklist.preceptor_id
-                            ? 'None Selected'
-                            : checklist.preceptor_id}
+                        {!checklist.student_id ? 'None Selected' : checklist.student_id}
                         <br />
                         Marked: {checklist.submitted_to_instructor ? 'Yes' : 'No'}
                     </Typography>

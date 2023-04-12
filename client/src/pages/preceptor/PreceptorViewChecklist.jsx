@@ -91,4 +91,35 @@ export default function PreceptorViewChecklist() {
 
 export const preceptorSaveChecklistAction = async ({ request, params }) => {
     const formData = await request.formData();
+    const res = await fetch(`http://localhost:42069/api/weeks/${params.id}`);
+    const loaderData = await res.json();
+
+    const resData = [];
+
+    //eslint-disable-next-line
+    loaderData.week.skills_assessment.section.map((section) => {
+        //eslint-disable-next-line
+        section.skills.map((skill) => {
+            for (let i = 0; i < section.experiences; i++) {
+                const data = formData.get(
+                    `${section.name} ${skill.name} Experience ${i} preceptor`
+                );
+                resData.push({
+                    section: section.name,
+                    skill: skill.name,
+                    experience: i + 1,
+                    checked: data === null ? false : true,
+                });
+            }
+        });
+    });
+
+    //Send the update to the database
+    await fetch(`http://localhost:42069/api/weeks/preceptor/${params.id}`, {
+        method: 'PATCH',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(resData),
+    });
+
+    return redirect(`/preceptor/home/${params.userId}`);
 };

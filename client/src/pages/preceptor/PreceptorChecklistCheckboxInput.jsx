@@ -10,16 +10,15 @@ export default function PreceptorChecklistCheckboxInput({ sectionName, skill, id
     return (
         <TableCell>
             <Checkbox
-                name={`${sectionName} ${skill.name} Experience ${id}`}
                 checked={value}
                 value={value}
-                disabled="true"
+                disabled={true}
                 onChange={(event) => {
                     setValue(event.target.checked);
                 }}
             />
             <Checkbox
-                name={`${sectionName} ${skill.name} Experience ${id}`}
+                name={`${sectionName} ${skill.name} Experience ${id} preceptor`}
                 checked={preceptorValue}
                 value={preceptorValue}
                 onChange={(event) => {
