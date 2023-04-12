@@ -5,6 +5,7 @@ import User from '../models/User.js';
 import ResetCode from '../models/ResetCode.js';
 import nodemailer from 'nodemailer';
 import INIT_SCHEDULE from '../config/INIT_SCHEDULE.js';
+import { giveUserWeeks } from './weekController.js';
 import JoinCode from '../models/JoinCode.js';
 
 export const login = async (req, res, next) => {
@@ -88,12 +89,17 @@ export const register = async (req, res, next) => {
             { expiresIn: '5h' }
         );
 
+        //This creates the student user's weeks when the account is created
+        if (role.toLowerCase() === 'student') {
+            const userWeeks = await giveUserWeeks(userProfile._id);
+        }
+
         /**
          * creates a schedule & attach it to this user
          */
         const schedule = await Schedule.create(INIT_SCHEDULE(userProfile.email));
-        console.log(schedule)
-        
+        console.log(schedule);
+
         return res.status(200).json({ result: userProfile, token: token });
     } catch (error) {
         next(error);
