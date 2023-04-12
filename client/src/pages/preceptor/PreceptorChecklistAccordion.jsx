@@ -6,8 +6,8 @@ import {
     TableRow,
     TableCell,
 } from '@mui/material';
-// import ChecklistDateInput from './ChecklistDateInput';
-// import ChecklistCheckboxInput from './ChecklistCheckboxInput';
+import PreceptorChecklistDateInput from './PreceptorChecklistDateInput';
+import PreceptorChecklistCheckboxInput from './PreceptorChecklistCheckboxInput';
 
 export default function PreceptorChecklistAccordion({ section }) {
     return (
@@ -52,15 +52,14 @@ const loadDateInputs = (section) => {
     let content = [];
     for (let i = 0; i < section.experiences; i++) {
         const date = section.skills[0].experiences[i].date;
-        content
-            .push
-            // <ChecklistDateInput
-            //     key={`${section.name} date ${i}`}
-            //     sectionName={section.name}
-            //     id={i}
-            //     dateValue={date}
-            // />
-            ();
+        content.push(
+            <PreceptorChecklistDateInput
+                key={`${section.name} date ${i}`}
+                sectionName={section.name}
+                id={i}
+                dateValue={date}
+            />
+        );
     }
     return content;
 };
@@ -69,15 +68,14 @@ const loadDateInputs = (section) => {
 const loadCheckboxes = (section, skill) => {
     let content = [];
     for (let i = 0; i < section.experiences; i++) {
-        content
-            .push
-            // <ChecklistCheckboxInput
-            //     key={`${section.name} ${skill.name} ${i}`}
-            //     sectionName={section.name}
-            //     skill={skill}
-            //     id={i}
-            // />
-            ();
+        content.push(
+            <PreceptorChecklistCheckboxInput
+                key={`${section.name} ${skill.name} ${i}`}
+                sectionName={section.name}
+                skill={skill}
+                id={i}
+            />
+        );
     }
     return content;
 };
