@@ -105,6 +105,22 @@ export const updateWeek = async (req, res) => {
     res.status(200).json(week);
 };
 
+export const updatePreceptorWeek = async (req, res) => {
+    const { id } = req.params;
+
+    //Check if the provided id is a valid object id
+    if (!mongoose.Types.ObjectId.isValid(id)) {
+        return res.status(404).json({ error: 'Invalid id' });
+    }
+
+    let week = await Week.findOne({ _id: id });
+    if (!week) {
+        return res.status(404).json({ error: 'No such week' });
+    }
+
+    res.status(200).json({ message: 'done' });
+};
+
 //SUBMIT a week to a preceptor
 export const submitWeek = async (req, res) => {
     const { id } = req.params;
@@ -162,11 +178,12 @@ export const getUsersWeeks = async (req, res) => {
     }
 };
 
-export const giveUserWeeks = async (userId) => {
+export const giveUserWeeks = async (userId, instructorId) => {
     const masterWeeks = await Week.find({ is_master: true });
 
     masterWeeks.map(async (week) => {
         week.student_id = userId;
+        week.instructor_id = instructorId;
         week.is_master = false;
         week._id = mongoose.Types.ObjectId();
         week.isNew = true;
