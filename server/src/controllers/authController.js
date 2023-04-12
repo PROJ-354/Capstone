@@ -90,7 +90,7 @@ export const register = async (req, res, next) => {
         );
 
         //This creates the student user's weeks when the account is created
-        if ((role = 'student')) {
+        if (role.toLowerCase() === 'student') {
             const userWeeks = await giveUserWeeks(userProfile._id);
         }
 
