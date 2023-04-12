@@ -49,7 +49,6 @@ import Reset from './pages/Reset';
 import NotFound from './pages/NotFound';
 import PreceptorSchedulePage from './pages/preceptor/PreceptorSchedulePage';
 import InstructorSchedulePage from './pages/instructor/InstructorSchedulePage';
-import PreceptorViewAllChecklists from './pages/preceptor/PreceptorViewAllChecklists';
 
 const router = createBrowserRouter(
     createRoutesFromElements(
@@ -73,14 +72,6 @@ const router = createBrowserRouter(
                     element={<ViewChecklist />}
                     loader={checklistLoader}
                     action={saveChecklistAction}
-                />
-            </Route>
-
-            <Route path="preceptor-checklists">
-                <Route
-                    index
-                    element={<PreceptorViewAllChecklists />}
-                    loader={viewAllChecklistsLoader}
                 />
             </Route>
 

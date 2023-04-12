@@ -67,7 +67,7 @@ export default function WeekCard({ checklist }) {
                 <CardContent>
                     <Typography variant="h5">{checklist.name}</Typography>
                     <Typography variant="body1">
-                        Preceptor:{' '}
+                        Preceptor: ADD THE PRECEPTOR'S NAME HERE{' '}
                         {!checklist.preceptor_id
                             ? 'None Selected'
                             : checklist.preceptor_id}

@@ -67,19 +67,19 @@ export default function PreceptorWeekCard({ checklist }) {
                 <CardContent>
                     <Typography variant="h5">{checklist.name}</Typography>
                     <Typography variant="body1">
-                        Preceptor:{' '}
+                        Student: ADD THE STUDENT'S NAME HERE{' '}
                         {!checklist.preceptor_id
                             ? 'None Selected'
                             : checklist.preceptor_id}
                         <br />
-                        Submitted: {checklist.submitted_to_preceptor ? 'Yes' : 'No'}
+                        Marked: {checklist.submitted_to_instructor ? 'Yes' : 'No'}
                     </Typography>
                 </CardContent>
                 <CardActions>
                     <Button
                         color="primary"
                         variant="contained"
-                        disabled={checklist.submitted_to_preceptor || viewDisabled}
+                        disabled={checklist.submitted_to_instructor || viewDisabled}
                         onClick={() => {
                             navigate(checklist._id);
                         }}
@@ -89,7 +89,7 @@ export default function PreceptorWeekCard({ checklist }) {
                     <LoadingButton
                         color="success"
                         variant="contained"
-                        disabled={checklist.submitted_to_preceptor || submitDisabled}
+                        disabled={checklist.submitted_to_instructor || submitDisabled}
                         loading={submitIsLoading}
                         onClick={() => setOpen(true)}
                     >
