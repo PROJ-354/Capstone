@@ -6,7 +6,7 @@ import {
 } from 'react-router-dom';
 
 // route protection utility
-import PrivateRoute from './utility/PrivateRoute';  
+import PrivateRoute from './utility/PrivateRoute';
 
 // Layouts
 import RootLayout from './layouts/RootLayout';
@@ -133,25 +133,24 @@ const router = createBrowserRouter(
             </Route>
 
             {/* Schedules */}
-            {/* <Route path="/student/schedules" element={<ViewSchedule />} /> */}
-            <Route path="/testing" element={
-                <PrivateRoute roles={['student', 'preceptor', 'gaymer' ]}>
-                    <>
-                        <p>Very Private Info</p>
-                    </>
-                </PrivateRoute>
-            } />
-
-
             <Route path="/student/schedules" element={
-                <PrivateRoute>
-                    <ViewSchedule/>
+                <PrivateRoute roles={['student']}>
+                    <ViewSchedule />
                 </PrivateRoute>
             } />
 
+            <Route path="/preceptor/schedules" element={
+                <PrivateRoute roles={['preceptor']}>
+                    <PreceptorSchedulePage />
+                </PrivateRoute>
+            } />
 
-            <Route path="/preceptor/schedules" element={<PreceptorSchedulePage />} />
-            <Route path="/instructor/schedules" element={<InstructorSchedulePage />} />
+            <Route path="/instructor/schedules" element={
+                <PrivateRoute roles={['instructor']}>
+                    <InstructorSchedulePage />
+                </PrivateRoute>
+            } />
+
 
             {/* Student page for requesting an evaluation from a preceptor */}
             {/* <Route
