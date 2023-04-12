@@ -5,6 +5,9 @@ import {
     RouterProvider,
 } from 'react-router-dom';
 
+// route protection utility
+import PrivateRoute from './utility/PrivateRoute';  
+
 // Layouts
 import RootLayout from './layouts/RootLayout';
 
@@ -52,6 +55,8 @@ import InstructorSchedulePage from './pages/instructor/InstructorSchedulePage';
 import PreceptorViewChecklist, {
     preceptorSaveChecklistAction,
 } from './pages/preceptor/PreceptorViewChecklist';
+
+// import PrivateRoute from '../../server/src/utilities/PrivateRoute'; why was this here?
 
 const router = createBrowserRouter(
     createRoutesFromElements(
@@ -128,7 +133,23 @@ const router = createBrowserRouter(
             </Route>
 
             {/* Schedules */}
-            <Route path="/student/schedules" element={<ViewSchedule />} />
+            {/* <Route path="/student/schedules" element={<ViewSchedule />} /> */}
+            <Route path="/testing" element={
+                <PrivateRoute roles={['student', 'preceptor', 'gaymer' ]}>
+                    <>
+                        <p>Very Private Info</p>
+                    </>
+                </PrivateRoute>
+            } />
+
+
+            <Route path="/student/schedules" element={
+                <PrivateRoute>
+                    <ViewSchedule/>
+                </PrivateRoute>
+            } />
+
+
             <Route path="/preceptor/schedules" element={<PreceptorSchedulePage />} />
             <Route path="/instructor/schedules" element={<InstructorSchedulePage />} />
 
