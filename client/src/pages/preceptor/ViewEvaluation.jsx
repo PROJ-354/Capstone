@@ -61,6 +61,7 @@ export default function PreceptorEvaluate() {
                                         label="Rating"
                                         select
                                         required
+                                        value={evals.skill_rating}
                                         defaultValue=""
                                         name={evals.skill_name + 'rating'}
                                         size="small"
@@ -116,12 +117,9 @@ export const editEvaluationAction = async ({ request }) => {
     const newEval = await res.json();
 
 
-    newEval.instructor_id = '63ebcc0b8e74a2adcd75d33a';
     newEval.comments = data.get('comments');
     newEval.complete = true;
     
-    
-
     newEval.performance_assessment.map((evals) => {
         evals.skill_rating = data.get(evals.skill_name + 'rating');
     });
@@ -131,12 +129,6 @@ export const editEvaluationAction = async ({ request }) => {
         body: JSON.stringify(newEval),
         headers: { 'Content-Type': 'application/json' },
     });
-
-    // await fetch(`http://localhost:42069/api/preceptor/${evaluationId}`, {
-    //     method: 'PUT',
-    //     body: JSON.stringify(newEval),
-    //     headers: { 'Content-Type': 'application/json' },
-    // });
 
     return redirect(`/preceptor/home/${user}`);
 };
