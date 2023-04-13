@@ -6,15 +6,18 @@ import {
     deleteEval,
     getEval,
     editEval,
+    getStudentEvals,
 } from '../controllers/PreceptorController.js';
 
 const router = express.Router();
 
 router.get('/home/:userId', getEvals);
 
-router.get('/eval', getMasterEval);
+router.get('/studentEvals/:studentId', getStudentEvals)
 
 router.post('/eval', createEval);
+
+router.get('/eval', getMasterEval);
 
 router.delete('/:evalId', deleteEval);
 

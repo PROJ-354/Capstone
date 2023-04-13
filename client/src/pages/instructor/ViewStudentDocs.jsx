@@ -3,7 +3,7 @@ import CardContent from '@mui/material/CardContent';
 import { Button, CardActions, CardHeader, Paper } from '@mui/material';
 import { Grid } from '@mui/material';
 import Typography from '@mui/material/Typography';
-import { Link, useLoaderData } from 'react-router-dom';
+import { Link, useLoaderData, useParams } from 'react-router-dom';
 import { useState } from 'react';
 import LaunchIcon from '@mui/icons-material/Launch';
 import Accordion from '@mui/material/Accordion';
@@ -12,7 +12,8 @@ import AccordionSummary from '@mui/material/AccordionSummary';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import PreceptorWeekCard from '../../components/checklist/PreceptorWeekCard';
 
-export default function PreceptorHome() {
+export default function ViewStudentDocs() {
+
     //for use with the accordian
     const [expanded, setExpanded] = useState(false);
 
@@ -23,12 +24,7 @@ export default function PreceptorHome() {
     //grab evaluations from the loader
     const { evaluations, checklists } = useLoaderData();
 
-    console.log(checklists);
-
-    //place into useState, this is done so that we can update the array upon deletion and creation
-    const [evals, setEvals] = useState([...evaluations]);
-
-    const sortedEvals = evals.sort((a, b) => a.complete - b.complete);
+    console.log(evaluations);
 
     return (
         <Grid container spacing={1} padding="10px">
@@ -45,15 +41,14 @@ export default function PreceptorHome() {
                 </AccordionSummary>
                 <AccordionDetails>
                     <Grid container spacing={1}>
-                    {sortedEvals.map((evaluation, idx) => (
+                    {evaluations.map((evaluation, idx) => (
                         <Grid item key={idx} sx={{ minWidth: 275 }}>
                             <Paper elevation={10}>
                             <Card
                                 style={{
                                     border: 5,
                                     borderStyle: 'solid',
-                                    borderColor: evaluation.complete ? 'green' : 'orange',
-                                    // borderColor: 'green',
+                                    borderColor: 'rgb(25, 118, 210)'
                                 }}
                                 display="flex"
                             >
@@ -61,9 +56,13 @@ export default function PreceptorHome() {
                                     container
                                     justifyContent="space-between"
                                     alignItems="center"
-                                ></Grid>
 
-                                <CardHeader
+                                >
+                                    <Typography>{evaluation.student_id}</Typography>
+                                </Grid>
+
+                                 <CardHeader
+
                                     fontWeight="bold"
                                     title="Student Name:"
                                     subheader={
@@ -71,7 +70,9 @@ export default function PreceptorHome() {
                                         ' ' +
                                         evaluation.student_id.lastName
                                     }
-                                />
+
+                                /> 
+
                                 <CardContent>
                                     <Typography
                                         sx={{ fontSize: 14 }}
@@ -87,10 +88,12 @@ export default function PreceptorHome() {
                                     <CardActions>
                                         <Link
                                             style={{ color: 'white' }}
-                                            to={`/preceptor/${evaluation._id}`}
+
+                                            to={`/instructor/${evaluation.student_id}/peval/${evaluation._id}`}
+
                                         >
                                             <Button variant="contained" color="primary">
-                                                View/Edit
+                                                View
                                             </Button>
                                         </Link>
                                     </CardActions>
@@ -126,28 +129,27 @@ export default function PreceptorHome() {
             </Accordion>
         </Grid>
     );
-
-    //delete eval handler
-    async function handleDeleteEval(evalId) {
-        const response = await fetch(`http://localhost:42069/api/preceptor/${evalId}`, {
-            method: 'DELETE',
-        });
-
-        setEvals(evals.filter((evaluation) => evaluation._id !== evalId));
-    }
 }
 
 //preliminary loader
-export const evalsLoader = async () => {
-    const user = JSON.parse(localStorage.getItem('auth')).result._id;
+export const studentDocsLoader = async (req) => {
+    const studentId = req.params.studentId;
 
-    const evals = await fetch(`http://localhost:42069/api/preceptor/home/${user}`);
+    console.log(studentId);
 
-    const checks = await fetch(`http://localhost:42069/api/weeks/user/${user}`);
+
+    const evals = await fetch(`http://localhost:42069/api/preceptor/studentEvals/${studentId}`);
+
+
+    const checks = await fetch(`http://localhost:42069/api/weeks/user/${studentId}`);
 
     const checklists = await checks.json();
 
     const evaluations = await evals.json();
+
+    console.log(evaluations)
+
+    console.log(checklists)
 
     return {
         evaluations,

@@ -32,7 +32,7 @@ import ViewEvaluation, {
 } from './pages/preceptor/ViewEvaluation';
 
 //Instructor Pages
-import InstructorHome from './pages/instructor/InstructorHome';
+import InstructorHome, { instructorHomeLoader } from './pages/instructor/InstructorHome';
 import ManageJoinCode from './pages/instructor/ManageJoinCode';
 
 //Admin Pages
@@ -60,6 +60,10 @@ import PreceptorViewChecklist, {
     preceptorSaveChecklistAction,
 } from './pages/preceptor/PreceptorViewChecklist';
 import InstructorViewChecklist from './pages/instructor/InstructorViewChecklist';
+import InstructorViewPeval, {
+    instructorEvaluationLoader,
+} from './pages/instructor/InstructorViewPeval';
+import ViewStudentDocs, { studentDocsLoader } from './pages/instructor/ViewStudentDocs';
 
 // import PrivateRoute from '../../server/src/utilities/PrivateRoute'; why was this here?
 
@@ -96,12 +100,22 @@ const router = createBrowserRouter(
 
             {/* Instructors */}
             <Route path="/instructor">
-                <Route index element={<InstructorHome />} />
+                <Route index element={<InstructorHome />} loader={instructorHomeLoader} />
                 <Route path="/instructor/manageJoinCode" element={<ManageJoinCode />} />
                 <Route
                     path="/instructor/checklist/:id"
                     element={<InstructorViewChecklist />}
                     loader={checklistLoader}
+                />
+                <Route
+                    path="/instructor/:studentId"
+                    element={<ViewStudentDocs />}
+                    loader={studentDocsLoader}
+                />
+                <Route
+                    path="/instructor/:studentId/peval/:id"
+                    element={<InstructorViewPeval />}
+                    loader={instructorEvaluationLoader}
                 />
             </Route>
 
@@ -120,12 +134,12 @@ const router = createBrowserRouter(
                     action={preceptorSaveChecklistAction}
                 />
 
-                <Route
+                {/* <Route
                     path="eval"
                     element={<PreceptorEvaluate />}
                     action={evaluateAction}
                     loader={evaluateLoader}
-                />
+                /> */}
 
                 {/* <Route 
                 path="checklist/:checklistId" 

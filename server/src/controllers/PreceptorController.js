@@ -2,8 +2,26 @@ import PEval from '../models/PreceptorEvaluation.js';
 
 //get evals that match a preceptor ID
 export const getEvals = async (req, res) => {
+    
     const user = req.params.userId;
+
     const evals = await PEval.find({ preceptor_id: user }).populate({path: 'student_id', select: 'firstName lastName'});
+    
+    if(!evals){
+        res.status(404).json({error: 'Error getting evaluations'})
+    }else{
+        res.status(200).json(evals);
+    }
+    }
+
+    //get evals that match a student ID
+export const getStudentEvals = async (req, res) => {
+    
+    const user = req.params.studentId;
+
+    const evals = await PEval.find({ student_id: user });
+
+    console.log(evals)
     
     if(!evals){
         res.status(404).json({error: 'Error getting evaluations'})
@@ -40,8 +58,10 @@ export async function deleteEval(req, res) {
 
 //get an evaluation
 export async function getEval(req, res) {
+
     const { evalId } = req.params;
-    const evaluation = await PEval.findById(evalId);
+    const evaluation = await PEval.findById(evalId).populate({path: 'student_id', select: 'firstName lastName'});
+    // const evaluation = await PEval.findById(evalId);
     res.status(200).json(evaluation);
 }
 
