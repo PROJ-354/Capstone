@@ -41,7 +41,8 @@ export async function deleteEval(req, res) {
 //get an evaluation
 export async function getEval(req, res) {
     const { evalId } = req.params;
-    const evaluation = await PEval.findById(evalId);
+    const evaluation = await PEval.findById(evalId).populate({path: 'student_id', select: 'firstName lastName'});
+    // const evaluation = await PEval.findById(evalId);
     res.status(200).json(evaluation);
 }
 

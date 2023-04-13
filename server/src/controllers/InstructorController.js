@@ -1,4 +1,5 @@
 import JoinCode from '../models/JoinCode.js';
+import User from '../models/User.js';
 
 /**
  * Randomly generates a String of specified length.
@@ -118,4 +119,17 @@ export const resetJoinCode = async (req, res, next) => {
     } catch (error) {
         next(error);
     }
+    
 }
+
+//get students linked to an instructor
+export const getStudents = async (req, res) => {
+    const userId = req.params.userId;
+    const students = await User.find({instructorId: userId, role: 'student'});
+    
+    if(!students){
+        res.status(404).json({error: 'Error getting students'})
+    }else{
+        res.status(200).json(students);
+    }
+    }
