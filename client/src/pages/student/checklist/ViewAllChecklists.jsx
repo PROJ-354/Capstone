@@ -9,17 +9,27 @@ export default function ViewAllChecklists() {
             <Typography variant="h3">Checklists</Typography>
             <Grid container spacing={2}>
                 {checklistData &&
-                    checklistData.map((checklist) => (
-                        <Grid key={checklist._id} item>
-                            <WeekCard
-                                checklist={checklist}
-                                preceptor={preceptorUsers.find(
-                                    (preceptor) =>
-                                        preceptor._id === checklist.preceptor_id
-                                )}
-                            />
-                        </Grid>
-                    ))}
+                    checklistData
+                        .sort((a, b) => {
+                            const aName = a.name.split(' ')[1];
+                            const bName = b.name.split(' ')[1];
+                            if (aName < bName) {
+                                return -1;
+                            } else {
+                                return 1;
+                            }
+                        })
+                        .map((checklist) => (
+                            <Grid key={checklist._id} item>
+                                <WeekCard
+                                    checklist={checklist}
+                                    preceptor={preceptorUsers.find(
+                                        (preceptor) =>
+                                            preceptor._id === checklist.preceptor_id
+                                    )}
+                                />
+                            </Grid>
+                        ))}
             </Grid>
         </Box>
     );
