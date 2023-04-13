@@ -15,7 +15,7 @@ import { LoadingButton } from '@mui/lab';
 import { useNavigate } from 'react-router-dom';
 import { useState, useEffect } from 'react';
 
-export default function PreceptorWeekCard({ checklist }) {
+export default function PreceptorWeekCard({ checklist, student }) {
     const navigate = useNavigate();
 
     //useStates for the button's availability and loading status
@@ -57,16 +57,7 @@ export default function PreceptorWeekCard({ checklist }) {
         setSubmitIsLoading(false);
     };
 
-    let user = null;
-
-    useEffect(() => {
-        const temp = async () => {
-            const userRes = await fetch(
-                `http://localhost:42069/api/user/${checklist.student_id}`
-            );
-            user = await userRes.json();
-        };
-    }, [error, message, checklist]);
+    useEffect(() => {}, [error, message]);
 
     return (
         <>
@@ -76,8 +67,8 @@ export default function PreceptorWeekCard({ checklist }) {
                 <CardContent>
                     <Typography variant="h5">{checklist.name}</Typography>
                     <Typography variant="body1">
-                        Student: user.email{' '}
-                        {!checklist.student_id ? 'None Selected' : checklist.student_id}
+                        Student:{' '}
+                        {student ? student.firstName + ' ' + student.lastName : 'Error'}
                         <br />
                         Marked: {checklist.submitted_to_instructor ? 'Yes' : 'No'}
                     </Typography>
