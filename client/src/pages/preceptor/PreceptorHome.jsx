@@ -32,60 +32,71 @@ export default function PreceptorHome() {
 
     return (
         <Grid container spacing={1} padding="10px">
-            {sortedEvals.map((evaluation, idx) => (
-                <Grid item key={idx} sx={{ minWidth: 275 }}>
-                    <Card
-                        style={{
-                            border: 5,
-                            borderStyle: 'solid',
-                            borderColor: evaluation.complete ? 'green' : 'orange',
-                            // borderColor: 'green',
-                        }}
-                        display="flex"
-                    >
-                        <Grid
-                            container
-                            justifyContent="space-between"
-                            alignItems="center"
-                        >
-                            
-                        </Grid>
+            <Accordion
+                sx={{ width: 1 }}
+                xs={12}
+                sm={6}
+                md={4}
+                expanded={expanded === 'panel1'}
+                onChange={handleChange('panel1')}
+            >
+                <AccordionSummary expandIcon={<ExpandMoreIcon />}>
+                    <Typography>Evaluations</Typography>
+                </AccordionSummary>
+                <AccordionDetails>
+                    <Grid container>
+                    {sortedEvals.map((evaluation, idx) => (
+                        <Grid item key={idx} sx={{ minWidth: 275 }}>
+                            <Card
+                                style={{
+                                    border: 5,
+                                    borderStyle: 'solid',
+                                    borderColor: evaluation.complete ? 'green' : 'orange',
+                                    // borderColor: 'green',
+                                }}
+                                display="flex"
+                            >
+                                <Grid
+                                    container
+                                    justifyContent="space-between"
+                                    alignItems="center"
+                                ></Grid>
 
-                                    <CardHeader
-                                        fontWeight="bold"
-                                        title="Student Name:"
-                                        subheader={
-                                            evaluation.student_id.firstName +
-                                            ' ' +
-                                            evaluation.student_id.lastName
-                                        }
-                                    />
-                                    <CardContent>
-                                        <Typography
-                                            sx={{ fontSize: 14 }}
-                                            variant="h5"
-                                            color="text.secondary"
-                                            gutterBottom
+                                <CardHeader
+                                    fontWeight="bold"
+                                    title="Student Name:"
+                                    subheader={
+                                        evaluation.student_id.firstName +
+                                        ' ' +
+                                        evaluation.student_id.lastName
+                                    }
+                                />
+                                <CardContent>
+                                    <Typography
+                                        sx={{ fontSize: 14 }}
+                                        variant="h5"
+                                        color="text.secondary"
+                                        gutterBottom
+                                    >
+                                        month: {evaluation.month}
+                                    </Typography>
+                                    <Typography component="div">
+                                        {evaluation.complete ? 'complete' : 'incomplete'}
+                                    </Typography>
+                                    <CardActions>
+                                        <Link
+                                            style={{ color: 'white' }}
+                                            to={`/preceptor/${evaluation._id}`}
                                         >
-                                            month: {evaluation.month}
-                                        </Typography>
-                                        <Typography variant="h5" component="div">
-                                            completed?{' '}
-                                            {evaluation.complete ? 'completed' : 'incomplete'}
-                                        </Typography>
-                                        <CardActions>
-                                            <Link
-                                                style={{ color: 'white' }}
-                                                to={`/preceptor/${evaluation._id}`}>
-                                                <Button variant="contained" color="primary">
-                                                    View/Edit
-                                                </Button>
-                                            </Link>
-                                        </CardActions>
-                                    </CardContent>
-                                </Card>
-                            </Grid>
-                        ))}
+                                            <Button variant="contained" color="primary">
+                                                View/Edit
+                                            </Button>
+                                        </Link>
+                                    </CardActions>
+                                </CardContent>
+                            </Card>
+                        </Grid>
+                    ))}
                     </Grid>
                 </AccordionDetails>
             </Accordion>
@@ -119,7 +130,7 @@ export default function PreceptorHome() {
         const response = await fetch(`http://localhost:42069/api/preceptor/${evalId}`, {
             method: 'DELETE',
         });
-        
+
         setEvals(evals.filter((evaluation) => evaluation._id !== evalId));
     }
 }

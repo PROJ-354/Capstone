@@ -154,12 +154,12 @@ const router = createBrowserRouter(
 
 
             {/* Student page for requesting an evaluation from a preceptor */}
-            {/* <Route
+             <Route
                 path="requestpreceptorevaluation"
                 element={<RequestPreceptorEvaluation />}
                 loader={preceptorListLoader}
                 action={evaluationRequestAction}
-            /> */}
+            /> 
 
             {/* Other Pages */}
             <Route path="*" element={<NotFound />} />

@@ -39,12 +39,7 @@ export default function PreceptorEvaluate() {
                             <TableCell align="center">Needs Improvement</TableCell>
                             <TableCell align="center">Unnacceptable</TableCell>
                             <TableCell align="center">Rating</TableCell>
-                            <TableCell align="center">Industry Ready</TableCell>
-                            <TableCell align="center">Entry Level</TableCell>
-                            <TableCell align="center">Satisfactory</TableCell>
-                            <TableCell align="center">Needs Improvement</TableCell>
-                            <TableCell align="center">Unnacceptable</TableCell>
-                            <TableCell align="center">Rating</TableCell>
+
                         </TableRow>
                     </TableHead>
                     <TableBody>
