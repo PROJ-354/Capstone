@@ -17,8 +17,7 @@ import authorize from '../middleware/authorize.js';
 // import middleware functions
 // blah blah blah
 
-// router.get('/', authorize, getAllUsers);
-router.get('/', getAllUsers);
+router.get('/', authorize, getAllUsers);
 router.get('/email', getUserByEmail);
 router.get('/preceptors', getAllPreceptors);
 router.get('/:id', getUserById);

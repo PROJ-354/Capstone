@@ -72,7 +72,7 @@ export default function PreceptorEvaluate() {
                                     <TextField
                                         label="Rating"
                                         select
-                                        defaultValue={''}
+                                        
                                         required
                                         fullWidth
                                         name={evals.skill_name + 'rating'}
@@ -131,7 +131,7 @@ export const evaluateAction = async ({ request }) => {
     newEval.month = parseInt(data.get('month'));
     newEval.comments = data.get('comments');
     newEval.preceptor_id = user;
-    newEval.student_id = "63ebc4288e74a2adcd75d332";
+    
 
 
     newEval.performance_assessment.map((evals) => {

@@ -50,6 +50,7 @@ import Reset from './pages/Reset';
 
 //Other Pages
 import NotFound from './pages/NotFound';
+import RequestPreceptorEvaluation, { evaluationRequestAction, preceptorListLoader } from './pages/student/RequestPreceptorEvaluation';
 import PreceptorSchedulePage from './pages/preceptor/PreceptorSchedulePage';
 import InstructorSchedulePage from './pages/instructor/InstructorSchedulePage';
 import PreceptorViewChecklist, {
@@ -153,12 +154,12 @@ const router = createBrowserRouter(
 
 
             {/* Student page for requesting an evaluation from a preceptor */}
-            {/* <Route
+             <Route
                 path="requestpreceptorevaluation"
                 element={<RequestPreceptorEvaluation />}
                 loader={preceptorListLoader}
                 action={evaluationRequestAction}
-            /> */}
+            /> 
 
             {/* Other Pages */}
             <Route path="*" element={<NotFound />} />

@@ -23,7 +23,8 @@ export const getMasterEval = async (req, res) => {
 export async function createEval(req, res) {
     const data = req.body;
     try {
-        await PEval.create(data); 
+        await PEval.create(data);
+        res.status(200).json({msg: "evaluation created succesfully"});
     } catch (err) {
        res.status(400).json({error: 'There is already an evaluation request for this student for this period.  Did you select the incorrect period?'});
     }
