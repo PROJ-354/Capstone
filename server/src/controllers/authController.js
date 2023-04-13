@@ -132,17 +132,17 @@ export const sendEmail = async (req, res, next) => {
         });
 
         const transporter = nodemailer.createTransport({
-            host: 'smtp.office365.com',
-            port: 587,
-            secure: false,
+            host: 'smtp.gmail.com',
+            port: 465,
+            secure: true,
             auth: {
-                user: 'CompetencyTrackingTool@outlook.com',
-                pass: '_6B$9wrmnZNgGBh',
+                user: 'elhajj.refaat@gmail.com',
+                pass: 'zouojfdbjiijwwuh',
             },
         });
 
         const info = await transporter.sendMail({
-            from: 'CompetencyTrackingTool@outlook.com',
+            from: 'elhajj.refaat@gmail.com',
             to: email, // ###### Change to specific email for testing ######
             subject: 'Reset Password',
             text: 'http://localhost:3000/reset/' + resetCode._id,

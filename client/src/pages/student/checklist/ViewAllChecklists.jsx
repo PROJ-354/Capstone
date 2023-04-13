@@ -1,19 +1,37 @@
-import { Box, Typography, Grid } from '@mui/material';
-import { useLoaderData } from 'react-router-dom';
+import { Box, Typography, Grid, Button } from '@mui/material';
+import { useLoaderData, useNavigate } from 'react-router-dom';
 import WeekCard from '../../../components/checklist/ChecklistCard';
 
 export default function ViewAllChecklists() {
-    const checklists = useLoaderData();
+    const { checklistData, preceptorUsers } = useLoaderData();
+    const navigate = useNavigate();
     return (
         <Box p={4}>
+            <Button variant="contained" onClick={() => navigate('/student/schedules')}>
+                Schedules
+            </Button>
             <Typography variant="h3">Checklists</Typography>
             <Grid container spacing={2}>
-                {checklists &&
-                    checklists.map((checklist) => (
-                        <Grid key={checklist._id} item>
-                            <WeekCard checklist={checklist} />
-                        </Grid>
-                    ))}
+                {checklistData &&
+                    checklistData
+                        .sort((a, b) => {
+                            if (a.name.split(' ')[1] < b.name.split(' ')[1]) {
+                                return -1;
+                            } else {
+                                return 1;
+                            }
+                        })
+                        .map((checklist) => (
+                            <Grid key={checklist._id} item>
+                                <WeekCard
+                                    checklist={checklist}
+                                    preceptor={preceptorUsers.find(
+                                        (preceptor) =>
+                                            preceptor._id === checklist.preceptor_id
+                                    )}
+                                />
+                            </Grid>
+                        ))}
             </Grid>
         </Box>
     );
@@ -28,5 +46,24 @@ export const viewAllChecklistsLoader = async ({ params }) => {
         console.log('Error getting that users checklists');
     }
 
-    return await checklistRes.json();
+    const checklistData = await checklistRes.json();
+
+    const preceptorIds = [];
+
+    checklistData.map((checklist) => {
+        preceptorIds.push(checklist.preceptor_id);
+    });
+
+    const preceptorUsers = [];
+
+    preceptorIds.map(async (preceptorId) => {
+        if (preceptorId && preceptorId !== '') {
+            const res = await fetch(`http://localhost:42069/api/users/${preceptorId}`);
+            if (res.ok) {
+                preceptorUsers.push(await res.json());
+            }
+        }
+    });
+
+    return { checklistData, preceptorUsers };
 };

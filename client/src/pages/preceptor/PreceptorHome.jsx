@@ -3,7 +3,7 @@ import CardContent from '@mui/material/CardContent';
 import { Button, CardActions, CardHeader, Paper } from '@mui/material';
 import { Grid } from '@mui/material';
 import Typography from '@mui/material/Typography';
-import { Link, useLoaderData } from 'react-router-dom';
+import { Link, useLoaderData, useNavigate } from 'react-router-dom';
 import { useState } from 'react';
 import LaunchIcon from '@mui/icons-material/Launch';
 import Accordion from '@mui/material/Accordion';
@@ -20,10 +20,10 @@ export default function PreceptorHome() {
         setExpanded(isExpanded ? panel : false);
     };
 
+    const navigate = useNavigate();
+
     //grab evaluations from the loader
     const { evaluations, checklists } = useLoaderData();
-
-    console.log(checklists);
 
     //place into useState, this is done so that we can update the array upon deletion and creation
     const [evals, setEvals] = useState([...evaluations]);
@@ -32,6 +32,9 @@ export default function PreceptorHome() {
 
     return (
         <Grid container spacing={1} padding="10px">
+            <Button variant="contained" onClick={() => navigate('/preceptor/schedules')}>
+                Schedules
+            </Button>
             <Accordion
                 sx={{ width: 1 }}
                 xs={12}
@@ -45,60 +48,67 @@ export default function PreceptorHome() {
                 </AccordionSummary>
                 <AccordionDetails>
                     <Grid container spacing={1}>
-                    {sortedEvals.map((evaluation, idx) => (
-                        <Grid item key={idx} sx={{ minWidth: 275 }}>
-                            <Paper elevation={10}>
-                            <Card
-                                style={{
-                                    border: 5,
-                                    borderStyle: 'solid',
-                                    borderColor: evaluation.complete ? 'green' : 'orange',
-                                    // borderColor: 'green',
-                                }}
-                                display="flex"
-                            >
-                                <Grid
-                                    container
-                                    justifyContent="space-between"
-                                    alignItems="center"
-                                ></Grid>
-
-                                <CardHeader
-                                    fontWeight="bold"
-                                    title="Student Name:"
-                                    subheader={
-                                        evaluation.student_id.firstName +
-                                        ' ' +
-                                        evaluation.student_id.lastName
-                                    }
-                                />
-                                <CardContent>
-                                    <Typography
-                                        sx={{ fontSize: 14 }}
-                                        variant="h5"
-                                        color="text.secondary"
-                                        gutterBottom
+                        {sortedEvals.map((evaluation, idx) => (
+                            <Grid item key={idx} sx={{ minWidth: 275 }}>
+                                <Paper elevation={10}>
+                                    <Card
+                                        style={{
+                                            border: 5,
+                                            borderStyle: 'solid',
+                                            borderColor: evaluation.complete
+                                                ? 'green'
+                                                : 'orange',
+                                            // borderColor: 'green',
+                                        }}
+                                        display="flex"
                                     >
-                                        month: {evaluation.month}
-                                    </Typography>
-                                    <Typography component="div">
-                                        {evaluation.complete ? 'complete' : 'incomplete'}
-                                    </Typography>
-                                    <CardActions>
-                                        <Link
-                                            style={{ color: 'white' }}
-                                            to={`/preceptor/${evaluation._id}`}
-                                        >
-                                            <Button variant="contained" color="primary">
-                                                View/Edit
-                                            </Button>
-                                        </Link>
-                                    </CardActions>
-                                </CardContent>
-                            </Card>
-                            </Paper>
-                        </Grid>
-                    ))}
+                                        <Grid
+                                            container
+                                            justifyContent="space-between"
+                                            alignItems="center"
+                                        ></Grid>
+
+                                        <CardHeader
+                                            fontWeight="bold"
+                                            title="Student Name:"
+                                            subheader={
+                                                evaluation.student_id.firstName +
+                                                ' ' +
+                                                evaluation.student_id.lastName
+                                            }
+                                        />
+                                        <CardContent>
+                                            <Typography
+                                                sx={{ fontSize: 14 }}
+                                                variant="h5"
+                                                color="text.secondary"
+                                                gutterBottom
+                                            >
+                                                month: {evaluation.month}
+                                            </Typography>
+                                            <Typography component="div">
+                                                {evaluation.complete
+                                                    ? 'complete'
+                                                    : 'incomplete'}
+                                            </Typography>
+                                            <CardActions>
+                                                <Link
+                                                    style={{ color: 'white' }}
+                                                    to={`/preceptor/${evaluation._id}`}
+                                                >
+                                                    <Button
+                                                        variant="contained"
+                                                        color="primary"
+                                                    >
+                                                        View/Edit
+                                                    </Button>
+                                                </Link>
+                                            </CardActions>
+                                        </CardContent>
+                                    </Card>
+                                </Paper>
+                            </Grid>
+                        ))}
                     </Grid>
                 </AccordionDetails>
             </Accordion>

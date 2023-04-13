@@ -11,9 +11,9 @@ import AccordionDetails from '@mui/material/AccordionDetails';
 import AccordionSummary from '@mui/material/AccordionSummary';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import PreceptorWeekCard from '../../components/checklist/PreceptorWeekCard';
+import InstructorWeekCard from '../../components/checklist/InstructorWeekCard';
 
 export default function ViewStudentDocs() {
-
     //for use with the accordian
     const [expanded, setExpanded] = useState(false);
 
@@ -41,67 +41,69 @@ export default function ViewStudentDocs() {
                 </AccordionSummary>
                 <AccordionDetails>
                     <Grid container spacing={1}>
-                    {evaluations.map((evaluation, idx) => (
-                        <Grid item key={idx} sx={{ minWidth: 275 }}>
-                            <Paper elevation={10}>
-                            <Card
-                                style={{
-                                    border: 5,
-                                    borderStyle: 'solid',
-                                    borderColor: 'rgb(25, 118, 210)'
-                                }}
-                                display="flex"
-                            >
-                                <Grid
-                                    container
-                                    justifyContent="space-between"
-                                    alignItems="center"
-
-                                >
-                                    <Typography>{evaluation.student_id}</Typography>
-                                </Grid>
-
-                                 <CardHeader
-
-                                    fontWeight="bold"
-                                    title="Student Name:"
-                                    subheader={
-                                        evaluation.student_id.firstName +
-                                        ' ' +
-                                        evaluation.student_id.lastName
-                                    }
-
-                                /> 
-
-                                <CardContent>
-                                    <Typography
-                                        sx={{ fontSize: 14 }}
-                                        variant="h5"
-                                        color="text.secondary"
-                                        gutterBottom
+                        {evaluations.map((evaluation, idx) => (
+                            <Grid item key={idx} sx={{ minWidth: 275 }}>
+                                <Paper elevation={10}>
+                                    <Card
+                                        style={{
+                                            border: 5,
+                                            borderStyle: 'solid',
+                                            borderColor: 'rgb(25, 118, 210)',
+                                        }}
+                                        display="flex"
                                     >
-                                        month: {evaluation.month}
-                                    </Typography>
-                                    <Typography component="div">
-                                        {evaluation.complete ? 'complete' : 'incomplete'}
-                                    </Typography>
-                                    <CardActions>
-                                        <Link
-                                            style={{ color: 'white' }}
-
-                                            to={`/instructor/${evaluation.student_id}/peval/${evaluation._id}`}
-
+                                        <Grid
+                                            container
+                                            justifyContent="space-between"
+                                            alignItems="center"
                                         >
-                                            <Button variant="contained" color="primary">
-                                                View
-                                            </Button>
-                                        </Link>
-                                    </CardActions>
-                                </CardContent>
-                            </Card>
-                            </Paper>
-                        </Grid>
-                    ))}
+                                            <Typography>
+                                                {evaluation.student_id}
+                                            </Typography>
+                                        </Grid>
+
+                                        <CardHeader
+                                            fontWeight="bold"
+                                            title="Student Name:"
+                                            subheader={
+                                                evaluation.student_id.firstName +
+                                                ' ' +
+                                                evaluation.student_id.lastName
+                                            }
+                                        />
+
+                                        <CardContent>
+                                            <Typography
+                                                sx={{ fontSize: 14 }}
+                                                variant="h5"
+                                                color="text.secondary"
+                                                gutterBottom
+                                            >
+                                                month: {evaluation.month}
+                                            </Typography>
+                                            <Typography component="div">
+                                                {evaluation.complete
+                                                    ? 'complete'
+                                                    : 'incomplete'}
+                                            </Typography>
+                                            <CardActions>
+                                                <Link
+                                                    style={{ color: 'white' }}
+                                                    to={`/instructor/${evaluation.student_id}/peval/${evaluation._id}`}
+                                                >
+                                                    <Button
+                                                        variant="contained"
+                                                        color="primary"
+                                                    >
+                                                        View
+                                                    </Button>
+                                                </Link>
+                                            </CardActions>
+                                        </CardContent>
+                                    </Card>
+                                </Paper>
+                            </Grid>
+                        ))}
                     </Grid>
                 </AccordionDetails>
             </Accordion>
@@ -121,7 +123,7 @@ export default function ViewStudentDocs() {
                         {checklists &&
                             checklists.map((checklist) => (
                                 <Grid key={checklist._id} item>
-                                    <PreceptorWeekCard checklist={checklist} />
+                                    <InstructorWeekCard checklist={checklist} />
                                 </Grid>
                             ))}
                     </Grid>
@@ -137,9 +139,9 @@ export const studentDocsLoader = async (req) => {
 
     console.log(studentId);
 
-
-    const evals = await fetch(`http://localhost:42069/api/preceptor/studentEvals/${studentId}`);
-
+    const evals = await fetch(
+        `http://localhost:42069/api/preceptor/studentEvals/${studentId}`
+    );
 
     const checks = await fetch(`http://localhost:42069/api/weeks/user/${studentId}`);
 
@@ -147,9 +149,9 @@ export const studentDocsLoader = async (req) => {
 
     const evaluations = await evals.json();
 
-    console.log(evaluations)
+    console.log(evaluations);
 
-    console.log(checklists)
+    console.log(checklists);
 
     return {
         evaluations,

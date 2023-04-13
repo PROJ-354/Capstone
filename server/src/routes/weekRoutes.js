@@ -7,6 +7,7 @@ import {
     getWeek,
     submitPreceptorWeek,
     submitWeek,
+    updateInstructorWeek,
     updatePreceptorWeek,
     updateWeek,
 } from '../controllers/weekController.js';
@@ -28,6 +29,9 @@ router.patch('/:id', updateWeek);
 //UPDATE a week based on it's ID with information from the Preceptor
 router.patch('/preceptor/:id', updatePreceptorWeek);
 
+//UPDATE AND SUBMIT a week based on it's ID with a grade from the instructor
+router.patch('/instructor/:id', updateInstructorWeek);
+
 //SUBMIT a week to a preceptor
 router.patch('/submit/:id', submitWeek);
 
@@ -39,7 +43,5 @@ router.patch('/submit/preceptor/:id', submitPreceptorWeek);
 
 //GET all of a user's weeks
 router.get('/user/:id', getUsersWeeks);
-
-
 
 export default router;

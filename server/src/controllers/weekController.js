@@ -162,6 +162,27 @@ export const updatePreceptorWeek = async (req, res) => {
     res.status(200).json({ message: 'done' });
 };
 
+//UPDATE an instructor's week (the grade)
+export const updateInstructorWeek = async (req, res) => {
+    console.log('you made it here');
+
+    const { id } = req.params;
+
+    if (!mongoose.Types.ObjectId.isValid(id)) {
+        return res.status(404).json({ error: 'Invalid id' });
+    }
+
+    const week = await Week.findOne({ _id: id });
+    if (!week) {
+        return res.status(404).json({ error: 'No such week' });
+    }
+
+    const grade = req.body.grade;
+
+    //Update the object
+    await Week.updateOne({ _id: id }, { grade });
+};
+
 //SUBMIT a week to a preceptor
 export const submitWeek = async (req, res) => {
     const { id } = req.params;

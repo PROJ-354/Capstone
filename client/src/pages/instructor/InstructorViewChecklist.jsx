@@ -9,15 +9,16 @@ import {
     DialogContent,
     DialogContentText,
     DialogTitle,
+    Input,
     Stack,
     Typography,
 } from '@mui/material';
 import { Form, redirect, useLoaderData } from 'react-router-dom';
 import { useState } from 'react';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
-import PreceptorChecklistAccordion from './PreceptorChecklistAccordion';
+import InstructorChecklistAccordion from './InstructorChecklistAccordion';
 
-export default function PreceptorViewChecklist() {
+export default function InstructorViewChecklist() {
     const { checklistData } = useLoaderData();
 
     //Which accordion is currently expanded
@@ -32,10 +33,11 @@ export default function PreceptorViewChecklist() {
     return (
         <Box>
             <Typography variant="h4">
-                {checklistData.week.name} Skills Assessment for Student XXX
+                {checklistData.week.name} Skills Assessment for Student XXX, Preceptor
+                that filled this out was XXX
             </Typography>
             <Typography variant="body1">
-                First checkbox is the student's, second checkbox is yours
+                First checkbox is the student's, second checkbox is the preceptor's
             </Typography>
             <Form method="post" id="submit-checklist-form">
                 {checklistData.week.skills_assessment.section.map((section) => (
@@ -53,10 +55,13 @@ export default function PreceptorViewChecklist() {
                             <Typography>{section.name}</Typography>
                         </AccordionSummary>
                         <AccordionDetails>
-                            <PreceptorChecklistAccordion section={section} />
+                            <InstructorChecklistAccordion section={section} />
                         </AccordionDetails>
                     </Accordion>
                 ))}
+                <Input name="grade" type="number" min="0" max="100">
+                    Grade
+                </Input>
                 <Stack direction="row" spacing={1} alignContent="center">
                     <Button
                         variant="contained"
@@ -90,37 +95,15 @@ export default function PreceptorViewChecklist() {
     );
 }
 
-export const preceptorSaveChecklistAction = async ({ request, params }) => {
+export const instructorSaveGradeAction = async ({ request, params }) => {
     const formData = await request.formData();
-    const res = await fetch(`http://localhost:42069/api/weeks/${params.id}`);
-    const loaderData = await res.json();
+    const grade = { grade: formData.get('grade') };
 
-    const resData = [];
-
-    //eslint-disable-next-line
-    loaderData.week.skills_assessment.section.map((section) => {
-        //eslint-disable-next-line
-        section.skills.map((skill) => {
-            for (let i = 0; i < section.experiences; i++) {
-                const data = formData.get(
-                    `${section.name} ${skill.name} Experience ${i} preceptor`
-                );
-                resData.push({
-                    section: section.name,
-                    skill: skill.name,
-                    experience: i + 1,
-                    checked: data === null ? false : true,
-                });
-            }
-        });
-    });
-
-    //Send the update to the database
-    await fetch(`http://localhost:42069/api/weeks/preceptor/${params.id}`, {
+    await fetch(`http://localhost:42069/api/weeks/instructor/${params.id}`, {
         method: 'PATCH',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(resData),
+        body: JSON.stringify(grade),
     });
 
-    return redirect(`/preceptor/home/${params.userId}`);
+    return redirect(`/instructor/home/${params.userId}`);
 };

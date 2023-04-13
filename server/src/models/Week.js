@@ -23,12 +23,6 @@ const WeekSchema = mongoose.Schema(
             required: true,
             default: false,
         },
-        //If this week is the last week in the practicum
-        is_last: {
-            type: Boolean,
-            required: true,
-            default: false,
-        },
         //The ID of the student this week belongs to
         student_id: {
             type: String,
@@ -54,6 +48,18 @@ const WeekSchema = mongoose.Schema(
         submitted_to_instructor: {
             type: Boolean,
             default: false,
+        },
+        //Whether or not this week has been graded by the instructor
+        graded_by_instructor: {
+            type: Boolean,
+            default: false,
+        },
+        //The grade the instructor has given this week
+        grade: {
+            type: Number,
+            min: 0,
+            max: 100,
+            default: null,
         },
         //Equivalent form: Skills assessment form
         skills_assessment: {
