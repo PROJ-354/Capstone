@@ -164,6 +164,8 @@ export const updatePreceptorWeek = async (req, res) => {
 
 //UPDATE an instructor's week (the grade)
 export const updateInstructorWeek = async (req, res) => {
+    console.log('you made it here');
+
     const { id } = req.params;
 
     if (!mongoose.Types.ObjectId.isValid(id)) {

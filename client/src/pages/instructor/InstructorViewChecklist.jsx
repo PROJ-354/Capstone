@@ -97,7 +97,7 @@ export default function InstructorViewChecklist() {
 
 export const instructorSaveGradeAction = async ({ request, params }) => {
     const formData = await request.formData();
-    const grade = formData.get('grade');
+    const grade = { grade: formData.get('grade') };
 
     await fetch(`http://localhost:42069/api/weeks/instructor/${params.id}`, {
         method: 'PATCH',

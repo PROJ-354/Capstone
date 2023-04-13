@@ -59,7 +59,9 @@ import InstructorSchedulePage from './pages/instructor/InstructorSchedulePage';
 import PreceptorViewChecklist, {
     preceptorSaveChecklistAction,
 } from './pages/preceptor/PreceptorViewChecklist';
-import InstructorViewChecklist from './pages/instructor/InstructorViewChecklist';
+import InstructorViewChecklist, {
+    instructorSaveGradeAction,
+} from './pages/instructor/InstructorViewChecklist';
 import InstructorViewPeval, {
     instructorEvaluationLoader,
 } from './pages/instructor/InstructorViewPeval';
@@ -103,9 +105,10 @@ const router = createBrowserRouter(
                 <Route index element={<InstructorHome />} loader={instructorHomeLoader} />
                 <Route path="/instructor/manageJoinCode" element={<ManageJoinCode />} />
                 <Route
-                    path="/instructor/checklist/:id"
+                    path="/instructor/:studentId/:id"
                     element={<InstructorViewChecklist />}
                     loader={checklistLoader}
+                    action={instructorSaveGradeAction}
                 />
                 <Route
                     path="/instructor/:studentId"

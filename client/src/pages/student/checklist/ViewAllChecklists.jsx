@@ -1,11 +1,15 @@
-import { Box, Typography, Grid } from '@mui/material';
-import { useLoaderData } from 'react-router-dom';
+import { Box, Typography, Grid, Button } from '@mui/material';
+import { useLoaderData, useNavigate } from 'react-router-dom';
 import WeekCard from '../../../components/checklist/ChecklistCard';
 
 export default function ViewAllChecklists() {
     const { checklistData, preceptorUsers } = useLoaderData();
+    const navigate = useNavigate();
     return (
         <Box p={4}>
+            <Button variant="contained" onClick={() => navigate('/student/schedules')}>
+                Schedules
+            </Button>
             <Typography variant="h3">Checklists</Typography>
             <Grid container spacing={2}>
                 {checklistData &&
