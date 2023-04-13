@@ -57,7 +57,16 @@ export default function PreceptorWeekCard({ checklist }) {
         setSubmitIsLoading(false);
     };
 
-    useEffect(() => {}, [error, message]);
+    let user = null;
+
+    useEffect(() => {
+        const temp = async () => {
+            const userRes = await fetch(
+                `http://localhost:42069/api/user/${checklist.student_id}`
+            );
+            user = await userRes.json();
+        };
+    }, [error, message, checklist]);
 
     return (
         <>
@@ -67,7 +76,7 @@ export default function PreceptorWeekCard({ checklist }) {
                 <CardContent>
                     <Typography variant="h5">{checklist.name}</Typography>
                     <Typography variant="body1">
-                        Student: ADD THE STUDENT'S NAME HERE{' '}
+                        Student: user.email{' '}
                         {!checklist.student_id ? 'None Selected' : checklist.student_id}
                         <br />
                         Marked: {checklist.submitted_to_instructor ? 'Yes' : 'No'}

@@ -3,15 +3,21 @@ import { useLoaderData } from 'react-router-dom';
 import WeekCard from '../../../components/checklist/ChecklistCard';
 
 export default function ViewAllChecklists() {
-    const checklists = useLoaderData();
+    const { checklistData, preceptorUsers } = useLoaderData();
     return (
         <Box p={4}>
             <Typography variant="h3">Checklists</Typography>
             <Grid container spacing={2}>
-                {checklists &&
-                    checklists.map((checklist) => (
+                {checklistData &&
+                    checklistData.map((checklist) => (
                         <Grid key={checklist._id} item>
-                            <WeekCard checklist={checklist} />
+                            <WeekCard
+                                checklist={checklist}
+                                preceptor={preceptorUsers.find(
+                                    (preceptor) =>
+                                        preceptor._id === checklist.preceptor_id
+                                )}
+                            />
                         </Grid>
                     ))}
             </Grid>
@@ -28,5 +34,24 @@ export const viewAllChecklistsLoader = async ({ params }) => {
         console.log('Error getting that users checklists');
     }
 
-    return await checklistRes.json();
+    const checklistData = await checklistRes.json();
+
+    const preceptorIds = [];
+
+    checklistData.map((checklist) => {
+        preceptorIds.push(checklist.preceptor_id);
+    });
+
+    const preceptorUsers = [];
+
+    preceptorIds.map(async (preceptorId) => {
+        if (preceptorId && preceptorId !== '') {
+            const res = await fetch(`http://localhost:42069/api/users/${preceptorId}`);
+            if (res.ok) {
+                preceptorUsers.push(await res.json());
+            }
+        }
+    });
+
+    return { checklistData, preceptorUsers };
 };

@@ -15,7 +15,7 @@ import { LoadingButton } from '@mui/lab';
 import { useNavigate } from 'react-router-dom';
 import { useState, useEffect } from 'react';
 
-export default function WeekCard({ checklist }) {
+export default function WeekCard({ checklist, preceptor }) {
     const navigate = useNavigate();
 
     //useStates for the button's availability and loading status
@@ -67,12 +67,16 @@ export default function WeekCard({ checklist }) {
                 <CardContent>
                     <Typography variant="h5">{checklist.name}</Typography>
                     <Typography variant="body1">
-                        Preceptor: ADD THE PRECEPTOR'S NAME HERE{' '}
+                        Preceptor:{' '}
                         {!checklist.preceptor_id
                             ? 'None Selected'
-                            : checklist.preceptor_id}
+                            : preceptor
+                            ? preceptor.firstName + ' ' + preceptor.lastName
+                            : 'Error'}
                         <br />
                         Submitted: {checklist.submitted_to_preceptor ? 'Yes' : 'No'}
+                        <br />
+                        Grade: {!checklist.grade ? 'Not yet graded' : checklist.grade}
                     </Typography>
                 </CardContent>
                 <CardActions>
