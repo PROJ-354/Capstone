@@ -5,6 +5,9 @@ import {
     RouterProvider,
 } from 'react-router-dom';
 
+// route protection utility
+import PrivateRoute from './utility/PrivateRoute';
+
 // Layouts
 import RootLayout from './layouts/RootLayout';
 
@@ -28,6 +31,14 @@ import ViewEvaluation, {
     viewEvaluationLoader,
 } from './pages/preceptor/ViewEvaluation';
 
+//Instructor Pages
+import InstructorHome from './pages/instructor/InstructorHome';
+import ManageJoinCode from './pages/instructor/ManageJoinCode';
+
+//Admin Pages
+import AdminHome from './pages/admin/AdminHome';
+import AdminManageJoinCode from './pages/admin/AdminManageJoinCode';
+
 //Schedule Pages, Actions & Loaders
 import ViewSchedule from './pages/student/schedule/ViewSchedule';
 
@@ -40,6 +51,13 @@ import Reset from './pages/Reset';
 //Other Pages
 import NotFound from './pages/NotFound';
 import RequestPreceptorEvaluation, { evaluationRequestAction, preceptorListLoader } from './pages/student/RequestPreceptorEvaluation';
+import PreceptorSchedulePage from './pages/preceptor/PreceptorSchedulePage';
+import InstructorSchedulePage from './pages/instructor/InstructorSchedulePage';
+import PreceptorViewChecklist, {
+    preceptorSaveChecklistAction,
+} from './pages/preceptor/PreceptorViewChecklist';
+
+// import PrivateRoute from '../../server/src/utilities/PrivateRoute'; why was this here?
 
 const router = createBrowserRouter(
     createRoutesFromElements(
@@ -66,12 +84,31 @@ const router = createBrowserRouter(
                 />
             </Route>
 
+            {/* Admins */}
+            <Route path="/admin">
+                <Route index element={<AdminHome />} />
+                <Route path="/admin/manageJoinCode" element={<AdminManageJoinCode />} />
+            </Route>
+
+            {/* Instructors */}
+            <Route path="/instructor">
+                <Route index element={<InstructorHome />} />
+                <Route path="/instructor/manageJoinCode" element={<ManageJoinCode />} />
+            </Route>
+
             {/* Preceptors */}
             <Route path="preceptor">
+                <Route
+                    path="home/:userId"
+                    element={<PreceptorHome />}
+                    loader={evalsLoader}
+                />
 
-                <Route path="home/:userId" 
-                element={<PreceptorHome />} 
-                loader={evalsLoader}
+                <Route
+                    path="home/:userId/:id"
+                    element={<PreceptorViewChecklist />}
+                    loader={checklistLoader}
+                    action={preceptorSaveChecklistAction}
                 />
 
                 <Route
@@ -97,13 +134,32 @@ const router = createBrowserRouter(
             </Route>
 
             {/* Schedules */}
-            <Route path="/student/schedules" element={<ViewSchedule />} />
-            <Route path="/preceptor/schedules" element={<ViewSchedule />} />
-            <Route path="/instructors/schedules" element={<ViewSchedule />} />
+            <Route path="/student/schedules" element={
+                <PrivateRoute roles={['student']}>
+                    <ViewSchedule />
+                </PrivateRoute>
+            } />
+
+            <Route path="/preceptor/schedules" element={
+                <PrivateRoute roles={['preceptor']}>
+                    <PreceptorSchedulePage />
+                </PrivateRoute>
+            } />
+
+            <Route path="/instructor/schedules" element={
+                <PrivateRoute roles={['instructor']}>
+                    <InstructorSchedulePage />
+                </PrivateRoute>
+            } />
+
 
             {/* Student page for requesting an evaluation from a preceptor */}
-            <Route path="requestpreceptorevaluation" element={<RequestPreceptorEvaluation />} loader={preceptorListLoader} action={evaluationRequestAction} />
-
+            {/* <Route
+                path="requestpreceptorevaluation"
+                element={<RequestPreceptorEvaluation />}
+                loader={preceptorListLoader}
+                action={evaluationRequestAction}
+            /> */}
 
             {/* Other Pages */}
             <Route path="*" element={<NotFound />} />

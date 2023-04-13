@@ -24,7 +24,7 @@ export default function PreceptorEvaluate() {
     const data = useActionData();
 
     return (
-        <Form method="post" >
+        <Form method="post">
 
             <input hidden name='evaluationId' value={instantiatedEval._id}></input>
 
@@ -33,6 +33,12 @@ export default function PreceptorEvaluate() {
                     <TableHead>
                         <TableRow>
                             <TableCell>Evaluation Criteria</TableCell>
+                            <TableCell align="center">Industry Ready</TableCell>
+                            <TableCell align="center">Entry Level</TableCell>
+                            <TableCell align="center">Satisfactory</TableCell>
+                            <TableCell align="center">Needs Improvement</TableCell>
+                            <TableCell align="center">Unnacceptable</TableCell>
+                            <TableCell align="center">Rating</TableCell>
                             <TableCell align="center">Industry Ready</TableCell>
                             <TableCell align="center">Entry Level</TableCell>
                             <TableCell align="center">Satisfactory</TableCell>
@@ -111,6 +117,8 @@ export const editEvaluationAction = async ({ request }) => {
     const user = JSON.parse(localStorage.getItem('auth')).result._id;
     const data = await request.formData();
     const evaluationId = data.get('evaluationId');
+
+    console.log(evaluationId);
 
     //grab the master evaluation
     const res = await fetch(`http://localhost:42069/api/preceptor/${evaluationId}`);

@@ -1,4 +1,4 @@
-function INIT_SCHEDULE(studentID) {
+function INIT_SCHEDULE(studentEmail) {
     return {
         weeks: [
             {
@@ -99,7 +99,7 @@ function INIT_SCHEDULE(studentID) {
             },
         ],
 
-        student_id: studentID
+        student_email: studentEmail
     };
 }
 

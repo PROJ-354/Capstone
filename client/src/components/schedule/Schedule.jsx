@@ -1,13 +1,8 @@
 import {
     Button,
-    Table,
-    TableBody,
-    TableCell,
-    TableHead,
-    TableRow,
-    TextField,
-    Typography,
-    useScrollTrigger,
+    Dialog,
+    DialogActions,
+    DialogTitle,
 } from '@mui/material';
 import { Box } from '@mui/system';
 import { useState } from 'react';
@@ -22,19 +17,21 @@ const Schedule = () => {
     //
     const [weeks, setWeeks] = useState(null);
     const [isSubmitted, setIsSubmitted] = useState(false);
+    const [dialogState, setDialogState] = useState(false);
 
     // mreow
-    const authenticatedUsersId = JSON.parse(localStorage.getItem('auth')).result._id;
+    const authenticatedUsersStudentEmail = JSON.parse(localStorage.getItem('auth')).result.email;
+    const authenticatedUsersObjId = JSON.parse(localStorage.getItem('auth')).result._id;
 
     // todo: fetch & render the logged in users schedule
     useEffect(() => {
         async function fn() {
             const response = await fetch(
-                `http://localhost:42069/api/schedules/${authenticatedUsersId}`
+                `http://localhost:42069/api/schedules/student/${authenticatedUsersStudentEmail}`
             );
             const json = await response.json();
-            setIsSubmitted(json[0].is_sumbitted)
-            setWeeks(json[0].weeks);
+            setIsSubmitted(json.is_sumbitted)
+            setWeeks(json.weeks);
         }
 
         fn();
@@ -43,9 +40,11 @@ const Schedule = () => {
     // handle submission
     async function handleSubmission(e) {
         e.preventDefault();
-        const response = await fetch(`http://localhost:42069/api/schedules/student/submit/${authenticatedUsersId}`, { method: 'PUT' });
-        const json =  await response.json();
-        alert(json.message) // todo: change to dialog box
+        const response = await fetch(`http://localhost:42069/api/schedules/student/submit/${authenticatedUsersStudentEmail}`, { method: 'PUT' });
+        const json = await response.json();
+        console.log(json)
+        setIsSubmitted(!isSubmitted);
+        setDialogState(!dialogState);
     }
 
     //
@@ -69,6 +68,18 @@ const Schedule = () => {
                     Submit
                 </Button>
             </Box>
+
+            <Dialog open={dialogState}>
+                <DialogTitle>Sumbission Successful!</DialogTitle>
+                <DialogActions>
+                    <Button
+                        variant='contained'
+                        onClick={(e) => setDialogState(!dialogState)}
+                    >
+                        OK
+                    </Button>
+                </DialogActions>
+            </Dialog>
         </>
     );
 };

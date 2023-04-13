@@ -26,11 +26,12 @@ const Week = ({ weekData, weekNumber, isSubmitted }) => {
         e.preventDefault()
 
         // grab auth info from local storage
+        const authenticatedUsersStudentEmail = JSON.parse(localStorage.getItem('auth')).result.email;
         const auth = JSON.parse(localStorage.getItem('auth'));
         const token = auth.result.token
         const studentId = auth.result._id
 
-        fetch(`http://localhost:42069/api/schedules/${studentId}/${weekNumber}`, {
+        fetch(`http://localhost:42069/api/schedules/${authenticatedUsersStudentEmail}/${weekNumber}`, {
             method: 'PUT',
             headers: { 'Content-Type': 'Application/json' },
             body: JSON.stringify({
@@ -67,6 +68,7 @@ const Week = ({ weekData, weekNumber, isSubmitted }) => {
                     <TableCell>
                         <TextField
                             label="Scheduled Hours"
+                            disabled={isSubmitted}
                             value={sundayScheduledHours}
                             onChange={(e) => setSundayScheduledHours(e.target.value)}
                         />
@@ -74,6 +76,7 @@ const Week = ({ weekData, weekNumber, isSubmitted }) => {
                     <TableCell>
                         <TextField
                             label="Actual Hours"
+                            disabled={isSubmitted}
                             value={sundayActualHours}
                             onChange={(e) => setSundayActualHours(e.target.value)}
                         />
@@ -87,6 +90,7 @@ const Week = ({ weekData, weekNumber, isSubmitted }) => {
                     <TableCell>
                         <TextField
                             label="Scheduled Hours"
+                            disabled={isSubmitted}
                             value={mondayScheduledHours}
                             onChange={(e) => setMondayScheduledHours(e.target.value)}
                         />
@@ -95,6 +99,7 @@ const Week = ({ weekData, weekNumber, isSubmitted }) => {
                         <TextField
                             label="Actual Hours"
                             value={mondayActualHours}
+                            disabled={isSubmitted}
                             onChange={(e) => setMondayActualHours(e.target.value)}
                         />
                     </TableCell>
@@ -108,6 +113,7 @@ const Week = ({ weekData, weekNumber, isSubmitted }) => {
                         <TextField
                             label="Scheduled Hours"
                             value={tuesdayScheduledHours}
+                            disabled={isSubmitted}
                             onChange={(e) => setTuesdayScheduledHours(e.target.value)}
                         />
                     </TableCell>
@@ -115,6 +121,7 @@ const Week = ({ weekData, weekNumber, isSubmitted }) => {
                         <TextField
                             label="Actual Hours"
                             value={tuesdayActualHours}
+                            disabled={isSubmitted}
                             onChange={(e) => setTuesdayActualHours(e.target.value)}
                         />
                     </TableCell>
@@ -128,6 +135,7 @@ const Week = ({ weekData, weekNumber, isSubmitted }) => {
                         <TextField
                             label="Scheduled Hours"
                             value={wednesdayScheduledHours}
+                            disabled={isSubmitted}
                             onChange={(e) => setWednesdayScheduledHours(e.target.value)}
                         />
                     </TableCell>
@@ -135,6 +143,7 @@ const Week = ({ weekData, weekNumber, isSubmitted }) => {
                         <TextField
                             label="Actual Hours"
                             value={wednesdayActualHours}
+                            disabled={isSubmitted}
                             onChange={(e) => setWednesdayActualHours(e.target.value)}
                         />
                     </TableCell>
@@ -148,6 +157,7 @@ const Week = ({ weekData, weekNumber, isSubmitted }) => {
                         <TextField
                             label="Scheduled Hours"
                             value={thursdayScheduledHours}
+                            disabled={isSubmitted}
                             onChange={(e) => setThursdayScheduledHours(e.target.value)}
                         />
                     </TableCell>
@@ -155,6 +165,7 @@ const Week = ({ weekData, weekNumber, isSubmitted }) => {
                         <TextField
                             label="Actual Hours"
                             value={thursdayActualHours}
+                            disabled={isSubmitted}
                             onChange={(e) => setThursdayActualHours(e.target.value)}
                         />
                     </TableCell>
@@ -168,6 +179,7 @@ const Week = ({ weekData, weekNumber, isSubmitted }) => {
                         <TextField
                             label="Scheduled Hours"
                             value={fridayScheduledHours}
+                            disabled={isSubmitted}
                             onChange={(e) => setFridayScheduledHours(e.target.value)}
                         />
                     </TableCell>
@@ -175,6 +187,7 @@ const Week = ({ weekData, weekNumber, isSubmitted }) => {
                         <TextField
                             label="Actual Hours"
                             value={fridayActualHours}
+                            disabled={isSubmitted}
                             onChange={(e) => setFridayActualHours(e.target.value)}
                         />
                     </TableCell>
@@ -188,6 +201,7 @@ const Week = ({ weekData, weekNumber, isSubmitted }) => {
                         <TextField
                             label="Scheduled Hours"
                             value={saturdayScheduledHours}
+                            disabled={isSubmitted}
                             onChange={(e) => setSaturdayScheduledHours(e.target.value)}
                         />
                     </TableCell>
@@ -195,6 +209,7 @@ const Week = ({ weekData, weekNumber, isSubmitted }) => {
                         <TextField
                             label="Actual Hours"
                             value={saturdayActualHours}
+                            disabled={isSubmitted}
                             onChange={(e) => setSaturdayActualHours(e.target.value)}
                         />
                     </TableCell>

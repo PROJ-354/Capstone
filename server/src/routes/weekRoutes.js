@@ -5,7 +5,9 @@ import {
     deleteWeek,
     getUsersWeeks,
     getWeek,
+    submitPreceptorWeek,
     submitWeek,
+    updatePreceptorWeek,
     updateWeek,
 } from '../controllers/weekController.js';
 
@@ -23,8 +25,14 @@ router.post('/:id', createWeek);
 //UPDATE a week based on it's ID
 router.patch('/:id', updateWeek);
 
+//UPDATE a week based on it's ID with information from the Preceptor
+router.patch('/preceptor/:id', updatePreceptorWeek);
+
 //SUBMIT a week to a preceptor
 router.patch('/submit/:id', submitWeek);
+
+//SUBMIT a week to an instructor by the preceptor
+router.patch('/submit/preceptor/:id', submitPreceptorWeek);
 
 //DELETE a week
 // router.delete('/:id', deleteWeek);

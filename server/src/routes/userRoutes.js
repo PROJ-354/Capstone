@@ -18,9 +18,9 @@ import authorize from '../middleware/authorize.js';
 // blah blah blah
 
 router.get('/', authorize, getAllUsers);
+router.get('/email', getUserByEmail);
 router.get('/preceptors', getAllPreceptors);
 router.get('/:id', getUserById);
-router.get('/email', getUserByEmail);
 router.put('/:id', updateUserEmail);
 
 export default router;

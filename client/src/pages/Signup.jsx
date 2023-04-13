@@ -3,11 +3,9 @@ import { useState } from 'react';
 import { Typography, Button, Stack, TextField, Alert, Container } from '@mui/material';
 import { useNavigate } from 'react-router-dom';
 const Signup = () => {
-    const [role, setRole] = useState('');
-    const [sait_id, setID] = useState('');
     const [firstName, setFirstName] = useState('');
     const [lastName, setLastName] = useState('');
-    const [secretCode, setCode] = useState('');
+    const [code, setCode] = useState('');
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
     const [confirmPassword, setConfirmPassword] = useState('');
@@ -21,11 +19,9 @@ const Signup = () => {
         // Prevent default refresh page behaviour on form submission.
         event.preventDefault();
         signup(
-            role,
-            sait_id,
             firstName,
             lastName,
-            secretCode,
+            code,
             email,
             password,
             confirmPassword
@@ -72,7 +68,7 @@ const Signup = () => {
                             label="Join Code"
                             type="text"
                             onChange={(event) => setCode(event.target.value)}
-                            value={secretCode}
+                            value={code}
                         />
                     </Stack>
                     <TextField
@@ -96,25 +92,6 @@ const Signup = () => {
                         onChange={(event) => setConfirmPassword(event.target.value)}
                         value={confirmPassword}
                     />
-                    <Typography variant="h6" color="error">
-                        The following inputs are for development purposes only
-                    </Typography>
-                    <Stack spacing={2} direction="row">
-                        <TextField
-                            required
-                            label="Role"
-                            type="text"
-                            onChange={(event) => setRole(event.target.value)}
-                            value={role}
-                        />
-                        <TextField
-                            required
-                            label="ID"
-                            type="text"
-                            onChange={(event) => setID(event.target.value)}
-                            value={sait_id}
-                        />
-                    </Stack>
                     <Button type="submit" variant="contained" disabled={isLoading}>
                         Sign up
                     </Button>
