@@ -77,7 +77,6 @@ mongoose
 const week1 = {
     name: 'Week 1',
     is_master: true,
-    is_last: false,
     student_id: null,
     preceptor_id: null,
     submitted_to_preceptor: false,
@@ -658,7 +657,6 @@ const week1 = {
 const week2 = {
     name: 'Week 2',
     is_master: true,
-    is_last: false,
     student_id: null,
     preceptor_id: null,
     submitted_to_preceptor: false,
@@ -2219,7 +2217,6 @@ const week2 = {
 const week3 = {
     name: 'Week 3',
     is_master: true,
-    is_last: false,
     student_id: null,
     preceptor_id: null,
     submitted_to_preceptor: false,
@@ -3820,7 +3817,6 @@ const week3 = {
 const week4 = {
     name: 'Week 4',
     is_master: true,
-    is_last: false,
     student_id: null,
     preceptor_id: null,
     submitted_to_preceptor: false,
@@ -5407,7 +5403,6 @@ const week4 = {
 const week5 = {
     name: 'Week 5',
     is_master: true,
-    is_last: false,
     student_id: null,
     preceptor_id: null,
     submitted_to_preceptor: false,
@@ -6427,7 +6422,6 @@ const week5 = {
 const week6 = {
     name: 'Week 6',
     is_master: true,
-    is_last: false,
     student_id: null,
     preceptor_id: null,
     submitted_to_preceptor: false,
@@ -7932,7 +7926,6 @@ const week6 = {
 const week7 = {
     name: 'Week 7',
     is_master: true,
-    is_last: false,
     student_id: null,
     preceptor_id: null,
     submitted_to_preceptor: false,
@@ -8799,7 +8792,6 @@ const week7 = {
 const week8 = {
     name: 'Week 8',
     is_master: true,
-    is_last: false,
     student_id: null,
     preceptor_id: null,
     submitted_to_preceptor: false,
