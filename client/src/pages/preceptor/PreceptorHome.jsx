@@ -80,14 +80,14 @@ export default function PreceptorHome() {
                                 {evaluation.complete ? 'complete' : 'incomplete'}
                             </Typography>
                             <CardActions>
-                            <Button variant='contained'>
                                 <Link
                                     style={{ color: 'white' }}
                                     to={`/preceptor/${evaluation._id}`}
                                 >
+                                    <Button variant='contained'>
                                     View/Edit
+                                    </Button>
                                 </Link>
-                            </Button>
                             </CardActions>
                         </CardContent>
                     </Card>
