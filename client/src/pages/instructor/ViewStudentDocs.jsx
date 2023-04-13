@@ -56,9 +56,11 @@ export default function ViewStudentDocs() {
                                     container
                                     justifyContent="space-between"
                                     alignItems="center"
-                                ></Grid>
+                                >
+                                    <Typography>{evaluation.student_id}</Typography>
+                                </Grid>
 
-                                <CardHeader
+                                 <CardHeader
                                     fontWeight="bold"
                                     title="Student Name:"
                                     subheader={
@@ -66,7 +68,7 @@ export default function ViewStudentDocs() {
                                         ' ' +
                                         evaluation.student_id.lastName
                                     }
-                                />
+                                /> 
                                 <CardContent>
                                     <Typography
                                         sx={{ fontSize: 14 }}
@@ -82,7 +84,7 @@ export default function ViewStudentDocs() {
                                     <CardActions>
                                         <Link
                                             style={{ color: 'white' }}
-                                            to={`/preceptor/${evaluation._id}`}
+                                            to={`/instructor/${evaluation.student_id}/peval/${evaluation._id}`}
                                         >
                                             <Button variant="contained" color="primary">
                                                 View
@@ -130,7 +132,7 @@ export const studentDocsLoader = async (req) => {
     console.log(studentId);
 
     // NEED TO MAKE A ROUTE TO GRAB EVALS BY STUDENT ID, NOT BY PRECEPTOR ID, MIGHT BE AS SIMPLE AS CHECKING THE USER ROLE AND CHANGING THE KEY TO BE SEARCHED BASED ON THE USER'S ROLE? I DUNNO IM NOT SMORT.
-    const evals = await fetch(`http://localhost:42069/api/preceptor/home/${studentId}`);
+    const evals = await fetch(`http://localhost:42069/api/preceptor/studentEvals/${studentId}`);
 
     const checks = await fetch(`http://localhost:42069/api/weeks/user/${studentId}`);
 
