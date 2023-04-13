@@ -70,9 +70,11 @@ export const evaluationRequestAction = async ({ request }) => {
     newEval.is_master = false;
     newEval.month = month;
     newEval.unique = user + month;
+    newEval.comments = "";
     newEval.complete = false;
     newEval.preceptor_id = data.get('preceptor')
     newEval.student_id = user;
+    newEval.instructor_id = JSON.parse(localStorage.getItem('auth')).result.instructorId;
 
     const response = await fetch('http://localhost:42069/api/preceptor/eval', {
         method: 'POST',
@@ -80,11 +82,11 @@ export const evaluationRequestAction = async ({ request }) => {
         headers: { 'Content-Type': 'application/json' },
     });
 
-    if (response.ok){
-        return redirect(`/`);
-    } else {
+    if (!response.ok){
         const json = await response.json();
         alert(json.error)
         return null;
     }
+    
+    return redirect(`/checklist`);
 };

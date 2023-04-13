@@ -7,7 +7,7 @@ import TableContainer from '@mui/material/TableContainer';
 import TableHead from '@mui/material/TableHead';
 import TableRow from '@mui/material/TableRow';
 import Paper from '@mui/material/Paper';
-import { MenuItem, InputLabel, Button, TextField } from '@mui/material';
+import { MenuItem,  Button, TextField } from '@mui/material';
 
 import { useLoaderData, useActionData, redirect, Form } from 'react-router-dom';
 
@@ -20,15 +20,16 @@ export default function PreceptorEvaluate() {
         let inputValue = e.target.value;
         setValue(inputValue);
     };
+
     const data = useActionData();
 
     return (
-        <Form method="post">
+        <Form method="post" >
 
             <input hidden name='evaluationId' value={instantiatedEval._id}></input>
 
-            <TableContainer component={Paper}>
-                <Table text-align='center' sx={{ minWidth: 650 }} aria-label="simple table">
+            <TableContainer component={Paper} sx={{ width: '100%', overflowX: 'visible' }}>
+                <Table text-align='center' sx={{ minWidth: 100 }} aria-label="simple table">
                     <TableHead>
                         <TableRow>
                             <TableCell>Evaluation Criteria</TableCell>
@@ -54,12 +55,12 @@ export default function PreceptorEvaluate() {
                                     <TableCell key={idx2}>{desc}</TableCell>
                                 ))}
 
-                                <TableCell align="right">
+                                <TableCell align="right" style={{minWidth: '100px'}}>
                                     <TextField
+                                    sx={{width: '100%'}}
                                         label="Rating"
                                         select
                                         required
-                                        fullWidth
                                         defaultValue=""
                                         name={evals.skill_name + 'rating'}
                                         size="small"
@@ -90,7 +91,7 @@ export default function PreceptorEvaluate() {
                 placeholder="Place comments here..."
             />
 
-            <Button type="submit" variant="contained" color="primary">
+            <Button type="submit" variant="contained" color="primary" fullWidth>
                 Submit
             </Button>
         </Form>
@@ -109,8 +110,6 @@ export const editEvaluationAction = async ({ request }) => {
     const user = JSON.parse(localStorage.getItem('auth')).result._id;
     const data = await request.formData();
     const evaluationId = data.get('evaluationId');
-
-    console.log(evaluationId);
 
     //grab the master evaluation
     const res = await fetch(`http://localhost:42069/api/preceptor/${evaluationId}`);

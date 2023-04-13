@@ -61,9 +61,9 @@ const Navbar = () => {
                             <Button
                                 size="sm"
                                 color="inherit"
-                                onClick={() => navigate('/checklist')}
+                                onClick={() => navigate(`/preceptor/home/${user.result._id}`)}
                             >
-                                Something for preceptors
+                                Home
                             </Button>
                         ))
                     }

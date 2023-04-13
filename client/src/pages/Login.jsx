@@ -22,11 +22,11 @@ const Login = () => {
 
         const userRole = await user.result.role;
         
-        console.log(userRole);
+        console.log(user.result._id);
 
         switch (userRole) {
             case 'preceptor':
-                navigate(`/preceptor/home/${user._id}`);
+                navigate(`/preceptor/home/${user.result._id}`);
                 break;
             case 'student':
                 navigate('/checklist');

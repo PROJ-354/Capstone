@@ -1,6 +1,6 @@
 import Card from '@mui/material/Card';
 import CardContent from '@mui/material/CardContent';
-import { CardHeader } from '@mui/material';
+import { Button, CardActions, CardHeader } from '@mui/material';
 import { Grid } from '@mui/material';
 import Typography from '@mui/material/Typography';
 import { Link, useLoaderData } from 'react-router-dom';
@@ -60,21 +60,11 @@ export default function PreceptorHome() {
                             justifyContent="space-between"
                             alignItems="center"
                         >
-                            <Grid item>
-                                <Link
-                                    style={{ color: 'black' }}
-                                    to={`/preceptor/${evaluation._id}`}
-                                >
-                                    {' '}
-                                    <LaunchIcon />{' '}
-                                </Link>
-                            </Grid>
-                            
                         </Grid>
 
                         <CardHeader
                             fontWeight="bold"
-                            title="Student ID:"
+                            title="Student Name:"
                             subheader={evaluation.student_id.firstName+" "+evaluation.student_id.lastName}
                         />
                         <CardContent>
@@ -86,9 +76,19 @@ export default function PreceptorHome() {
                             >
                                 month: {evaluation.month}
                             </Typography>
-                            <Typography variant="h5" component="div">
-                                completed? {evaluation.complete ? 'yes' : 'no'}
+                            <Typography component="div">
+                                {evaluation.complete ? 'complete' : 'incomplete'}
                             </Typography>
+                            <CardActions>
+                            <Button variant='contained'>
+                                <Link
+                                    style={{ color: 'white' }}
+                                    to={`/preceptor/${evaluation._id}`}
+                                >
+                                    View/Edit
+                                </Link>
+                            </Button>
+                            </CardActions>
                         </CardContent>
                     </Card>
                 
