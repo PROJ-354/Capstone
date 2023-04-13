@@ -50,12 +50,16 @@ import Reset from './pages/Reset';
 
 //Other Pages
 import NotFound from './pages/NotFound';
-import RequestPreceptorEvaluation, { evaluationRequestAction, preceptorListLoader } from './pages/student/RequestPreceptorEvaluation';
+import RequestPreceptorEvaluation, {
+    evaluationRequestAction,
+    preceptorListLoader,
+} from './pages/student/RequestPreceptorEvaluation';
 import PreceptorSchedulePage from './pages/preceptor/PreceptorSchedulePage';
 import InstructorSchedulePage from './pages/instructor/InstructorSchedulePage';
 import PreceptorViewChecklist, {
     preceptorSaveChecklistAction,
 } from './pages/preceptor/PreceptorViewChecklist';
+import InstructorViewChecklist from './pages/instructor/InstructorViewChecklist';
 
 // import PrivateRoute from '../../server/src/utilities/PrivateRoute'; why was this here?
 
@@ -94,6 +98,11 @@ const router = createBrowserRouter(
             <Route path="/instructor">
                 <Route index element={<InstructorHome />} />
                 <Route path="/instructor/manageJoinCode" element={<ManageJoinCode />} />
+                <Route
+                    path="/instructor/checklist/:id"
+                    element={<InstructorViewChecklist />}
+                    loader={checklistLoader}
+                />
             </Route>
 
             {/* Preceptors */}
@@ -134,32 +143,40 @@ const router = createBrowserRouter(
             </Route>
 
             {/* Schedules */}
-            <Route path="/student/schedules" element={
-                <PrivateRoute roles={['student']}>
-                    <ViewSchedule />
-                </PrivateRoute>
-            } />
+            <Route
+                path="/student/schedules"
+                element={
+                    <PrivateRoute roles={['student']}>
+                        <ViewSchedule />
+                    </PrivateRoute>
+                }
+            />
 
-            <Route path="/preceptor/schedules" element={
-                <PrivateRoute roles={['preceptor']}>
-                    <PreceptorSchedulePage />
-                </PrivateRoute>
-            } />
+            <Route
+                path="/preceptor/schedules"
+                element={
+                    <PrivateRoute roles={['preceptor']}>
+                        <PreceptorSchedulePage />
+                    </PrivateRoute>
+                }
+            />
 
-            <Route path="/instructor/schedules" element={
-                <PrivateRoute roles={['instructor']}>
-                    <InstructorSchedulePage />
-                </PrivateRoute>
-            } />
-
+            <Route
+                path="/instructor/schedules"
+                element={
+                    <PrivateRoute roles={['instructor']}>
+                        <InstructorSchedulePage />
+                    </PrivateRoute>
+                }
+            />
 
             {/* Student page for requesting an evaluation from a preceptor */}
-             <Route
+            <Route
                 path="requestpreceptorevaluation"
                 element={<RequestPreceptorEvaluation />}
                 loader={preceptorListLoader}
                 action={evaluationRequestAction}
-            /> 
+            />
 
             {/* Other Pages */}
             <Route path="*" element={<NotFound />} />
