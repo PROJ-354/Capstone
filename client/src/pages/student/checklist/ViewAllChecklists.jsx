@@ -11,9 +11,7 @@ export default function ViewAllChecklists() {
                 {checklistData &&
                     checklistData
                         .sort((a, b) => {
-                            const aName = a.name.split(' ')[1];
-                            const bName = b.name.split(' ')[1];
-                            if (aName < bName) {
+                            if (a.name.split(' ')[1] < b.name.split(' ')[1]) {
                                 return -1;
                             } else {
                                 return 1;
