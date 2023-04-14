@@ -79,7 +79,7 @@ export default function PreceptorWeekCard({ checklist, student }) {
                         variant="contained"
                         disabled={checklist.submitted_to_instructor || viewDisabled}
                         onClick={() => {
-                            navigate(checklist._id);
+                            navigate(`checklist/${checklist._id}`);
                         }}
                     >
                         View

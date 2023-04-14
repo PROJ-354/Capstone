@@ -119,11 +119,19 @@ export default function ViewStudentDocs() {
                 <AccordionDetails>
                     <Grid container spacing={2}>
                         {checklists &&
-                            checklists.map((checklist) => (
-                                <Grid key={checklist._id} item>
-                                    <InstructorChecklistCard checklist={checklist} />
-                                </Grid>
-                            ))}
+                            checklists
+                                .sort((a, b) => {
+                                    if (a.name.split(' ')[1] < b.name.split(' ')[1]) {
+                                        return -1;
+                                    } else {
+                                        return 1;
+                                    }
+                                })
+                                .map((checklist) => (
+                                    <Grid key={checklist._id} item>
+                                        <InstructorChecklistCard checklist={checklist} />
+                                    </Grid>
+                                ))}
                     </Grid>
                 </AccordionDetails>
             </Accordion>
@@ -133,7 +141,7 @@ export default function ViewStudentDocs() {
 
 //preliminary loader
 export const studentDocsLoader = async (req) => {
-    const studentId = req.params.studentId;
+    const studentId = req.params.studentID;
 
     console.log(studentId);
 

@@ -77,9 +77,9 @@ export default function InstructorChecklistCard({ checklist, student }) {
                     <Button
                         color="primary"
                         variant="contained"
-                        disabled={checklist.grade || viewDisabled}
+                        disabled={checklist.grade ? true : viewDisabled}
                         onClick={() => {
-                            navigate(checklist._id);
+                            navigate(`checklist/${checklist._id}`);
                         }}
                     >
                         View

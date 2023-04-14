@@ -85,7 +85,7 @@ export default function StudentChecklistCard({ checklist, preceptor }) {
                         variant="contained"
                         disabled={checklist.submitted_to_preceptor || viewDisabled}
                         onClick={() => {
-                            navigate(checklist._id);
+                            navigate(`checklist/${checklist._id}`);
                         }}
                     >
                         View
