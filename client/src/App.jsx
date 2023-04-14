@@ -23,10 +23,6 @@ import ViewAllChecklists, {
 
 //Preceptor Pages, Actions & Loaders
 import PreceptorHome, { evalsLoader } from './pages/preceptor/PreceptorHome';
-import PreceptorEvaluate, {
-    evaluateAction,
-    evaluateLoader,
-} from './pages/preceptor/PreceptorEvaluate';
 import ViewEvaluation, {
     editEvaluationAction,
     viewEvaluationLoader,
@@ -172,11 +168,11 @@ const router = createBrowserRouter(
                     path="evaluation"
                     element={
                         <PrivateRoute roles={['preceptor']}>
-                            <PreceptorEvaluate />
+                            <ViewEvaluation />
                         </PrivateRoute>
                     }
-                    action={evaluateAction}
-                    loader={evaluateLoader}
+                    action={editEvaluationAction}
+                    loader={viewEvaluationLoader}
                 />
                 <Route
                     path="evaluation/:evaluationID"
