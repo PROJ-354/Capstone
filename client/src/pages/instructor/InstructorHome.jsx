@@ -92,7 +92,7 @@ export default function InstructorHome() {
                                                     color="primary"
                                                     onClick={() =>
                                                         navigate(
-                                                            `documents/${student._id}`
+                                                            `/instructor/documents/${student._id}`
                                                         )
                                                     }
                                                 >
