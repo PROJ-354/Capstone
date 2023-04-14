@@ -1,39 +1,42 @@
 import { useAdminManageJoinCode } from '../../hooks/useAdminManageJoinCode';
 import { useState } from 'react';
-import { Typography, Button, Stack, TextField, Link, Alert } from '@mui/material';
+import { Button, Stack, TextField, Alert } from '@mui/material';
 
 const AdminManageJoinCode = () => {
-    const { getInstructorCode, resetJoinCode, isLoading, message, error } = useAdminManageJoinCode();
+    const { getInstructorCode, resetJoinCode, isLoading, message, error } =
+        useAdminManageJoinCode();
     const [joinCode, setJoinCode] = useState('');
 
     const handleInstructorCode = (event) => {
         event.preventDefault();
         getInstructorCode();
-    }
+    };
 
     const handleResetJoinCode = (event) => {
         event.preventDefault();
         resetJoinCode(joinCode);
-    }
+    };
 
     return (
         <>
-            {message && <Alert severity='success'>{message}</Alert>}
-            {error && <Alert severity='error'>{error}</Alert>}
+            {message && <Alert severity="success">{message}</Alert>}
+            {error && <Alert severity="error">{error}</Alert>}
             <br />
             <Stack direction="row" spacing={2}>
                 <form className="instructor_code" onSubmit={handleInstructorCode}>
-                    <br /><br />
+                    <br />
+                    <br />
                     <Stack direction="row" spacing={2}>
                         <Button type="submit" variant="contained" disabled={isLoading}>
                             Generate instructor join code
                         </Button>
                     </Stack>
                 </form>
-            </Stack>         
+            </Stack>
             <Stack direction="row" spacing={2}>
                 <form className="reset_code" onSubmit={handleResetJoinCode}>
-                    <br /><br />
+                    <br />
+                    <br />
                     <Stack direction="row" spacing={2}>
                         <TextField
                             label="Join Code"
@@ -46,10 +49,9 @@ const AdminManageJoinCode = () => {
                         </Button>
                     </Stack>
                 </form>
-            </Stack>                
+            </Stack>
         </>
     );
-
 };
 
 export default AdminManageJoinCode;

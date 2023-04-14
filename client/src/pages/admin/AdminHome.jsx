@@ -1,21 +1,16 @@
-import { Typography, Button, Stack, TextField, Link, Alert } from '@mui/material';
+import { Typography, Link } from '@mui/material';
 
 const AdminHome = () => {
     return (
         <>
-            <br />                
+            <br />
             <Typography variant="h5" component="h2" sx={{ fontWeight: 'bold' }}>
-                Placeholder Admin Homepage
+                Admin Homepage
             </Typography>
             <br />
             <Typography variant="h6">
-                <Link href="/admin/manageJoinCode" underline="always">
+                <Link href="/admin/join-codes" underline="always">
                     Manage Join Codes
-                </Link>
-            </Typography>
-            <Typography variant="h6">
-                <Link href="/" underline="hover">
-                    Return to login page
                 </Link>
             </Typography>
         </>

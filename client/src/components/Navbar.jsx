@@ -35,9 +35,8 @@ const Navbar = () => {
                     Competency Tracking Tool
                 </Typography>
                 <Stack direction="row" spacing={2}>
-                    {
-                        (user.result.role === 'student' && (
-                            <>
+                    {user.result.role.toLowerCase() === 'student' && (
+                        <>
                             <Button
                                 size="sm"
                                 color="inherit"
@@ -47,38 +46,43 @@ const Navbar = () => {
                             </Button>
 
                             <Button
+                                size="sm"
+                                color="inherit"
+                                onClick={() => navigate('/requestpreceptorevaluation')}
+                            >
+                                Request Preceptor Evaluation
+                            </Button>
+                        </>
+                    )}
+                    {user.result.role.toLowerCase() === 'preceptor' && (
+                        <Button
                             size="sm"
                             color="inherit"
-                            onClick={() => navigate('/requestpreceptorevaluation')}
+                            onClick={() => navigate(`/preceptor/home/${user.result._id}`)}
                         >
-                            Request Preceptor Evaluation
+                            Home
                         </Button>
-                        </>
-                        ))
-                    }
-                    {
-                        (user.result.role === 'preceptor' && (
-                            <Button
-                                size="sm"
-                                color="inherit"
-                                onClick={() => navigate(`/preceptor/home/${user.result._id}`)}
-                            >
-                                Home
-                            </Button>
-                        ))
-                    }
-                    
-                    {
-                        (user.result.role === 'instructor' && (
-                            <Button
-                                size="sm"
-                                color="inherit"
-                                onClick={() => navigate('/checklist')}
-                            >
-                                Something for instructors
-                            </Button>
-                        ))
-                    }
+                    )}
+
+                    {user.result.role.toLowerCase() === 'instructor' && (
+                        <Button
+                            size="sm"
+                            color="inherit"
+                            onClick={() => navigate('/instructor')}
+                        >
+                            Home
+                        </Button>
+                    )}
+
+                    {user.result.role.toLowerCase() === 'administrator' && (
+                        <Button
+                            size="sm"
+                            color="inherit"
+                            onClick={() => navigate('/admin/home')}
+                        >
+                            Home
+                        </Button>
+                    )}
 
                     <Button
                         size="sm"

@@ -2,34 +2,35 @@ import PEval from '../models/PreceptorEvaluation.js';
 
 //get evals that match a preceptor ID
 export const getEvals = async (req, res) => {
-    
     const user = req.params.userId;
 
-    const evals = await PEval.find({ preceptor_id: user }).populate({path: 'student_id', select: 'firstName lastName'});
-    
-    if(!evals){
-        res.status(404).json({error: 'Error getting evaluations'})
-    }else{
+    const evals = await PEval.find({ preceptor_id: user }).populate({
+        path: 'student_id',
+        select: 'firstName lastName',
+    });
+
+    if (!evals) {
+        res.status(404).json({ error: 'Error getting evaluations' });
+    } else {
         res.status(200).json(evals);
     }
-    }
+};
 
-    //get evals that match a student ID
+//get evals that match a student ID
 export const getStudentEvals = async (req, res) => {
-    
     const user = req.params.studentId;
 
-    const evals = await PEval.find({ student_id: user });
+    const evals = await PEval.find({ student_id: user, complete: true }).populate({
+        path: 'student_id',
+        select: 'firstName lastName',
+    });
 
-    console.log(evals)
-    
-    if(!evals){
-        res.status(404).json({error: 'Error getting evaluations'})
-    }else{
+    if (!evals) {
+        res.status(404).json({ error: 'Error getting evaluations' });
+    } else {
         res.status(200).json(evals);
     }
-    }
-
+};
 
 //get master evaluation
 export const getMasterEval = async (req, res) => {
@@ -42,27 +43,31 @@ export async function createEval(req, res) {
     const data = req.body;
     try {
         await PEval.create(data);
-        res.status(200).json({msg: "evaluation created succesfully"});
+        res.status(200).json({ msg: 'evaluation created succesfully' });
     } catch (err) {
-       res.status(400).json({error: 'There is already an evaluation request for this student for this period.  Did you select the incorrect period?'});
+        res.status(400).json({
+            error: 'There is already an evaluation request for this student for this period.  Did you select the incorrect period?',
+        });
     }
     return res;
 }
 
 //delete an evaluation
-export async function deleteEval(req, res) { 
+export async function deleteEval(req, res) {
     const evalId = req.params.evalId;
     const evaluation = await PEval.findByIdAndDelete(evalId);
-    res.json(evaluation);
+    return res.status(200).json(evaluation);
 }
 
 //get an evaluation
 export async function getEval(req, res) {
-
     const { evalId } = req.params;
-    const evaluation = await PEval.findById(evalId).populate({path: 'student_id', select: 'firstName lastName'});
+    const evaluation = await PEval.findById(evalId).populate({
+        path: 'student_id',
+        select: 'firstName lastName',
+    });
     // const evaluation = await PEval.findById(evalId);
-    res.status(200).json(evaluation);
+    return res.status(200).json(evaluation);
 }
 
 //edit an evaluation
