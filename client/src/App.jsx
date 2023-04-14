@@ -82,6 +82,15 @@ const router = createBrowserRouter(
             {/* START OF STUDENT ROUTES */}
             <Route path="/student">
                 <Route
+                    index
+                    element={
+                        <PrivateRoute roles={['student']}>
+                            <ViewAllChecklists />
+                        </PrivateRoute>
+                    }
+                    loader={viewAllChecklistsLoader}
+                />
+                <Route
                     path="home"
                     element={
                         <PrivateRoute roles={['student']}>
@@ -122,6 +131,15 @@ const router = createBrowserRouter(
 
             {/* START OF PRECEPTOR ROUTES */}
             <Route path="/preceptor">
+                <Route
+                    index
+                    element={
+                        <PrivateRoute roles={['preceptor']}>
+                            <PreceptorHome />
+                        </PrivateRoute>
+                    }
+                    loader={evalsLoader}
+                />
                 <Route
                     path="home"
                     element={
@@ -174,6 +192,15 @@ const router = createBrowserRouter(
 
             {/* START OF INSTRUCTOR ROUTES */}
             <Route path="/instructor">
+                <Route
+                    index
+                    element={
+                        <PrivateRoute roles={['instructor']}>
+                            <InstructorHome />
+                        </PrivateRoute>
+                    }
+                    loader={instructorHomeLoader}
+                />
                 <Route
                     path="home"
                     element={
