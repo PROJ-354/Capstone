@@ -78,14 +78,29 @@ export default function InstructorChecklistCard({ checklist }) {
                             checklist.preceptor_id?.lastName}
                         <br />
                         <b>Grade:</b>{' '}
-                        {!checklist.grade ? 'Not yet graded' : checklist.grade}
+                        {/* {!checklist.grade
+                            ? checklist.submitted_to_preceptor
+                                ? 'Not yet graded'
+                                : 'Not ready for grading'
+                            : checklist.grade} */}
+                        {checklist.grade
+                            ? checklist.grade
+                            : checklist.submitted_to_instructor
+                            ? 'Ready for grading'
+                            : 'Not ready for grading'}
                     </Typography>
                 </CardContent>
                 <CardActions>
                     <Button
                         color="primary"
                         variant="contained"
-                        disabled={checklist.grade ? true : viewDisabled}
+                        disabled={
+                            checklist.grade
+                                ? true
+                                : !checklist.submitted_to_instructor
+                                ? true
+                                : viewDisabled
+                        }
                         onClick={() => {
                             navigate(`checklist/${checklist._id}`);
                         }}

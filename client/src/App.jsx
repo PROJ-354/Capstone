@@ -34,7 +34,7 @@ import ViewEvaluation, {
 
 //Instructor Pages
 import InstructorHome, { instructorHomeLoader } from './pages/instructor/InstructorHome';
-import ManageJoinCode from './pages/instructor/ManageJoinCode';
+import ManageJoinCode, { joinCodeLoader } from './pages/instructor/ManageJoinCode';
 
 //Admin Pages
 import AdminHome from './pages/admin/AdminHome';
@@ -211,7 +211,11 @@ const router = createBrowserRouter(
                     }
                     loader={instructorHomeLoader}
                 />
-                <Route path="join-codes" element={<ManageJoinCode />} />
+                <Route
+                    path="join-codes"
+                    element={<ManageJoinCode />}
+                    loader={joinCodeLoader}
+                />
                 <Route
                     path="documents/:studentID"
                     element={<ViewStudentDocs />}

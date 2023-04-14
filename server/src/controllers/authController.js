@@ -225,3 +225,19 @@ export const deleteCode = async (req, res, next) => {
         next(error);
     }
 };
+
+export const getJoinCodes = async (req, res, next) => {
+    try {
+        const { id } = req.params;
+        console.log(id);
+        const joinCodes = await JoinCode.find({ instructorId: id });
+
+        if (!joinCodes) {
+            return res.status(404).json({ error: 'No join codes found for that user' });
+        } else {
+            return res.status(200).json(joinCodes);
+        }
+    } catch (error) {
+        next(error);
+    }
+};

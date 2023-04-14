@@ -20,10 +20,7 @@ export default function InstructorHome() {
     const userId = JSON.parse(localStorage.getItem('auth')).result._id;
 
     const navigate = useNavigate();
-
     const students = useLoaderData();
-
-    console.log(userId);
 
     //for use with the accordian
     const [expanded, setExpanded] = useState();
@@ -74,7 +71,7 @@ export default function InstructorHome() {
                                             }
                                         />
                                         <CardContent>
-                                            <Typography
+                                            {/* <Typography
                                                 sx={{ fontSize: 14 }}
                                                 variant="h5"
                                                 color="text.secondary"
@@ -82,10 +79,10 @@ export default function InstructorHome() {
                                             >
                                                 A place for more student information if
                                                 deemed necessary
-                                            </Typography>
-                                            <Typography component="div">
+                                            </Typography> */}
+                                            {/* <Typography component="div">
                                                 {student._id}
-                                            </Typography>
+                                            </Typography> */}
                                             <CardActions>
                                                 <Button
                                                     variant="contained"
@@ -96,7 +93,7 @@ export default function InstructorHome() {
                                                         )
                                                     }
                                                 >
-                                                    Viewsss
+                                                    View Documents
                                                 </Button>
                                             </CardActions>
                                         </CardContent>
@@ -115,22 +112,20 @@ export default function InstructorHome() {
             >
                 <AccordionSummary expandIcon={<ExpandMoreIcon />}>
                     <Typography variant="h5" component="h2" sx={{ fontWeight: 'bold' }}>
-                        Accounts Management
+                        Account Management
                     </Typography>
                 </AccordionSummary>
                 <AccordionDetails>
                     <br />
                     <br />
-                    <Typography variant="h6">
+                    {/* <Typography variant="h6">
                         <Link href="/instructor/join-codes" underline="always">
                             Manage Join Codes
                         </Link>
-                    </Typography>
-                    <Typography variant="h6">
-                        <Link href="/" underline="hover">
-                            Return to login page
-                        </Link>
-                    </Typography>
+                    </Typography> */}
+                    <Button onClick={() => navigate('/instructor/join-codes')}>
+                        Manage Join Codes
+                    </Button>
                 </AccordionDetails>
             </Accordion>
         </>
