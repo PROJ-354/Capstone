@@ -11,7 +11,7 @@ import {
 } from '@mui/material';
 import SettingsIcon from '@mui/icons-material/Settings';
 import { useLogout } from '../hooks/useLogout';
-import { useNavigate } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { useAuthContext } from '../hooks/useAuthContext';
 import logo from '../img/sait-logo.png';
 
@@ -33,10 +33,25 @@ const Navbar = () => {
     return (
         <AppBar position="static">
             <Toolbar>
+                {/* <Link
+                    href={
+                        user.result.role.toLowerCase() === 'student'
+                            ? '/student/home'
+                            : user.result.role.toLowerCase() === 'preceptor'
+                            ? '/preceptor/home'
+                            : user.result.role.toLowerCase() === 'instructor'
+                            ? '/instructor/home'
+                            : user.result.role.toLowerCase() === 'administrator'
+                            ? '/admin/home'
+                            : '/login'
+                    }
+                    underline={false}
+                > */}
                 <Box component="img" src={logo} sx={{ height: 40 }} />
                 <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
                     Competency Tracking Tool
                 </Typography>
+                {/* </Link> */}
                 <Stack direction="row" spacing={2}>
                     {user.result.role.toLowerCase() === 'student' && (
                         <>
