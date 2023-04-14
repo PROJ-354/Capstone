@@ -61,23 +61,41 @@ const Navbar = () => {
                         </>
                     )}
                     {user.result.role.toLowerCase() === 'preceptor' && (
-                        <Button
-                            size="sm"
-                            color="inherit"
-                            onClick={() => navigate(`/preceptor/home/${user.result._id}`)}
-                        >
-                            Home
-                        </Button>
+                        <>
+                            <Button
+                                size="sm"
+                                color="inherit"
+                                onClick={() => navigate('/preceptor/home')}
+                            >
+                                Home
+                            </Button>
+                            <Button
+                                size="sm"
+                                color="inherit"
+                                onClick={() => navigate('/preceptor/schedule')}
+                            >
+                                Schedules
+                            </Button>
+                        </>
                     )}
 
                     {user.result.role.toLowerCase() === 'instructor' && (
-                        <Button
-                            size="sm"
-                            color="inherit"
-                            onClick={() => navigate('/instructor')}
-                        >
-                            Home
-                        </Button>
+                        <>
+                            <Button
+                                size="sm"
+                                color="inherit"
+                                onClick={() => navigate('/instructor/home')}
+                            >
+                                Home
+                            </Button>
+                            <Button
+                                size="sm"
+                                color="inherit"
+                                onClick={() => navigate('/instructor/schedule')}
+                            >
+                                Schedules
+                            </Button>
+                        </>
                     )}
 
                     {user.result.role.toLowerCase() === 'administrator' && (
