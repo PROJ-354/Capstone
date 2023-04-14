@@ -53,11 +53,7 @@ export default function ViewStudentDocs() {
                                                 container
                                                 justifyContent="space-between"
                                                 alignItems="center"
-                                            >
-                                                <Typography>
-                                                    {evaluation.student_id}
-                                                </Typography>
-                                            </Grid>
+                                            ></Grid>
 
                                             <CardHeader
                                                 fontWeight="bold"
@@ -86,7 +82,7 @@ export default function ViewStudentDocs() {
                                                 <CardActions>
                                                     <Link
                                                         style={{ color: 'white' }}
-                                                        to={`/instructor/${evaluation.student_id}/evaluation/${evaluation._id}`}
+                                                        to={`/instructor/documents/${evaluation.student_id._id}/evaluation/${evaluation._id}`}
                                                     >
                                                         <Button
                                                             variant="contained"
