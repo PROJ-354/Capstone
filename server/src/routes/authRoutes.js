@@ -16,6 +16,6 @@ router.post('/request', sendEmail);
 router.patch('/getCode/:id', getCode);
 router.post('/reset', resetPassword);
 router.delete('/deleteCode/:id', deleteCode);
-router.get('/:id', getJoinCodes);
+router.get('/joins/codes/:id', getJoinCodes);
 
 export default router;
