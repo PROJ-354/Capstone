@@ -67,7 +67,7 @@ export default function PreceptorEvaluate() {
                                         label="Rating"
                                         select
                                         required
-                                        value={evals.skill_rating}
+                                        // value={evals.skill_rating}
                                         defaultValue=""
                                         name={evals.skill_name + 'rating'}
                                         size="small"

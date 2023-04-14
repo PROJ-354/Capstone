@@ -96,7 +96,7 @@ export default function InstructorViewPeval() {
 
 //preliminary loader
 export const instructorEvaluationLoader = async ({ params }) => {
-    const evaluationId = params.id;
+    const evaluationId = params.evaluationID;
     const res = await fetch(`http://localhost:42069/api/preceptor/${evaluationId}`);
     return res;
 };
