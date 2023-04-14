@@ -1,4 +1,4 @@
-import * as React from 'react';
+import { useState } from 'react';
 
 import Table from '@mui/material/Table';
 import TableBody from '@mui/material/TableBody';
@@ -7,14 +7,14 @@ import TableContainer from '@mui/material/TableContainer';
 import TableHead from '@mui/material/TableHead';
 import TableRow from '@mui/material/TableRow';
 import Paper from '@mui/material/Paper';
-import { MenuItem,  Button, TextField } from '@mui/material';
+import { MenuItem, Button, TextField } from '@mui/material';
 
 import { useLoaderData, useActionData, redirect, Form } from 'react-router-dom';
 
 export default function PreceptorEvaluate() {
     const instantiatedEval = useLoaderData();
 
-    let [value, setValue] = React.useState(`${instantiatedEval.comments}`);
+    let [value, setValue] = useState(`${instantiatedEval.comments}`);
 
     let handleInputChange = (e) => {
         let inputValue = e.target.value;
@@ -25,11 +25,17 @@ export default function PreceptorEvaluate() {
 
     return (
         <Form method="post">
+            <input hidden name="evaluationId" value={instantiatedEval._id}></input>
 
-            <input hidden name='evaluationId' value={instantiatedEval._id}></input>
-
-            <TableContainer component={Paper} sx={{ width: '100%', overflowX: 'visible' }}>
-                <Table text-align='center' sx={{ minWidth: 100 }} aria-label="simple table">
+            <TableContainer
+                component={Paper}
+                sx={{ width: '100%', overflowX: 'visible' }}
+            >
+                <Table
+                    text-align="center"
+                    sx={{ minWidth: 100 }}
+                    aria-label="simple table"
+                >
                     <TableHead>
                         <TableRow>
                             <TableCell>Evaluation Criteria</TableCell>
@@ -39,7 +45,6 @@ export default function PreceptorEvaluate() {
                             <TableCell align="center">Needs Improvement</TableCell>
                             <TableCell align="center">Unnacceptable</TableCell>
                             <TableCell align="center">Rating</TableCell>
-
                         </TableRow>
                     </TableHead>
                     <TableBody>
@@ -56,9 +61,9 @@ export default function PreceptorEvaluate() {
                                     <TableCell key={idx2}>{desc}</TableCell>
                                 ))}
 
-                                <TableCell align="right" style={{minWidth: '100px'}}>
+                                <TableCell align="right" style={{ minWidth: '100px' }}>
                                     <TextField
-                                    sx={{width: '100%'}}
+                                        sx={{ width: '100%' }}
                                         label="Rating"
                                         select
                                         required
@@ -119,10 +124,9 @@ export const editEvaluationAction = async ({ request }) => {
     const res = await fetch(`http://localhost:42069/api/preceptor/${evaluationId}`);
     const newEval = await res.json();
 
-
     newEval.comments = data.get('comments');
     newEval.complete = true;
-    
+
     newEval.performance_assessment.map((evals) => {
         evals.skill_rating = data.get(evals.skill_name + 'rating');
     });

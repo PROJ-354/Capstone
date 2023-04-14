@@ -7,7 +7,7 @@ import {
     TableCell,
 } from '@mui/material';
 import InstructorChecklistCheckboxInput from './InstructorChecklistCheckboxInput';
-import PreceptorChecklistDateInput from '../preceptor/PreceptorChecklistDateInput';
+import PreceptorChecklistDateInput from '../../preceptor/checklist/PreceptorChecklistDateInput';
 
 export default function InstructorChecklistAccordion({ section }) {
     return (

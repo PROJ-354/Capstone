@@ -15,7 +15,7 @@ import { LoadingButton } from '@mui/lab';
 import { useNavigate } from 'react-router-dom';
 import { useState, useEffect } from 'react';
 
-export default function PreceptorWeekCard({ checklist, student }) {
+export default function StudentChecklistCard({ checklist }) {
     const navigate = useNavigate();
 
     //useStates for the button's availability and loading status
@@ -38,7 +38,7 @@ export default function PreceptorWeekCard({ checklist, student }) {
         setSubmitDisabled(true);
 
         const res = await fetch(
-            `http://localhost:42069/api/weeks/submit/preceptor/${checklist._id}`,
+            `http://localhost:42069/api/weeks/submit/${checklist._id}`,
             {
                 method: 'PATCH',
             }
@@ -67,19 +67,27 @@ export default function PreceptorWeekCard({ checklist, student }) {
                 <CardContent>
                     <Typography variant="h5">{checklist.name}</Typography>
                     <Typography variant="body1">
-                        Student:{' '}
-                        {student ? student.firstName + ' ' + student.lastName : 'Error'}
+                        <b>Preceptor:</b>{' '}
+                        {!checklist.preceptor_id
+                            ? 'None Selected'
+                            : checklist.preceptor_id.firstName +
+                              ' ' +
+                              checklist.preceptor_id.lastName}
                         <br />
-                        Marked: {checklist.submitted_to_instructor ? 'Yes' : 'No'}
+                        <b>Submitted:</b>{' '}
+                        {checklist.submitted_to_preceptor ? 'Yes' : 'No'}
+                        <br />
+                        <b>Grade:</b>{' '}
+                        {!checklist.grade ? 'Not yet graded' : checklist.grade}
                     </Typography>
                 </CardContent>
                 <CardActions>
                     <Button
                         color="primary"
                         variant="contained"
-                        disabled={checklist.submitted_to_instructor || viewDisabled}
+                        disabled={checklist.submitted_to_preceptor || viewDisabled}
                         onClick={() => {
-                            navigate(checklist._id);
+                            navigate(`/student/checklist/${checklist._id}`);
                         }}
                     >
                         View
@@ -87,7 +95,7 @@ export default function PreceptorWeekCard({ checklist, student }) {
                     <LoadingButton
                         color="success"
                         variant="contained"
-                        disabled={checklist.submitted_to_instructor || submitDisabled}
+                        disabled={checklist.submitted_to_preceptor || submitDisabled}
                         loading={submitIsLoading}
                         onClick={() => setOpen(true)}
                     >

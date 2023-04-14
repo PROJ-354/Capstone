@@ -29,23 +29,22 @@ export const useLogin = () => {
             dispatch({ type: 'LOGIN', payload: res });
             setIsLoading(false);
             // Navigate to the appropriate page for each user role
-            const user = res.result;
-            const role = res.result.role;   
-            switch (role) {
-                case 'preceptor':
-                    navigate(`/preceptor/home/${user._id}`);
-                    break;
+            const role = res.result.role;
+            switch (role.toLowerCase()) {
                 case 'student':
-                    navigate('/checklist');
+                    navigate('/student/home');
+                    break;
+                case 'preceptor':
+                    navigate(`/preceptor/home`);
                     break;
                 case 'instructor':
-                    navigate('/instructor');
+                    navigate('/instructor/home');
                     break;
-                case 'academic_chair':
-                    navigate('/admin');
+                case 'administrator':
+                    navigate('/admin/home');
                     break;
                 default:
-                    navigate('never gonna give you up');
+                    navigate('/login');
             }
         }
     };

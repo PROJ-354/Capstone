@@ -15,7 +15,7 @@ import {
 import { Form, redirect, useLoaderData } from 'react-router-dom';
 import { useState } from 'react';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
-import PreceptorChecklistAccordion from './PreceptorChecklistAccordion';
+import PreceptorChecklistAccordion from '../../../components/preceptor/checklist/PreceptorChecklistAccordion';
 
 export default function PreceptorViewChecklist() {
     const { checklistData } = useLoaderData();
@@ -32,10 +32,14 @@ export default function PreceptorViewChecklist() {
     return (
         <Box>
             <Typography variant="h4">
-                {checklistData.week.name} Skills Assessment for Student XXX
+                {checklistData.week.name} Skills Assessment for{' '}
+                {checklistData.week.student_id.firstName +
+                    ' ' +
+                    checklistData.week.student_id.lastName}
             </Typography>
             <Typography variant="body1">
-                First checkbox is the student's, second checkbox is yours
+                The first checkbox is the student's input, the second is yours. Please
+                mark what you believe the student has completed on the provided dates.
             </Typography>
             <Form method="post" id="submit-checklist-form">
                 {checklistData.week.skills_assessment.section.map((section) => (
@@ -63,25 +67,21 @@ export default function PreceptorViewChecklist() {
                         color="primary"
                         onClick={() => setOpen(true)}
                     >
-                        Submit
+                        Save
                     </Button>
-                    <Typography variant="body1">
-                        By submitting this form you agree that all information entered is
-                        accurate and true.
-                    </Typography>
                 </Stack>
                 <Dialog open={open} onClose={() => setOpen(false)}>
-                    <DialogTitle>Submit the form?</DialogTitle>
+                    <DialogTitle>Save the form?</DialogTitle>
                     <DialogContent>
                         <DialogContentText>
-                            Are you sure you want to submit the form? You will not be able
-                            to edit after submitting.
+                            Are you sure you want to save the form? You <b>will</b> be
+                            able to edit after submitting.
                         </DialogContentText>
                     </DialogContent>
                     <DialogActions>
                         <Button onClick={() => setOpen(false)}>Cancel</Button>
                         <Button type="submit" form="submit-checklist-form">
-                            Submit
+                            Save
                         </Button>
                     </DialogActions>
                 </Dialog>
@@ -92,7 +92,7 @@ export default function PreceptorViewChecklist() {
 
 export const preceptorSaveChecklistAction = async ({ request, params }) => {
     const formData = await request.formData();
-    const res = await fetch(`http://localhost:42069/api/weeks/${params.id}`);
+    const res = await fetch(`http://localhost:42069/api/weeks/${params.checklistID}`);
     const loaderData = await res.json();
 
     const resData = [];
@@ -116,11 +116,11 @@ export const preceptorSaveChecklistAction = async ({ request, params }) => {
     });
 
     //Send the update to the database
-    await fetch(`http://localhost:42069/api/weeks/preceptor/${params.id}`, {
+    await fetch(`http://localhost:42069/api/weeks/preceptor/${params.checklistID}`, {
         method: 'PATCH',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(resData),
     });
 
-    return redirect(`/preceptor/home/${params.userId}`);
+    return redirect(`/preceptor/home`);
 };

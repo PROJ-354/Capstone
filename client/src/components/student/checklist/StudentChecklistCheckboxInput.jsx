@@ -1,7 +1,7 @@
 import { TableCell, Checkbox } from '@mui/material';
 import { useState } from 'react';
 
-export default function ChecklistTabPanelCheckboxInput({ sectionName, skill, id }) {
+export default function StudentChecklistCheckboxInput({ sectionName, skill, id }) {
     const [value, setValue] = useState(skill.experiences[id].student_checked);
 
     return (

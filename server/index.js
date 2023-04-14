@@ -8,6 +8,8 @@ import mongoose from 'mongoose';
 import cors from 'cors';
 
 import Week from './src/models/Week.js';
+import User from './src/models/User.js';
+import JoinCode from './src/models/JoinCode.js';
 
 // import middleware
 import errorHandler from './src/middleware/errorHandler.js';
@@ -68,6 +70,14 @@ mongoose
         // Week.create(week6);
         // Week.create(week7);
         // Week.create(week8);
+
+        //JoinCode for Admins
+        // JoinCode.create({
+        //     code: 'AdMiN',
+        //     instructorId: null,
+        //     role: 'administrator',
+        //     expiryDate: new Date(),
+        // });
     })
     .catch((error) => {
         console.error('database connection failed', error);

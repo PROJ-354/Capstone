@@ -7,6 +7,7 @@ import nodemailer from 'nodemailer';
 import INIT_SCHEDULE from '../config/INIT_SCHEDULE.js';
 import { giveUserWeeks } from './weekController.js';
 import JoinCode from '../models/JoinCode.js';
+import validator from 'validator';
 
 export const login = async (req, res, next) => {
     try {
@@ -64,6 +65,15 @@ export const register = async (req, res, next) => {
                 .json({ error: 'Invalid join code. Please contact your instructor.' });
         }
 
+        //verify email is an email
+        if (!validator.isEmail(email)) {
+            return res.status(401).json({ error: 'Email is not valid.' });
+        }
+
+        if (!validator.isStrongPassword(password)) {
+            return res.status(401).json({ error: 'Password not strong enough.' });
+        }
+
         const role = joinCode.role;
         const instructorId = joinCode.instructorId;
 
@@ -101,7 +111,7 @@ export const register = async (req, res, next) => {
          * creates a schedule & attach it to this user
          */
         const schedule = await Schedule.create(INIT_SCHEDULE(userProfile.email));
-        console.log(schedule);
+        // console.log(schedule);
 
         return res.status(200).json({ result: userProfile, token: token });
     } catch (error) {
@@ -221,6 +231,22 @@ export const deleteCode = async (req, res, next) => {
                 .json({ error: 'Sorry the application encountered a problem.' });
         }
         return res.status(200).json({ message: 'Reset code has been used.' });
+    } catch (error) {
+        next(error);
+    }
+};
+
+export const getJoinCodes = async (req, res, next) => {
+    try {
+        const { id } = req.params;
+        console.log(id);
+        const joinCodes = await JoinCode.find({ instructorId: id });
+
+        if (!joinCodes) {
+            return res.status(404).json({ error: 'No join codes found for that user' });
+        } else {
+            return res.status(200).json(joinCodes);
+        }
     } catch (error) {
         next(error);
     }

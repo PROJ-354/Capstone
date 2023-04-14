@@ -7,11 +7,13 @@ import {
     Stack,
     Avatar,
     IconButton,
+    Box,
 } from '@mui/material';
 import SettingsIcon from '@mui/icons-material/Settings';
 import { useLogout } from '../hooks/useLogout';
-import { useNavigate } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { useAuthContext } from '../hooks/useAuthContext';
+import logo from '../img/sait-logo.png';
 
 const Navbar = () => {
     //functions and variables defined here
@@ -31,54 +33,97 @@ const Navbar = () => {
     return (
         <AppBar position="static">
             <Toolbar>
+                {/* <Link
+                    href={
+                        user.result.role.toLowerCase() === 'student'
+                            ? '/student/home'
+                            : user.result.role.toLowerCase() === 'preceptor'
+                            ? '/preceptor/home'
+                            : user.result.role.toLowerCase() === 'instructor'
+                            ? '/instructor/home'
+                            : user.result.role.toLowerCase() === 'administrator'
+                            ? '/admin/home'
+                            : '/login'
+                    }
+                > */}
+                <Box component="img" src={logo} sx={{ height: 40 }} />
                 <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
                     Competency Tracking Tool
                 </Typography>
+                {/* </Link> */}
                 <Stack direction="row" spacing={2}>
-                    {
-                        (user.result.role === 'student' && (
-                            <>
+                    {user.result.role.toLowerCase() === 'student' && (
+                        <>
                             <Button
                                 size="sm"
                                 color="inherit"
-                                onClick={() => navigate('/checklist')}
+                                onClick={() => navigate('/student/home')}
                             >
                                 Checklists
                             </Button>
-
-                            <Button
-                            size="sm"
-                            color="inherit"
-                            onClick={() => navigate('/requestpreceptorevaluation')}
-                        >
-                            Request Preceptor Evaluation
-                        </Button>
-                        </>
-                        ))
-                    }
-                    {
-                        (user.result.role === 'preceptor' && (
                             <Button
                                 size="sm"
                                 color="inherit"
-                                onClick={() => navigate(`/preceptor/home/${user.result._id}`)}
+                                onClick={() => navigate('/student/schedule')}
+                            >
+                                Schedules
+                            </Button>
+                            <Button
+                                size="sm"
+                                color="inherit"
+                                onClick={() => navigate('/student/evaluation')}
+                            >
+                                Evaluations
+                            </Button>
+                        </>
+                    )}
+                    {user.result.role.toLowerCase() === 'preceptor' && (
+                        <>
+                            <Button
+                                size="sm"
+                                color="inherit"
+                                onClick={() => navigate('/preceptor/home')}
                             >
                                 Home
                             </Button>
-                        ))
-                    }
-                    
-                    {
-                        (user.result.role === 'instructor' && (
                             <Button
                                 size="sm"
                                 color="inherit"
-                                onClick={() => navigate('/checklist')}
+                                onClick={() => navigate('/preceptor/schedule')}
                             >
-                                Something for instructors
+                                Schedules
                             </Button>
-                        ))
-                    }
+                        </>
+                    )}
+
+                    {user.result.role.toLowerCase() === 'instructor' && (
+                        <>
+                            <Button
+                                size="sm"
+                                color="inherit"
+                                onClick={() => navigate('/instructor/home')}
+                            >
+                                Home
+                            </Button>
+                            <Button
+                                size="sm"
+                                color="inherit"
+                                onClick={() => navigate('/instructor/schedule')}
+                            >
+                                Schedules
+                            </Button>
+                        </>
+                    )}
+
+                    {user.result.role.toLowerCase() === 'administrator' && (
+                        <Button
+                            size="sm"
+                            color="inherit"
+                            onClick={() => navigate('/admin/home')}
+                        >
+                            Home
+                        </Button>
+                    )}
 
                     <Button
                         size="sm"
@@ -92,9 +137,9 @@ const Navbar = () => {
                         {user && user.result.firstName.charAt(0).toUpperCase()}
                         {user && user.result.lastName.charAt(0).toUpperCase()}
                     </Avatar>
-                    <IconButton color="inherit" size="small">
+                    {/* <IconButton color="inherit" size="small">
                         <SettingsIcon />
-                    </IconButton>
+                    </IconButton> */}
                 </Stack>
             </Toolbar>
         </AppBar>

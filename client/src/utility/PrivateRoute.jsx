@@ -1,4 +1,4 @@
-import { Navigate, useNavigate } from 'react-router';
+import { Navigate } from 'react-router';
 
 /**
  * this utility component protects routes from unauthorized & unauthenticated users >:)
@@ -16,15 +16,26 @@ const PrivateRoute = ({ children, roles }) => {
     const thisRole = JSON.parse(localStorage.getItem('auth')).result.role;
 
     // check if the users role matches with a role in the roles array
-    for (let i = 0; i<roles.length; i++) {
-        if (roles[i] == thisRole) {
+    for (let i = 0; i < roles.length; i++) {
+        if (roles[i] === thisRole) {
             // everything is good; return children!!
-            return children
+            return children;
         }
     }
 
     // role did not match; return to login page
-    return <Navigate to="/login" replace={true} />;
+    switch (thisRole.toLowerCase()) {
+        case 'student':
+            return <Navigate to="/student/home" replace={true} />;
+        case 'preceptor':
+            return <Navigate to="/preceptor/home" replace={true} />;
+        case 'instructor':
+            return <Navigate to="/instructor/home" replace={true} />;
+        case 'administrator':
+            return <Navigate to="/admin/home" replace={true} />;
+        default:
+            return <Navigate to="/login" replace={true} />;
+    }
 };
 
 export default PrivateRoute;

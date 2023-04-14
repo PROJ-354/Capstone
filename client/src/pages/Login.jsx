@@ -1,6 +1,14 @@
 import { useLogin } from '../hooks/useLogin';
 import { useState } from 'react';
-import { Typography, Button, Stack, TextField, Container, Divider, Alert } from '@mui/material';
+import {
+    Typography,
+    Button,
+    Stack,
+    TextField,
+    Container,
+    Divider,
+    Alert,
+} from '@mui/material';
 import { Box } from '@mui/system';
 import { useNavigate } from 'react-router-dom';
 import logo from '../img/sait-logo.png';
@@ -18,26 +26,23 @@ const Login = () => {
         event.preventDefault();
         await login(email, password);
 
-        const user = JSON.parse(localStorage.getItem('auth'));
+        const userRole = JSON.parse(localStorage.getItem('auth')).result.role;
 
-        const userRole = await user.result.role;
-        
-        console.log(user.result._id);
-
-        switch (userRole) {
-            case 'preceptor':
-                navigate(`/preceptor/home/${user.result._id}`);
-                break;
+        switch (userRole.toLowerCase()) {
             case 'student':
-                        break;
-            case 'instructor':
-                navigate('/instructor');
+                navigate('/student/home');
                 break;
-            case 'academic_chair':
-                navigate('/admin');
+            case 'preceptor':
+                navigate(`/preceptor/home`);
+                break;
+            case 'instructor':
+                navigate('/instructor/home');
+                break;
+            case 'administrator':
+                navigate('/admin/home');
                 break;
             default:
-                navigate('never gonna give you up');
+                navigate('/login');
         }
     };
 
@@ -94,7 +99,7 @@ const Login = () => {
                         </Button>
                     </Stack>
                 </Stack>
-                {error && <Alert severity='error'>{error}</Alert>}
+                {error && <Alert severity="error">{error}</Alert>}
             </form>
         </Container>
     );

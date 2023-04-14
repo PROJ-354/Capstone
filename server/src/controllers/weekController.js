@@ -13,7 +13,19 @@ export const getWeek = async (req, res) => {
     }
 
     //Find the week
-    const week = await Week.findOne({ _id: id });
+    const week = await Week.findOne({ _id: id })
+        .populate({
+            path: 'preceptor_id',
+            select: 'firstName lastName',
+        })
+        .populate({
+            path: 'student_id',
+            select: 'firstName lastName',
+        })
+        .populate({
+            path: 'instructor_id',
+            select: 'firstName lastName',
+        });
 
     //If no week is returned, respond with an error
     if (!week) {
@@ -164,8 +176,6 @@ export const updatePreceptorWeek = async (req, res) => {
 
 //UPDATE an instructor's week (the grade)
 export const updateInstructorWeek = async (req, res) => {
-    console.log('you made it here');
-
     const { id } = req.params;
 
     if (!mongoose.Types.ObjectId.isValid(id)) {
@@ -181,6 +191,7 @@ export const updateInstructorWeek = async (req, res) => {
 
     //Update the object
     await Week.updateOne({ _id: id }, { grade });
+    res.status(200).json({ message: 'Checklist grade updated' });
 };
 
 //SUBMIT a week to a preceptor
@@ -242,7 +253,19 @@ export const getUsersWeeks = async (req, res) => {
             break;
     }
 
-    const weeks = await Week.find(filter);
+    const weeks = await Week.find(filter)
+        .populate({
+            path: 'preceptor_id',
+            select: 'firstName lastName',
+        })
+        .populate({
+            path: 'student_id',
+            select: 'firstName lastName',
+        })
+        .populate({
+            path: 'instructor_id',
+            select: 'firstName lastName',
+        });
 
     if (!weeks) {
         res.status(404).json({ error: 'No weeks found for that user' });

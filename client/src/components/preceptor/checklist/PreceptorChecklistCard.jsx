@@ -15,7 +15,7 @@ import { LoadingButton } from '@mui/lab';
 import { useNavigate } from 'react-router-dom';
 import { useState, useEffect } from 'react';
 
-export default function InstructorWeekCard({ checklist, student }) {
+export default function PreceptorWeekCard({ checklist }) {
     const navigate = useNavigate();
 
     //useStates for the button's availability and loading status
@@ -67,23 +67,34 @@ export default function InstructorWeekCard({ checklist, student }) {
                 <CardContent>
                     <Typography variant="h5">{checklist.name}</Typography>
                     <Typography variant="body1">
-                        Student:{' '}
-                        {student ? student.firstName + ' ' + student.lastName : 'Error'}
+                        <b>Student:</b>{' '}
+                        {checklist.student_id.firstName +
+                            ' ' +
+                            checklist.student_id.lastName}
                         <br />
-                        Grade: {!checklist.grade ? 'Not marked' : checklist.grade}
+                        <b>Marked:</b> {checklist.submitted_to_instructor ? 'Yes' : 'No'}
                     </Typography>
                 </CardContent>
                 <CardActions>
                     <Button
                         color="primary"
                         variant="contained"
-                        disabled={checklist.grade || viewDisabled}
+                        disabled={checklist.submitted_to_instructor || viewDisabled}
                         onClick={() => {
-                            navigate(checklist._id);
+                            navigate(`/preceptor/checklist/${checklist._id}`);
                         }}
                     >
                         View
                     </Button>
+                    <LoadingButton
+                        color="success"
+                        variant="contained"
+                        disabled={checklist.submitted_to_instructor || submitDisabled}
+                        loading={submitIsLoading}
+                        onClick={() => setOpen(true)}
+                    >
+                        Submit
+                    </LoadingButton>
                 </CardActions>
             </Card>
             <Dialog open={open} onClose={() => setOpen(false)}>

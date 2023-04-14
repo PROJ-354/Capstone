@@ -16,7 +16,7 @@ import {
 import { Form, redirect, useLoaderData } from 'react-router-dom';
 import { useState } from 'react';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
-import InstructorChecklistAccordion from './InstructorChecklistAccordion';
+import InstructorChecklistAccordion from '../../components/instructor/checklist/InstructorChecklistAccordion';
 
 export default function InstructorViewChecklist() {
     const { checklistData } = useLoaderData();
@@ -59,6 +59,7 @@ export default function InstructorViewChecklist() {
                         </AccordionDetails>
                     </Accordion>
                 ))}
+                <br />
                 <Input name="grade" type="number" min="0" max="100">
                     Grade
                 </Input>
@@ -96,14 +97,17 @@ export default function InstructorViewChecklist() {
 }
 
 export const instructorSaveGradeAction = async ({ request, params }) => {
+    console.log('hello');
     const formData = await request.formData();
     const grade = { grade: formData.get('grade') };
 
-    await fetch(`http://localhost:42069/api/weeks/instructor/${params.id}`, {
+    await fetch(`http://localhost:42069/api/weeks/instructor/${params.checklistID}`, {
         method: 'PATCH',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(grade),
     });
 
-    return redirect(`/instructor/home/${params.userId}`);
+    console.log('hello2');
+
+    return redirect(`/instructor/home`);
 };

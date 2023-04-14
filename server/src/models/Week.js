@@ -25,12 +25,14 @@ const WeekSchema = mongoose.Schema(
         },
         //The ID of the student this week belongs to
         student_id: {
-            type: String,
+            type: mongoose.Schema.Types.ObjectId,
+            ref: 'User',
             default: null,
         },
         //The ID of the preceptor who will be grading/providing feedback on this week
         preceptor_id: {
-            type: String,
+            type: mongoose.Schema.Types.ObjectId,
+            ref: 'User',
             default: null,
         },
         //Whether or not this week has been submitted to the preceptor for evaluation
@@ -41,7 +43,8 @@ const WeekSchema = mongoose.Schema(
         //The ID of the instructor who created/assigned this week
         //Otherwise, the ID of the instructor who will be grading this week
         instructor_id: {
-            type: String,
+            type: mongoose.Schema.Types.ObjectId,
+            ref: 'User',
             default: null,
         },
         //Whether or not this week has been submitted to the instructor for evaluation
