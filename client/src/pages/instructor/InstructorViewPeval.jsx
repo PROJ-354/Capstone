@@ -1,5 +1,3 @@
-import * as React from 'react';
-
 import Table from '@mui/material/Table';
 import TableBody from '@mui/material/TableBody';
 import TableCell from '@mui/material/TableCell';
@@ -7,14 +5,15 @@ import TableContainer from '@mui/material/TableContainer';
 import TableHead from '@mui/material/TableHead';
 import TableRow from '@mui/material/TableRow';
 import Paper from '@mui/material/Paper';
-import { MenuItem,  Button, TextField, Grid, Typography } from '@mui/material';
+import { MenuItem, TextField, Grid, Typography } from '@mui/material';
 
-import { useLoaderData, redirect, Form } from 'react-router-dom';
+import { useLoaderData } from 'react-router-dom';
+import { useState } from 'react';
 
 export default function InstructorViewPeval() {
     const instantiatedEval = useLoaderData();
 
-    let [value, setValue] = React.useState(`${instantiatedEval.comments}`);
+    let [value, setValue] = useState(`${instantiatedEval.comments}`);
 
     let handleInputChange = (e) => {
         let inputValue = e.target.value;
@@ -23,15 +22,24 @@ export default function InstructorViewPeval() {
 
     return (
         <Grid>
-            <input hidden name='evaluationId' value={instantiatedEval._id}></input>
-            <Typography variant="h3" color="primary">Evaluation for {' '}{instantiatedEval.student_id.firstName}{' '}{instantiatedEval.student_id.lastName}{' '} for month {instantiatedEval.month}</Typography>
-            <TableContainer component={Paper} sx={{ width: '100%', overflowX: 'visible' }}>
-                <Table text-align='center' sx={{ minWidth: 100 }} aria-label="simple table">
+            <input hidden name="evaluationId" value={instantiatedEval._id}></input>
+            <Typography variant="h3" color="primary">
+                Evaluation for {instantiatedEval.student_id.firstName}{' '}
+                {instantiatedEval.student_id.lastName} for month {instantiatedEval.month}
+            </Typography>
+            <TableContainer
+                component={Paper}
+                sx={{ width: '100%', overflowX: 'visible' }}
+            >
+                <Table
+                    text-align="center"
+                    sx={{ minWidth: 100 }}
+                    aria-label="simple table"
+                >
                     <TableHead>
                         <TableRow>
                             <TableCell>Evaluation Criteria</TableCell>
                             <TableCell align="center">Rating</TableCell>
-
                         </TableRow>
                     </TableHead>
                     <TableBody>
@@ -44,11 +52,10 @@ export default function InstructorViewPeval() {
                                     {evals.skill_name}
                                 </TableCell>
 
-
-                                <TableCell align="right" style={{minWidth: '100px'}}>
+                                <TableCell align="right" style={{ minWidth: '100px' }}>
                                     <TextField
-                                    sx={{width: '100%'}}
-                                        InputProps={{readOnly: true}}
+                                        sx={{ width: '100%' }}
+                                        InputProps={{ readOnly: true }}
                                         label="Rating"
                                         select
                                         required
@@ -72,7 +79,7 @@ export default function InstructorViewPeval() {
             </TableContainer>
 
             <TextField
-                InputProps={{readOnly: true}}
+                InputProps={{ readOnly: true }}
                 id="outlined-basic"
                 name="comments"
                 label="Comments"

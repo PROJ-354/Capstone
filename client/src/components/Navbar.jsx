@@ -40,17 +40,23 @@ const Navbar = () => {
                             <Button
                                 size="sm"
                                 color="inherit"
-                                onClick={() => navigate('/checklist')}
+                                onClick={() => navigate('/student/home')}
                             >
                                 Checklists
                             </Button>
-
                             <Button
                                 size="sm"
                                 color="inherit"
-                                onClick={() => navigate('/requestpreceptorevaluation')}
+                                onClick={() => navigate('/student/schedule')}
                             >
-                                Request Preceptor Evaluation
+                                Schedules
+                            </Button>
+                            <Button
+                                size="sm"
+                                color="inherit"
+                                onClick={() => navigate('/student/evaluation')}
+                            >
+                                Evaluations
                             </Button>
                         </>
                     )}

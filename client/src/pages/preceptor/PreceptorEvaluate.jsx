@@ -1,5 +1,3 @@
-import * as React from 'react';
-
 import Table from '@mui/material/Table';
 import TableBody from '@mui/material/TableBody';
 import TableCell from '@mui/material/TableCell';
@@ -7,12 +5,13 @@ import TableContainer from '@mui/material/TableContainer';
 import TableHead from '@mui/material/TableHead';
 import TableRow from '@mui/material/TableRow';
 import Paper from '@mui/material/Paper';
-import { Select, MenuItem, InputLabel, Button, TextField } from '@mui/material';
+import { MenuItem, InputLabel, Button, TextField } from '@mui/material';
 
 import { useLoaderData, useActionData, redirect, Form } from 'react-router-dom';
+import { useState } from 'react';
 
 export default function PreceptorEvaluate() {
-    let [value, setValue] = React.useState('');
+    let [value, setValue] = useState('');
 
     let handleInputChange = (e) => {
         let inputValue = e.target.value;
@@ -72,7 +71,6 @@ export default function PreceptorEvaluate() {
                                     <TextField
                                         label="Rating"
                                         select
-                                        
                                         required
                                         fullWidth
                                         name={evals.skill_name + 'rating'}
@@ -131,8 +129,6 @@ export const evaluateAction = async ({ request }) => {
     newEval.month = parseInt(data.get('month'));
     newEval.comments = data.get('comments');
     newEval.preceptor_id = user;
-    
-
 
     newEval.performance_assessment.map((evals) => {
         evals.skill_rating = data.get(evals.skill_name + 'rating');

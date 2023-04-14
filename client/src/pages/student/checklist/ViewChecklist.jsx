@@ -17,7 +17,7 @@ import {
 import { Form, redirect, useLoaderData } from 'react-router-dom';
 import { useState } from 'react';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
-import ChecklistAccordion from '../../../components/checklist/ChecklistAccordion';
+import StudentChecklistAccordion from '../../../components/student/checklist/StudentChecklistAccordion';
 
 export default function ViewChecklist() {
     //Grabs the data from the backend using the loader function
@@ -53,7 +53,7 @@ export default function ViewChecklist() {
                             <Typography>{section.name}</Typography>
                         </AccordionSummary>
                         <AccordionDetails>
-                            <ChecklistAccordion section={section} />
+                            <StudentChecklistAccordion section={section} />
                         </AccordionDetails>
                     </Accordion>
                 ))}

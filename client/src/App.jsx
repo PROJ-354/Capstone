@@ -1,6 +1,7 @@
 import {
     createBrowserRouter,
     createRoutesFromElements,
+    Navigate,
     Route,
     RouterProvider,
 } from 'react-router-dom';
@@ -53,12 +54,12 @@ import NotFound from './pages/NotFound';
 import RequestPreceptorEvaluation, {
     evaluationRequestAction,
     preceptorListLoader,
-} from './pages/student/RequestPreceptorEvaluation';
+} from './pages/student/evaluation/RequestPreceptorEvaluation';
 import PreceptorSchedulePage from './pages/preceptor/PreceptorSchedulePage';
 import InstructorSchedulePage from './pages/instructor/InstructorSchedulePage';
 import PreceptorViewChecklist, {
     preceptorSaveChecklistAction,
-} from './pages/preceptor/PreceptorViewChecklist';
+} from './pages/preceptor/checklist/PreceptorViewChecklist';
 import InstructorViewChecklist, {
     instructorSaveGradeAction,
 } from './pages/instructor/InstructorViewChecklist';
@@ -67,121 +68,9 @@ import InstructorViewPeval, {
 } from './pages/instructor/InstructorViewPeval';
 import ViewStudentDocs, { studentDocsLoader } from './pages/instructor/ViewStudentDocs';
 
-// import PrivateRoute from '../../server/src/utilities/PrivateRoute'; why was this here?
-
 const router = createBrowserRouter(
     createRoutesFromElements(
         <Route path="/" element={<RootLayout />}>
-            {/* Checklists */}
-            {/* <Route path="checklist">
-                <Route
-                    index
-                    element={<ViewAllChecklists />}
-                    loader={viewAllChecklistsLoader}
-                />
-                <Route
-                    path=":id"
-                    element={<ViewChecklist />}
-                    loader={checklistLoader}
-                    action={saveChecklistAction}
-                />
-            </Route> */}
-
-            {/* Instructors */}
-            {/* <Route path="/instructor">
-                <Route index element={<InstructorHome />} loader={instructorHomeLoader} />
-                <Route path="/instructor/manageJoinCode" element={<ManageJoinCode />} />
-                <Route
-                    path="/instructor/:studentId/:id"
-                    element={<InstructorViewChecklist />}
-                    loader={checklistLoader}
-                    action={instructorSaveGradeAction}
-                />
-                <Route
-                    path="/instructor/:studentId"
-                    element={<ViewStudentDocs />}
-                    loader={studentDocsLoader}
-                />
-                <Route
-                    path="/instructor/:studentId/peval/:id"
-                    element={<InstructorViewPeval />}
-                    loader={instructorEvaluationLoader}
-                />
-            </Route> */}
-
-            {/* Preceptors */}
-            {/* <Route path="preceptor">
-                <Route
-                    path="home/:userId"
-                    element={<PreceptorHome />}
-                    loader={evalsLoader}
-                />
-
-                <Route
-                    path="home/:userId/:id"
-                    element={<PreceptorViewChecklist />}
-                    loader={checklistLoader}
-                    action={preceptorSaveChecklistAction}
-                /> */}
-
-            {/* <Route
-                    path="eval"
-                    element={<PreceptorEvaluate />}
-                    action={evaluateAction}
-                    loader={evaluateLoader}
-                /> */}
-
-            {/* <Route 
-                path="checklist/:checklistId" 
-                element={< PreceptorChecklist/>}
-                action={checklistAction}
-                loader={checklistLoader}
-                /> */}
-
-            {/* <Route
-                    path=":evalId"
-                    element={<ViewEvaluation />}
-                    action={editEvaluationAction}
-                    loader={viewEvaluationLoader}
-                />
-            </Route> */}
-
-            {/* Schedules */}
-            {/* <Route
-                path="/student/schedules"
-                element={
-                    <PrivateRoute roles={['student']}>
-                        <ViewSchedule />
-                    </PrivateRoute>
-                }
-            />
-
-            <Route
-                path="/preceptor/schedules"
-                element={
-                    <PrivateRoute roles={['preceptor']}>
-                        <PreceptorSchedulePage />
-                    </PrivateRoute>
-                }
-            />
-
-            <Route
-                path="/instructor/schedules"
-                element={
-                    <PrivateRoute roles={['instructor']}>
-                        <InstructorSchedulePage />
-                    </PrivateRoute>
-                }
-            /> */}
-
-            {/* Student page for requesting an evaluation from a preceptor */}
-            {/* <Route
-                path="requestpreceptorevaluation"
-                element={<RequestPreceptorEvaluation />}
-                loader={preceptorListLoader}
-                action={evaluationRequestAction}
-            /> */}
-
             {/* START OF AUTHENTICATION ROUTES */}
             <Route index element={<Login />} />
             <Route path="/login" element={<Login />} />
@@ -191,21 +80,15 @@ const router = createBrowserRouter(
             {/* END OF AUTHENTICATION ROUTES */}
 
             {/* START OF STUDENT ROUTES */}
-            <Route
-                path="/student"
-                element={
-                    <PrivateRoute roles={['student']}>
-                        <ViewAllChecklists />
-                    </PrivateRoute>
-                }
-            >
+            <Route path="/student">
                 <Route
-                    index
+                    path="home"
                     element={
                         <PrivateRoute roles={['student']}>
                             <ViewAllChecklists />
                         </PrivateRoute>
                     }
+                    loader={viewAllChecklistsLoader}
                 />
                 <Route
                     path="checklist/:checklistID"
@@ -214,12 +97,13 @@ const router = createBrowserRouter(
                             <ViewChecklist />
                         </PrivateRoute>
                     }
+                    loader={checklistLoader}
                 />
                 <Route
                     path="schedule"
                     element={
                         <PrivateRoute roles={['student']}>
-                            <ViewChecklist />
+                            <ViewSchedule />
                         </PrivateRoute>
                     }
                 />
@@ -227,74 +111,69 @@ const router = createBrowserRouter(
                     path="evaluation"
                     element={
                         <PrivateRoute roles={['student']}>
-                            <ViewChecklist />
+                            <RequestPreceptorEvaluation />
                         </PrivateRoute>
                     }
+                    loader={preceptorListLoader}
+                    action={evaluationRequestAction}
                 />
             </Route>
             {/* END OF STUDENT ROUTES */}
 
             {/* START OF PRECEPTOR ROUTES */}
-            <Route
-                path="/preceptor"
-                element={
-                    <PrivateRoute roles={['preceptor']}>
-                        <PreceptorHome />
-                    </PrivateRoute>
-                }
-            >
+            <Route path="/preceptor">
                 <Route
-                    index
+                    path="home"
                     element={
                         <PrivateRoute roles={['preceptor']}>
                             <PreceptorHome />
                         </PrivateRoute>
                     }
+                    loader={evalsLoader}
                 />
                 <Route
                     path="checklist/:checklistID"
                     element={
                         <PrivateRoute roles={['preceptor']}>
-                            <PreceptorHome />
+                            <PreceptorViewChecklist />
                         </PrivateRoute>
                     }
+                    loader={checklistLoader}
+                    action={preceptorSaveChecklistAction}
                 />
                 <Route
                     path="schedule"
                     element={
                         <PrivateRoute roles={['preceptor']}>
-                            <PreceptorHome />
+                            <PreceptorSchedulePage />
                         </PrivateRoute>
                     }
+                />
+                <Route
+                    path="evaluation"
+                    element={
+                        <PrivateRoute roles={['preceptor']}>
+                            <PreceptorEvaluate />
+                        </PrivateRoute>
+                    }
+                    action={evaluateAction}
+                    loader={evaluateLoader}
                 />
                 <Route
                     path="evaluation/:evaluationID"
                     element={
                         <PrivateRoute roles={['preceptor']}>
-                            <PreceptorHome />
+                            <ViewEvaluation />
                         </PrivateRoute>
                     }
+                    action={editEvaluationAction}
+                    loader={viewEvaluationLoader}
                 />
             </Route>
             {/* END OF PRECEPTOR ROUTES */}
 
             {/* START OF INSTRUCTOR ROUTES */}
-            <Route
-                path="/instructor"
-                element={
-                    <PrivateRoute roles={['instructor']}>
-                        <InstructorHome />
-                    </PrivateRoute>
-                }
-            >
-                <Route
-                    index
-                    element={
-                        <PrivateRoute roles={['instructor']}>
-                            <InstructorHome />
-                        </PrivateRoute>
-                    }
-                />
+            <Route path="/instructor">
                 <Route
                     path="home"
                     element={
@@ -302,28 +181,38 @@ const router = createBrowserRouter(
                             <InstructorHome />
                         </PrivateRoute>
                     }
+                    loader={instructorHomeLoader}
+                />
+                <Route path="join-codes" element={<ManageJoinCode />} />
+                <Route
+                    path="documents/:studentID"
+                    element={<ViewStudentDocs />}
+                    loader={studentDocsLoader}
                 />
                 <Route
-                    path="checklist/:checklistID"
+                    path="documents/:studentID/checklist/:checklistID"
                     element={
                         <PrivateRoute roles={['instructor']}>
-                            <InstructorHome />
+                            <InstructorViewChecklist />
                         </PrivateRoute>
                     }
+                    loader={checklistLoader}
+                    action={instructorSaveGradeAction}
+                />
+                <Route
+                    path="documents/:studentID/evaluation/:evaluationID"
+                    element={
+                        <PrivateRoute roles={['instructor']}>
+                            <InstructorViewPeval />
+                        </PrivateRoute>
+                    }
+                    loader={instructorEvaluationLoader}
                 />
                 <Route
                     path="schedule"
                     element={
                         <PrivateRoute roles={['instructor']}>
-                            <InstructorHome />
-                        </PrivateRoute>
-                    }
-                />
-                <Route
-                    path="evaluation/:evaluationID"
-                    element={
-                        <PrivateRoute roles={['instructor']}>
-                            <InstructorHome />
+                            <InstructorSchedulePage />
                         </PrivateRoute>
                     }
                 />
@@ -332,7 +221,6 @@ const router = createBrowserRouter(
 
             {/* START OF ADMIN ROUTES */}
             <Route path="/admin">
-                <Route index element={<AdminHome />} />
                 <Route path="home" element={<AdminHome />} />
                 <Route path="join-codes" element={<AdminManageJoinCode />} />
             </Route>

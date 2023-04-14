@@ -6,10 +6,10 @@ import {
     TableRow,
     TableCell,
 } from '@mui/material';
-import ChecklistDateInput from './ChecklistDateInput';
-import ChecklistCheckboxInput from './ChecklistCheckboxInput';
+import ChecklistDateInput from './StudentChecklistDateInput';
+import ChecklistCheckboxInput from './StudentChecklistCheckboxInput';
 
-export default function ChecklistAccordion({ section }) {
+export default function StudentChecklistAccordion({ section }) {
     return (
         <TableContainer>
             <Table>

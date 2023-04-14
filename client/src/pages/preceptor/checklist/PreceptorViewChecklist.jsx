@@ -15,7 +15,7 @@ import {
 import { Form, redirect, useLoaderData } from 'react-router-dom';
 import { useState } from 'react';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
-import PreceptorChecklistAccordion from './PreceptorChecklistAccordion';
+import PreceptorChecklistAccordion from '../../../components/preceptor/checklist/PreceptorChecklistAccordion';
 
 export default function PreceptorViewChecklist() {
     const { checklistData } = useLoaderData();

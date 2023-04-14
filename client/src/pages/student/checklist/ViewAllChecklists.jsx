@@ -1,6 +1,6 @@
 import { Box, Typography, Grid, Button } from '@mui/material';
 import { useLoaderData, useNavigate } from 'react-router-dom';
-import WeekCard from '../../../components/checklist/ChecklistCard';
+import StudentChecklistCard from '../../../components/student/checklist/StudentChecklistCard';
 
 export default function ViewAllChecklists() {
     const { checklistData, preceptorUsers } = useLoaderData();
@@ -23,7 +23,7 @@ export default function ViewAllChecklists() {
                         })
                         .map((checklist) => (
                             <Grid key={checklist._id} item>
-                                <WeekCard
+                                <StudentChecklistCard
                                     checklist={checklist}
                                     preceptor={preceptorUsers.find(
                                         (preceptor) =>

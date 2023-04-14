@@ -5,12 +5,11 @@ import { Grid } from '@mui/material';
 import Typography from '@mui/material/Typography';
 import { Link, useLoaderData, useNavigate } from 'react-router-dom';
 import { useState } from 'react';
-import LaunchIcon from '@mui/icons-material/Launch';
 import Accordion from '@mui/material/Accordion';
 import AccordionDetails from '@mui/material/AccordionDetails';
 import AccordionSummary from '@mui/material/AccordionSummary';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
-import PreceptorWeekCard from '../../components/checklist/PreceptorWeekCard';
+import PreceptorChecklistCard from '../../components/preceptor/checklist/PreceptorChecklistCard';
 
 export default function PreceptorHome() {
     //for use with the accordian
@@ -128,7 +127,7 @@ export default function PreceptorHome() {
                         {checklists &&
                             checklists.map((checklist) => (
                                 <Grid key={checklist._id} item>
-                                    <PreceptorWeekCard checklist={checklist} />
+                                    <PreceptorChecklistCard checklist={checklist} />
                                 </Grid>
                             ))}
                     </Grid>

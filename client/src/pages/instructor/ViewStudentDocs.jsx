@@ -3,15 +3,13 @@ import CardContent from '@mui/material/CardContent';
 import { Button, CardActions, CardHeader, Paper } from '@mui/material';
 import { Grid } from '@mui/material';
 import Typography from '@mui/material/Typography';
-import { Link, useLoaderData, useParams } from 'react-router-dom';
+import { Link, useLoaderData } from 'react-router-dom';
 import { useState } from 'react';
-import LaunchIcon from '@mui/icons-material/Launch';
 import Accordion from '@mui/material/Accordion';
 import AccordionDetails from '@mui/material/AccordionDetails';
 import AccordionSummary from '@mui/material/AccordionSummary';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
-import PreceptorWeekCard from '../../components/checklist/PreceptorWeekCard';
-import InstructorWeekCard from '../../components/checklist/InstructorWeekCard';
+import InstructorChecklistCard from '../../components/instructor/checklist/InstructorChecklistCard';
 
 export default function ViewStudentDocs() {
     //for use with the accordian
@@ -123,7 +121,7 @@ export default function ViewStudentDocs() {
                         {checklists &&
                             checklists.map((checklist) => (
                                 <Grid key={checklist._id} item>
-                                    <InstructorWeekCard checklist={checklist} />
+                                    <InstructorChecklistCard checklist={checklist} />
                                 </Grid>
                             ))}
                     </Grid>

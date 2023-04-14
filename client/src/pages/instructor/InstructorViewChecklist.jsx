@@ -16,7 +16,7 @@ import {
 import { Form, redirect, useLoaderData } from 'react-router-dom';
 import { useState } from 'react';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
-import InstructorChecklistAccordion from './InstructorChecklistAccordion';
+import InstructorChecklistAccordion from '../../components/instructor/checklist/InstructorChecklistAccordion';
 
 export default function InstructorViewChecklist() {
     const { checklistData } = useLoaderData();
