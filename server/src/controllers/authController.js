@@ -7,6 +7,7 @@ import nodemailer from 'nodemailer';
 import INIT_SCHEDULE from '../config/INIT_SCHEDULE.js';
 import { giveUserWeeks } from './weekController.js';
 import JoinCode from '../models/JoinCode.js';
+import validator from 'validator';
 
 export const login = async (req, res, next) => {
     try {
