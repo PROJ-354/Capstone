@@ -87,7 +87,7 @@ export default function ViewStudentDocs() {
                                             <CardActions>
                                                 <Link
                                                     style={{ color: 'white' }}
-                                                    to={`/instructor/${evaluation.student_id}/peval/${evaluation._id}`}
+                                                    to={`/instructor/${evaluation.student_id}/evaluation/${evaluation._id}`}
                                                 >
                                                     <Button
                                                         variant="contained"

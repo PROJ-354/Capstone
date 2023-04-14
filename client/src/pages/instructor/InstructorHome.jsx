@@ -122,7 +122,7 @@ export default function InstructorHome() {
                     <br />
                     <br />
                     <Typography variant="h6">
-                        <Link href="/instructor/manageJoinCode" underline="always">
+                        <Link href="/instructor/join-codes" underline="always">
                             Manage Join Codes
                         </Link>
                     </Typography>

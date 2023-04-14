@@ -90,7 +90,7 @@ export default function PreceptorHome() {
                                             <CardActions>
                                                 <Link
                                                     style={{ color: 'white' }}
-                                                    to={`/preceptor/${evaluation._id}`}
+                                                    to={`/preceptor/evaluation/${evaluation._id}`}
                                                 >
                                                     <Button
                                                         variant="contained"
