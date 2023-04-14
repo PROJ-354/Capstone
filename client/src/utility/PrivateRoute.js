@@ -1,4 +1,4 @@
-import { Navigate, useNavigate } from 'react-router';
+import { Navigate } from 'react-router';
 
 /**
  * this utility component protects routes from unauthorized & unauthenticated users >:)
