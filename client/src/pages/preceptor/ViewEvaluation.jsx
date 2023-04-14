@@ -107,7 +107,7 @@ export default function PreceptorEvaluate() {
 
 //preliminary loader
 export const viewEvaluationLoader = async ({ params }) => {
-    const evaluationId = params.evalId;
+    const evaluationId = params.evaluationID;
     const res = await fetch(`http://localhost:42069/api/preceptor/${evaluationId}`);
     return res;
 };
@@ -137,5 +137,5 @@ export const editEvaluationAction = async ({ request }) => {
         headers: { 'Content-Type': 'application/json' },
     });
 
-    return redirect(`/preceptor/home/${user}`);
+    return redirect(`/preceptor/home`);
 };

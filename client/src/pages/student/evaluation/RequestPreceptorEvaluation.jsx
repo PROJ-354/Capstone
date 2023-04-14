@@ -1,11 +1,17 @@
 import * as React from 'react';
 
-import { Select, MenuItem, InputLabel, Button, TextField, Container } from '@mui/material';
+import {
+    Select,
+    MenuItem,
+    InputLabel,
+    Button,
+    TextField,
+    Container,
+} from '@mui/material';
 
 import { useLoaderData, useActionData, redirect, Form } from 'react-router-dom';
 
 export default function RequestPreceptorEvaluation() {
-
     const users = useLoaderData();
     const data = useActionData();
 
@@ -14,36 +20,37 @@ export default function RequestPreceptorEvaluation() {
     return (
         <Form method="post">
             <Container>
-            <InputLabel id="demo-simple-select-label">
-                First or last evaluation?
-            </InputLabel>
-            <TextField
-                label="Choose Month"
-                select
-                defaultValue={''}
-                required
-                fullWidth
-                name="month"
-                size="small"
-                color="secondary"
-            >
-                <MenuItem value={1}>First</MenuItem>
-                <MenuItem value={2}>Last</MenuItem>
-            </TextField>
+                <InputLabel id="demo-simple-select-label">
+                    First or last evaluation?
+                </InputLabel>
+                <TextField
+                    label="Choose Month"
+                    select
+                    defaultValue={''}
+                    required
+                    fullWidth
+                    name="month"
+                    size="small"
+                    color="secondary"
+                >
+                    <MenuItem value={1}>First</MenuItem>
+                    <MenuItem value={2}>Last</MenuItem>
+                </TextField>
 
-            <InputLabel>Choose Preceptor</InputLabel>
-            <Select name="preceptor" defaultValue={''} fullWidth size="small" >
-                {preceptorList.map((preceptor, idx) => (
-                    <MenuItem key={idx} value={preceptor._id}>{preceptor.lastName+" "+preceptor.firstName}</MenuItem>
-                ))}
-            </Select>
+                <InputLabel>Choose Preceptor</InputLabel>
+                <Select name="preceptor" defaultValue={''} fullWidth size="small">
+                    {preceptorList.map((preceptor, idx) => (
+                        <MenuItem key={idx} value={preceptor._id}>
+                            {preceptor.lastName + ' ' + preceptor.firstName}
+                        </MenuItem>
+                    ))}
+                </Select>
 
-
-                <Container sx={{padding: '10px'}}>
-            <Button type="submit" variant="contained" color="primary" fullWidth>
-                Submit
-            </Button>
-            </Container>
+                <Container sx={{ padding: '10px' }}>
+                    <Button type="submit" variant="contained" color="primary" fullWidth>
+                        Submit
+                    </Button>
+                </Container>
             </Container>
         </Form>
     );
@@ -70,9 +77,9 @@ export const evaluationRequestAction = async ({ request }) => {
     newEval.is_master = false;
     newEval.month = month;
     newEval.unique = user + month;
-    newEval.comments = "";
+    newEval.comments = '';
     newEval.complete = false;
-    newEval.preceptor_id = data.get('preceptor')
+    newEval.preceptor_id = data.get('preceptor');
     newEval.student_id = user;
     newEval.instructor_id = JSON.parse(localStorage.getItem('auth')).result.instructorId;
 
@@ -82,11 +89,11 @@ export const evaluationRequestAction = async ({ request }) => {
         headers: { 'Content-Type': 'application/json' },
     });
 
-    if (!response.ok){
+    if (!response.ok) {
         const json = await response.json();
-        alert(json.error)
+        alert(json.error);
         return null;
     }
-    
-    return redirect(`/checklist`);
+
+    return redirect(`/student/home`);
 };

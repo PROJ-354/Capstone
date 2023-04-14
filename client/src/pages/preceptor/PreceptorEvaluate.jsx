@@ -139,5 +139,5 @@ export const evaluateAction = async ({ request }) => {
         body: JSON.stringify(newEval),
         headers: { 'Content-Type': 'application/json' },
     });
-    return redirect(`/preceptor/home/${user}`);
+    return redirect(`/preceptor/home`);
 };
