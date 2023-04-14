@@ -31,9 +31,6 @@ export default function PreceptorHome() {
 
     return (
         <Grid container spacing={1} padding="10px">
-            <Button variant="contained" onClick={() => navigate('/preceptor/schedules')}>
-                Schedules
-            </Button>
             <Accordion
                 sx={{ width: 1 }}
                 xs={12}

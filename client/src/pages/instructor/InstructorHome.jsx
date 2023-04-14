@@ -34,9 +34,6 @@ export default function InstructorHome() {
 
     return (
         <>
-            <Button variant="contained" onClick={() => navigate('/instructor/schedules')}>
-                Schedules
-            </Button>
             <Accordion
                 sx={{ width: 1 }}
                 xs={12}

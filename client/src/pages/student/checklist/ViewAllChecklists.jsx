@@ -7,9 +7,6 @@ export default function ViewAllChecklists() {
     const navigate = useNavigate();
     return (
         <Box p={4}>
-            <Button variant="contained" onClick={() => navigate('/student/schedules')}>
-                Schedules
-            </Button>
             <Typography variant="h3">Checklists</Typography>
             <Grid container spacing={2}>
                 {checklistData &&
