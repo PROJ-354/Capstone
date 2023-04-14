@@ -45,7 +45,6 @@ const Navbar = () => {
                             ? '/admin/home'
                             : '/login'
                     }
-                    underline={false}
                 > */}
                 <Box component="img" src={logo} sx={{ height: 40 }} />
                 <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
