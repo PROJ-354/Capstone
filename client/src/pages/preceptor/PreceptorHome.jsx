@@ -19,8 +19,6 @@ export default function PreceptorHome() {
         setExpanded(isExpanded ? panel : false);
     };
 
-    const navigate = useNavigate();
-
     //grab evaluations from the loader
     const { evaluations, checklists } = useLoaderData();
 
@@ -44,67 +42,71 @@ export default function PreceptorHome() {
                 </AccordionSummary>
                 <AccordionDetails>
                     <Grid container spacing={1}>
-                        {sortedEvals.map((evaluation, idx) => (
-                            <Grid item key={idx} sx={{ minWidth: 275 }}>
-                                <Paper elevation={10}>
-                                    <Card
-                                        style={{
-                                            border: 5,
-                                            borderStyle: 'solid',
-                                            borderColor: evaluation.complete
-                                                ? 'green'
-                                                : 'orange',
-                                            // borderColor: 'green',
-                                        }}
-                                        display="flex"
-                                    >
-                                        <Grid
-                                            container
-                                            justifyContent="space-between"
-                                            alignItems="center"
-                                        ></Grid>
+                        {sortedEvals.length > 0 ? (
+                            sortedEvals.map((evaluation, idx) => (
+                                <Grid item key={idx} sx={{ minWidth: 275 }}>
+                                    <Paper elevation={10}>
+                                        <Card
+                                            style={{
+                                                border: 5,
+                                                borderStyle: 'solid',
+                                                borderColor: evaluation.complete
+                                                    ? 'green'
+                                                    : 'orange',
+                                                // borderColor: 'green',
+                                            }}
+                                            display="flex"
+                                        >
+                                            <Grid
+                                                container
+                                                justifyContent="space-between"
+                                                alignItems="center"
+                                            ></Grid>
 
-                                        <CardHeader
-                                            fontWeight="bold"
-                                            title="Student Name:"
-                                            subheader={
-                                                evaluation.student_id.firstName +
-                                                ' ' +
-                                                evaluation.student_id.lastName
-                                            }
-                                        />
-                                        <CardContent>
-                                            <Typography
-                                                sx={{ fontSize: 14 }}
-                                                variant="h5"
-                                                color="text.secondary"
-                                                gutterBottom
-                                            >
-                                                month: {evaluation.month}
-                                            </Typography>
-                                            <Typography component="div">
-                                                {evaluation.complete
-                                                    ? 'complete'
-                                                    : 'incomplete'}
-                                            </Typography>
-                                            <CardActions>
-                                                <Link
-                                                    style={{ color: 'white' }}
-                                                    to={`/preceptor/evaluation/${evaluation._id}`}
+                                            <CardHeader
+                                                fontWeight="bold"
+                                                title="Student Name:"
+                                                subheader={
+                                                    evaluation.student_id.firstName +
+                                                    ' ' +
+                                                    evaluation.student_id.lastName
+                                                }
+                                            />
+                                            <CardContent>
+                                                <Typography
+                                                    sx={{ fontSize: 14 }}
+                                                    variant="h5"
+                                                    color="text.secondary"
+                                                    gutterBottom
                                                 >
-                                                    <Button
-                                                        variant="contained"
-                                                        color="primary"
+                                                    month: {evaluation.month}
+                                                </Typography>
+                                                <Typography component="div">
+                                                    {evaluation.complete
+                                                        ? 'complete'
+                                                        : 'incomplete'}
+                                                </Typography>
+                                                <CardActions>
+                                                    <Link
+                                                        style={{ color: 'white' }}
+                                                        to={`/preceptor/evaluation/${evaluation._id}`}
                                                     >
-                                                        View/Edit
-                                                    </Button>
-                                                </Link>
-                                            </CardActions>
-                                        </CardContent>
-                                    </Card>
-                                </Paper>
-                            </Grid>
-                        ))}
+                                                        <Button
+                                                            variant="contained"
+                                                            color="primary"
+                                                        >
+                                                            View/Edit
+                                                        </Button>
+                                                    </Link>
+                                                </CardActions>
+                                            </CardContent>
+                                        </Card>
+                                    </Paper>
+                                </Grid>
+                            ))
+                        ) : (
+                            <Typography>No evaluations to mark</Typography>
+                        )}
                     </Grid>
                 </AccordionDetails>
             </Accordion>
@@ -121,12 +123,15 @@ export default function PreceptorHome() {
                 </AccordionSummary>
                 <AccordionDetails>
                     <Grid container spacing={2}>
-                        {checklists &&
+                        {checklists ? (
                             checklists.map((checklist) => (
                                 <Grid key={checklist._id} item>
                                     <PreceptorChecklistCard checklist={checklist} />
                                 </Grid>
-                            ))}
+                            ))
+                        ) : (
+                            <Typography>No checklists to mark</Typography>
+                        )}
                     </Grid>
                 </AccordionDetails>
             </Accordion>

@@ -1,10 +1,9 @@
-import { Box, Typography, Grid, Button } from '@mui/material';
-import { useLoaderData, useNavigate } from 'react-router-dom';
+import { Box, Typography, Grid } from '@mui/material';
+import { useLoaderData } from 'react-router-dom';
 import StudentChecklistCard from '../../../components/student/checklist/StudentChecklistCard';
 
 export default function ViewAllChecklists() {
-    const { checklistData, preceptorUsers } = useLoaderData();
-    const navigate = useNavigate();
+    const checklistData = useLoaderData();
     return (
         <Box p={4}>
             <Typography variant="h3">Checklists</Typography>
@@ -20,13 +19,7 @@ export default function ViewAllChecklists() {
                         })
                         .map((checklist) => (
                             <Grid key={checklist._id} item>
-                                <StudentChecklistCard
-                                    checklist={checklist}
-                                    preceptor={preceptorUsers.find(
-                                        (preceptor) =>
-                                            preceptor._id === checklist.preceptor_id
-                                    )}
-                                />
+                                <StudentChecklistCard checklist={checklist} />
                             </Grid>
                         ))}
             </Grid>
@@ -43,24 +36,5 @@ export const viewAllChecklistsLoader = async ({ params }) => {
         console.log('Error getting that users checklists');
     }
 
-    const checklistData = await checklistRes.json();
-
-    const preceptorIds = [];
-
-    checklistData.map((checklist) => {
-        preceptorIds.push(checklist.preceptor_id);
-    });
-
-    const preceptorUsers = [];
-
-    preceptorIds.map(async (preceptorId) => {
-        if (preceptorId && preceptorId !== '') {
-            const res = await fetch(`http://localhost:42069/api/users/${preceptorId}`);
-            if (res.ok) {
-                preceptorUsers.push(await res.json());
-            }
-        }
-    });
-
-    return { checklistData, preceptorUsers };
+    return await checklistRes.json();
 };

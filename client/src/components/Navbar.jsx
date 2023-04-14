@@ -120,9 +120,9 @@ const Navbar = () => {
                         {user && user.result.firstName.charAt(0).toUpperCase()}
                         {user && user.result.lastName.charAt(0).toUpperCase()}
                     </Avatar>
-                    <IconButton color="inherit" size="small">
+                    {/* <IconButton color="inherit" size="small">
                         <SettingsIcon />
-                    </IconButton>
+                    </IconButton> */}
                 </Stack>
             </Toolbar>
         </AppBar>

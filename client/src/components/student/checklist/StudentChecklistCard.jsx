@@ -15,7 +15,7 @@ import { LoadingButton } from '@mui/lab';
 import { useNavigate } from 'react-router-dom';
 import { useState, useEffect } from 'react';
 
-export default function StudentChecklistCard({ checklist, preceptor }) {
+export default function StudentChecklistCard({ checklist }) {
     const navigate = useNavigate();
 
     //useStates for the button's availability and loading status
@@ -67,16 +67,18 @@ export default function StudentChecklistCard({ checklist, preceptor }) {
                 <CardContent>
                     <Typography variant="h5">{checklist.name}</Typography>
                     <Typography variant="body1">
-                        Preceptor:{' '}
+                        <b>Preceptor:</b>{' '}
                         {!checklist.preceptor_id
                             ? 'None Selected'
-                            : preceptor
-                            ? preceptor.firstName + ' ' + preceptor.lastName
-                            : 'Error'}
+                            : checklist.preceptor_id.firstName +
+                              ' ' +
+                              checklist.preceptor_id.lastName}
                         <br />
-                        Submitted: {checklist.submitted_to_preceptor ? 'Yes' : 'No'}
+                        <b>Submitted:</b>{' '}
+                        {checklist.submitted_to_preceptor ? 'Yes' : 'No'}
                         <br />
-                        Grade: {!checklist.grade ? 'Not yet graded' : checklist.grade}
+                        <b>Grade:</b>{' '}
+                        {!checklist.grade ? 'Not yet graded' : checklist.grade}
                     </Typography>
                 </CardContent>
                 <CardActions>
@@ -85,7 +87,7 @@ export default function StudentChecklistCard({ checklist, preceptor }) {
                         variant="contained"
                         disabled={checklist.submitted_to_preceptor || viewDisabled}
                         onClick={() => {
-                            navigate(`checklist/${checklist._id}`);
+                            navigate(`/student/checklist/${checklist._id}`);
                         }}
                     >
                         View

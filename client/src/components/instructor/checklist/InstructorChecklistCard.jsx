@@ -15,7 +15,7 @@ import { LoadingButton } from '@mui/lab';
 import { useNavigate } from 'react-router-dom';
 import { useState, useEffect } from 'react';
 
-export default function InstructorChecklistCard({ checklist, student }) {
+export default function InstructorChecklistCard({ checklist }) {
     const navigate = useNavigate();
 
     //useStates for the button's availability and loading status
@@ -67,10 +67,18 @@ export default function InstructorChecklistCard({ checklist, student }) {
                 <CardContent>
                     <Typography variant="h5">{checklist.name}</Typography>
                     <Typography variant="body1">
-                        Student:{' '}
-                        {student ? student.firstName + ' ' + student.lastName : 'Error'}
+                        <b>Student:</b>{' '}
+                        {checklist.student_id.firstName +
+                            ' ' +
+                            checklist.student_id.lastName}
                         <br />
-                        Grade: {!checklist.grade ? 'Not marked' : checklist.grade}
+                        <b>Preceptor:</b>{' '}
+                        {checklist.preceptor_id?.firstName +
+                            ' ' +
+                            checklist.preceptor_id?.lastName}
+                        <br />
+                        <b>Grade:</b>{' '}
+                        {!checklist.grade ? 'Not yet graded' : checklist.grade}
                     </Typography>
                 </CardContent>
                 <CardActions>

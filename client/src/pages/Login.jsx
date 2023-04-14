@@ -26,11 +26,7 @@ const Login = () => {
         event.preventDefault();
         await login(email, password);
 
-        const user = JSON.parse(localStorage.getItem('auth'));
-
-        const userRole = await user.result.role;
-
-        console.log(user.result._id);
+        const userRole = JSON.parse(localStorage.getItem('auth')).result.role;
 
         switch (userRole.toLowerCase()) {
             case 'student':

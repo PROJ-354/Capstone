@@ -57,6 +57,7 @@ export default function ViewChecklist() {
                         </AccordionDetails>
                     </Accordion>
                 ))}
+                <br />
                 <TextField
                     label="Preceptor"
                     select
@@ -77,31 +78,32 @@ export default function ViewChecklist() {
                         );
                     })}
                 </TextField>
+                <br />
                 <Stack direction="row" spacing={1} alignContent="center">
                     <Button
                         variant="contained"
                         color="primary"
                         onClick={() => setOpen(true)}
                     >
-                        Submit
+                        Save
                     </Button>
                     <Typography variant="body1">
-                        By submitting this form you agree that all information entered is
+                        By filling this form you, agree that all information entered is
                         accurate and true.
                     </Typography>
                 </Stack>
                 <Dialog open={open} onClose={() => setOpen(false)}>
-                    <DialogTitle>Submit the form?</DialogTitle>
+                    <DialogTitle>Save the form?</DialogTitle>
                     <DialogContent>
                         <DialogContentText>
-                            Are you sure you want to submit the form? You will not be able
-                            to edit after submitting.
+                            Are you sure you want to save the form? You <b>will</b> still
+                            be able to edit after saving.
                         </DialogContentText>
                     </DialogContent>
                     <DialogActions>
                         <Button onClick={() => setOpen(false)}>Cancel</Button>
                         <Button type="submit" form="submit-checklist-form">
-                            Submit
+                            Save
                         </Button>
                     </DialogActions>
                 </Dialog>
@@ -112,7 +114,9 @@ export default function ViewChecklist() {
 
 export const checklistLoader = async ({ params }) => {
     //Get the user's checklists and a list of all preceptors from the database
-    const checklistRes = await fetch(`http://localhost:42069/api/weeks/${params.id}`);
+    const checklistRes = await fetch(
+        `http://localhost:42069/api/weeks/${params.checklistID}`
+    );
     const preceptorRes = await fetch(`http://localhost:42069/api/users/preceptors`);
 
     if (!checklistRes.ok) {
@@ -135,7 +139,7 @@ export const checklistLoader = async ({ params }) => {
 export const saveChecklistAction = async ({ request, params }) => {
     //Get the submitted from data and the checklist that is being updated from the database
     const formData = await request.formData();
-    const res = await fetch(`http://localhost:42069/api/weeks/${params.id}`);
+    const res = await fetch(`http://localhost:42069/api/weeks/${params.checklistID}`);
     const loaderData = await res.json();
 
     //Get the selected preceptor's ID
@@ -168,12 +172,12 @@ export const saveChecklistAction = async ({ request, params }) => {
     });
 
     //Send the update to the database
-    await fetch(`http://localhost:42069/api/weeks/${params.id}`, {
+    await fetch(`http://localhost:42069/api/weeks/${params.checklistID}`, {
         method: 'PATCH',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(resData),
     });
 
     //Redirect to the homepage
-    return redirect('/checklist');
+    return redirect('/student/home');
 };

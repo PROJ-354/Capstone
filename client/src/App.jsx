@@ -107,6 +107,7 @@ const router = createBrowserRouter(
                         </PrivateRoute>
                     }
                     loader={checklistLoader}
+                    action={saveChecklistAction}
                 />
                 <Route
                     path="schedule"
