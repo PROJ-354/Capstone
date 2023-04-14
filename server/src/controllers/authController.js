@@ -65,6 +65,15 @@ export const register = async (req, res, next) => {
                 .json({ error: 'Invalid join code. Please contact your instructor.' });
         }
 
+        //verify email is an email
+        if (!validator.isEmail(email)) {
+            return res.status(401).json({ error: 'Email is not valid.' });
+        }
+
+        if (!validator.isStrongPassword(password)) {
+            return res.status(401).json({ error: 'Password not strong enough.' });
+        }
+
         const role = joinCode.role;
         const instructorId = joinCode.instructorId;
 
