@@ -81,6 +81,7 @@ export default function ViewChecklist() {
                 <br />
                 <Stack direction="row" spacing={1} alignContent="center">
                     <Button
+                        sx={{margin: '5px 0px'}}
                         variant="contained"
                         color="primary"
                         onClick={() => setOpen(true)}
@@ -101,7 +102,7 @@ export default function ViewChecklist() {
                         </DialogContentText>
                     </DialogContent>
                     <DialogActions>
-                        <Button onClick={() => setOpen(false)}>Cancel</Button>
+                        <Button onClick={() => setOpen(false)} >Cancel</Button>
                         <Button type="submit" form="submit-checklist-form">
                             Save
                         </Button>

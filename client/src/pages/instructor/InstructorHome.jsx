@@ -46,7 +46,7 @@ export default function InstructorHome() {
                 </AccordionSummary>
                 <AccordionDetails>
                     <Grid container spacing={1}>
-                        {students.map((student, idx) => (
+                        {students ? (students.map((student, idx) => (
                             <Grid item key={idx} sx={{ minWidth: 275 }}>
                                 <Paper elevation={10}>
                                     <Card
@@ -100,7 +100,10 @@ export default function InstructorHome() {
                                     </Card>
                                 </Paper>
                             </Grid>
-                        ))}
+                            ))
+                        ) : (
+                            <Typography>No students</Typography>
+                        )}
                     </Grid>
                 </AccordionDetails>
             </Accordion>
@@ -123,7 +126,7 @@ export default function InstructorHome() {
                             Manage Join Codes
                         </Link>
                     </Typography> */}
-                    <Button onClick={() => navigate('/instructor/join-codes')}>
+                    <Button variant="contained" color="primary" onClick={() => navigate('/instructor/join-codes')}>
                         Manage Join Codes
                     </Button>
                 </AccordionDetails>

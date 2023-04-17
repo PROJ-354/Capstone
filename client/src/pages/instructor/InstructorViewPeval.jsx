@@ -23,7 +23,7 @@ export default function InstructorViewPeval() {
     return (
         <Grid>
             <input hidden name="evaluationId" value={instantiatedEval._id}></input>
-            <Typography variant="h3" color="primary">
+            <Typography variant="h4">
                 Evaluation for {instantiatedEval.student_id.firstName}{' '}
                 {instantiatedEval.student_id.lastName} for month {instantiatedEval.month}
             </Typography>
