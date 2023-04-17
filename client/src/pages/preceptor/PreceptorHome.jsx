@@ -38,7 +38,7 @@ export default function PreceptorHome() {
                 onChange={handleChange('panel1')}
             >
                 <AccordionSummary expandIcon={<ExpandMoreIcon />}>
-                    <Typography>Evaluations</Typography>
+                    <Typography variant="h5" sx={{ fontWeight: 'bold' }}>Evaluations</Typography>
                 </AccordionSummary>
                 <AccordionDetails>
                     <Grid container spacing={1}>
@@ -57,34 +57,11 @@ export default function PreceptorHome() {
                                             }}
                                             display="flex"
                                         >
-                                            <Grid
-                                                container
-                                                justifyContent="space-between"
-                                                alignItems="center"
-                                            ></Grid>
 
-                                            <CardHeader
-                                                fontWeight="bold"
-                                                title="Student Name:"
-                                                subheader={
-                                                    evaluation.student_id.firstName +
-                                                    ' ' +
-                                                    evaluation.student_id.lastName
-                                                }
-                                            />
                                             <CardContent>
-                                                <Typography
-                                                    sx={{ fontSize: 14 }}
-                                                    variant="h5"
-                                                    color="text.secondary"
-                                                    gutterBottom
-                                                >
-                                                    month: {evaluation.month}
-                                                </Typography>
-                                                <Typography component="div">
-                                                    {evaluation.complete
-                                                        ? 'complete'
-                                                        : 'incomplete'}
+                                            <Typography variant="h5">{evaluation.month === 1 ? 'First':'Last'} Evaluation</Typography>
+                                                <Typography variant='body1'>
+                                                    Student: {evaluation.student_id.firstName} {evaluation.student_id.lastName}
                                                 </Typography>
                                                 <CardActions>
                                                     <Link
@@ -117,13 +94,13 @@ export default function PreceptorHome() {
                 onChange={handleChange('panel2')}
             >
                 <AccordionSummary expandIcon={<ExpandMoreIcon />}>
-                    <Typography sx={{ width: '50%', flexShrink: 0 }}>
+                    <Typography variant="h5" sx={{ width: '50%', flexShrink: 0, fontWeight: 'bold' }}>
                         Checklists
                     </Typography>
                 </AccordionSummary>
                 <AccordionDetails>
                     <Grid container spacing={2}>
-                        {checklists ? (
+                        {checklists.length > 0 ? (
                             checklists.map((checklist) => (
                                 <Grid key={checklist._id} item>
                                     <PreceptorChecklistCard checklist={checklist} />

@@ -84,7 +84,8 @@ export default function PreceptorEvaluate() {
                     </TableBody>
                 </Table>
             </TableContainer>
-
+            
+            <div style={{ margin: '5px' }}>
             <TextField
                 id="outlined-basic"
                 name="comments"
@@ -96,10 +97,12 @@ export default function PreceptorEvaluate() {
                 onChange={handleInputChange}
                 placeholder="Place comments here..."
             />
-
-            <Button type="submit" variant="contained" color="primary" fullWidth>
+            </div>
+            <div style={{display: 'flex', justifyContent: 'center'}}>
+            <Button sx={{margin: '5px 0px', padding: '5px 70px'}} type="submit" variant="contained" color="primary" align='center'>
                 Submit
             </Button>
+            </div>
         </Form>
     );
 }

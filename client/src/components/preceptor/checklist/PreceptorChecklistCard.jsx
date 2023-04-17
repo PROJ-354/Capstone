@@ -63,7 +63,7 @@ export default function PreceptorWeekCard({ checklist }) {
         <>
             {error && <Alert severity="error">{error}</Alert>}
             {message && <Alert severity="success">{message}</Alert>}
-            <Card sx={{ maxWidth: '300px' }}>
+            <Card elevation={10}  sx={{ maxWidth: '300px', border: 5, borderStyle: 'solid', borderColor: 'rgb(25, 118, 210)', }}>
                 <CardContent>
                     <Typography variant="h5">{checklist.name}</Typography>
                     <Typography variant="body1">

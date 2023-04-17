@@ -33,8 +33,8 @@ export default function InstructorViewChecklist() {
     return (
         <Box>
             <Typography variant="h4">
-                {checklistData.week.name} Skills Assessment for Student XXX, Preceptor
-                that filled this out was XXX
+                {checklistData.week.name} Skills Assessment for {checklistData.week.student_id.firstName} {checklistData.week.student_id.lastName},
+                filled out by {checklistData.week.preceptor_id.firstName} {checklistData.week.preceptor_id.lastName}
             </Typography>
             <Typography variant="body1">
                 First checkbox is the student's, second checkbox is the preceptor's
@@ -65,6 +65,7 @@ export default function InstructorViewChecklist() {
                 </Input>
                 <Stack direction="row" spacing={1} alignContent="center">
                     <Button
+                        sx={{margin: '5px 0px'}}
                         variant="contained"
                         color="primary"
                         onClick={() => setOpen(true)}
