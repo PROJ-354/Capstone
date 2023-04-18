@@ -171,10 +171,10 @@ const InstructorSchedulePage = () => {
                 <Box sx={{ display: 'flex', justifyContent: 'center', p: 2, mb: 2 }}>
                     <Paper elevation={8} sx={{ p: 4 }}>
                         {weekData && weekData.is_sumbitted && (
-                            <Typography>Sumbission Status: Submitted</Typography>
+                            <Typography>Submission Status: Submitted</Typography>
                         )}
                         {weekData && !weekData.is_sumbitted && (
-                            <Typography>Sumbission Status: Not Submitted</Typography>
+                            <Typography>Submission Status: Not Submitted</Typography>
                         )}
                         {weekData && weekData.is_approved && (
                             <Typography>Approval Status: Approved</Typography>

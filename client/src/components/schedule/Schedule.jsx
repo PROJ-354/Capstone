@@ -1,9 +1,4 @@
-import {
-    Button,
-    Dialog,
-    DialogActions,
-    DialogTitle,
-} from '@mui/material';
+import { Button, Dialog, DialogActions, DialogTitle } from '@mui/material';
 import { Box } from '@mui/system';
 import { useState } from 'react';
 import { useEffect } from 'react';
@@ -20,7 +15,8 @@ const Schedule = () => {
     const [dialogState, setDialogState] = useState(false);
 
     // mreow
-    const authenticatedUsersStudentEmail = JSON.parse(localStorage.getItem('auth')).result.email;
+    const authenticatedUsersStudentEmail = JSON.parse(localStorage.getItem('auth')).result
+        .email;
     const authenticatedUsersObjId = JSON.parse(localStorage.getItem('auth')).result._id;
 
     // todo: fetch & render the logged in users schedule
@@ -30,7 +26,7 @@ const Schedule = () => {
                 `http://localhost:42069/api/schedules/student/${authenticatedUsersStudentEmail}`
             );
             const json = await response.json();
-            setIsSubmitted(json.is_sumbitted)
+            setIsSubmitted(json.is_sumbitted);
             setWeeks(json.weeks);
         }
 
@@ -40,9 +36,12 @@ const Schedule = () => {
     // handle submission
     async function handleSubmission(e) {
         e.preventDefault();
-        const response = await fetch(`http://localhost:42069/api/schedules/student/submit/${authenticatedUsersStudentEmail}`, { method: 'PUT' });
+        const response = await fetch(
+            `http://localhost:42069/api/schedules/student/submit/${authenticatedUsersStudentEmail}`,
+            { method: 'PUT' }
+        );
         const json = await response.json();
-        console.log(json)
+        console.log(json);
         setIsSubmitted(!isSubmitted);
         setDialogState(!dialogState);
     }
@@ -64,16 +63,21 @@ const Schedule = () => {
                 </Box>
             </Box>
             <Box sx={{ display: 'flex', justifyContent: 'center', my: 5 }}>
-                <Button variant="contained" color="success" onClick={handleSubmission} disabled={isSubmitted}>
+                <Button
+                    variant="contained"
+                    color="success"
+                    onClick={handleSubmission}
+                    disabled={isSubmitted}
+                >
                     Submit
                 </Button>
             </Box>
 
             <Dialog open={dialogState}>
-                <DialogTitle>Sumbission Successful!</DialogTitle>
+                <DialogTitle>Submission Successful!</DialogTitle>
                 <DialogActions>
                     <Button
-                        variant='contained'
+                        variant="contained"
                         onClick={(e) => setDialogState(!dialogState)}
                     >
                         OK
