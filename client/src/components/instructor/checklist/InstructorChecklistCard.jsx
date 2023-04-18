@@ -63,7 +63,15 @@ export default function InstructorChecklistCard({ checklist }) {
         <>
             {error && <Alert severity="error">{error}</Alert>}
             {message && <Alert severity="success">{message}</Alert>}
-            <Card elevation={10} sx={{ maxWidth: '300px', border: 5, borderStyle: 'solid', borderColor: 'rgb(25, 118, 210)', }}>
+            <Card
+                elevation={10}
+                sx={{
+                    maxWidth: '300px',
+                    border: 5,
+                    borderStyle: 'solid',
+                    borderColor: 'rgb(25, 118, 210)',
+                }}
+            >
                 <CardContent>
                     <Typography variant="h5">{checklist.name}</Typography>
                     <Typography variant="body1">
@@ -73,9 +81,11 @@ export default function InstructorChecklistCard({ checklist }) {
                             checklist.student_id.lastName}
                         <br />
                         <b>Preceptor:</b>{' '}
-                        {checklist.preceptor_id?.firstName +
-                            ' ' +
-                            checklist.preceptor_id?.lastName}
+                        {checklist.preceptor_id
+                            ? checklist.preceptor_id.firstName +
+                              ' ' +
+                              checklist.preceptor_id.lastName
+                            : 'No preceptor selected'}
                         <br />
                         <b>Grade:</b>{' '}
                         {/* {!checklist.grade
